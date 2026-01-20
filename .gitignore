@@ -1,3 +1,8 @@
 hexstrike-ai/hexstrike-env/
 hexstrike-ai/*.log
 __pycache__/
+
+# Downloaded Zano binaries and source
+zano-testnet.AppImage
+squashfs-root/
+zano-repo/
