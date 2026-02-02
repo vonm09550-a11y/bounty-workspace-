@@ -1,0 +1,386 @@
+{
+  "ProxyAdmin": {
+    "type": "plain",
+    "name": "ProxyAdmin",
+    "address": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+    "deployedAt": 32206521
+  },
+  "MuxTimelock": {
+    "type": "preset",
+    "name": "MuxTimelock",
+    "address": "0xc2D28778447B1B0B2Ae3aD17dC6616b546FBBeBb"
+  },
+  "MultiSignAdmin": {
+    "type": "preset",
+    "name": "MultiSignAdmin",
+    "address": "0x029A4A97e892e7270d9B3B90bFEF95599BC6BfD6"
+  },
+  "ChainlinkStreamProvider__implementation": {
+    "type": "plain",
+    "name": "ChainlinkStreamProvider__implementation",
+    "address": "0x61D7cf411922913a6A0DED4A2374bF469BDB2D97",
+    "deployedAt": 300820231
+  },
+  "ChainlinkStreamProvider": {
+    "type": "upgradeable",
+    "name": "ChainlinkStreamProvider",
+    "address": "0x381200de35Cd57810F5AB9a6273eaD68917961e2",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x61D7cf411922913a6A0DED4A2374bF469BDB2D97"
+    },
+    "deployedAt": 267361654
+  },
+  "DiamondInit": {
+    "type": "plain",
+    "name": "DiamondInit",
+    "address": "0x05d4c0d126324211eEDB57EEf05fD727fC8299C1",
+    "deployedAt": 302779735
+  },
+  "DiamondCutFacet": {
+    "type": "plain",
+    "name": "DiamondCutFacet",
+    "address": "0x36c1B4582654e1293725d790c7027C6d87557749",
+    "deployedAt": 302779748
+  },
+  "DiamondLoupeFacet": {
+    "type": "plain",
+    "name": "DiamondLoupeFacet",
+    "address": "0x146e291d96bf1a6a9178e18ee9d81133b129EbeD",
+    "deployedAt": 302779761
+  },
+  "FacetMux3Owner": {
+    "type": "plain",
+    "name": "FacetMux3Owner",
+    "address": "0x52162C310565868E76d60b3E1Fc69cc4C0aD5189",
+    "deployedAt": 302779776
+  },
+  "FacetManagement": {
+    "type": "plain",
+    "name": "FacetManagement",
+    "address": "0xA1418018B06147e1C3aef8D873cd95130684e033",
+    "deployedAt": 302779791
+  },
+  "FacetReader": {
+    "type": "plain",
+    "name": "FacetReader",
+    "address": "0x831dca42A5f95761F0679c8e388aE1a296C613D1",
+    "deployedAt": 302779805
+  },
+  "FacetOpen": {
+    "type": "plain",
+    "name": "FacetOpen",
+    "address": "0xe1619504Aca3A6944511352CA6fF73ec2dc52460",
+    "deployedAt": 302779821
+  },
+  "FacetClose": {
+    "type": "plain",
+    "name": "FacetClose",
+    "address": "0xEB678f40e2b3b208e5A89c9d1d3b08aEbe109e47",
+    "deployedAt": 302779836
+  },
+  "FacetPositionAccount": {
+    "type": "plain",
+    "name": "FacetPositionAccount",
+    "address": "0x7B0F526779E75490d7c7aD179A284B8C34CD997B",
+    "deployedAt": 302779853
+  },
+  "Mux3": {
+    "type": "diamond",
+    "name": "Mux3",
+    "address": "0x85c8F4a67F4f9AD7b38e875c8FeDE7F4c878bFAc",
+    "deployedAt": 302779865,
+    "facets": {
+      "diamondCutFacet": {
+        "address": "0x36c1B4582654e1293725d790c7027C6d87557749",
+        "selectors": [
+          "0x1f931c1c"
+        ]
+      },
+      "diamondLoupeFacet": {
+        "address": "0x146e291d96bf1a6a9178e18ee9d81133b129EbeD",
+        "selectors": [
+          "0xcdffacc6",
+          "0x52ef6b2c",
+          "0xadfca15e",
+          "0x7a0ed627",
+          "0x01ffc9a7"
+        ]
+      },
+      "facetMux3Owner": {
+        "address": "0x52162C310565868E76d60b3E1Fc69cc4C0aD5189",
+        "selectors": [
+          "0x79ba5097",
+          "0x8da5cb5b",
+          "0xe30c3978",
+          "0xf2fde38b"
+        ]
+      },
+      "facetManagement": {
+        "address": "0xA1418018B06147e1C3aef8D873cd95130684e033",
+        "selectors": [
+          "0x49ffd567",
+          "0x0606fd4f",
+          "0x5315f030",
+          "0xe1e735bd",
+          "0x9010d07c",
+          "0xca15c873",
+          "0x2f2ff15d",
+          "0x91d14854",
+          "0x5c60da1b",
+          "0xc4d66de8",
+          "0xd547741f",
+          "0xab02b870",
+          "0xd1fd27b3",
+          "0x3e13fdb6",
+          "0x47f391de",
+          "0x157fdf12",
+          "0x9019d022",
+          "0x64ca4729"
+        ]
+      },
+      "facetReader": {
+        "address": "0x831dca42A5f95761F0679c8e388aE1a296C613D1",
+        "selectors": [
+          "0x32404484",
+          "0x5252f3a2",
+          "0xf190e427",
+          "0xf4a72166",
+          "0x8f3ccea4",
+          "0x21423f67",
+          "0xb9f2aa03",
+          "0x7483b720",
+          "0xc711352c",
+          "0xec6a42b0",
+          "0xf8f90632",
+          "0xa98ac398",
+          "0x77ddc083",
+          "0x657e156c",
+          "0x0296f66b",
+          "0x6b96843a",
+          "0xead29b0b",
+          "0xb95ed06f",
+          "0xeec332fd"
+        ]
+      },
+      "facetOpen": {
+        "address": "0xe1619504Aca3A6944511352CA6fF73ec2dc52460",
+        "selectors": [
+          "0x5876dfce",
+          "0x7d8faddd"
+        ]
+      },
+      "facetClose": {
+        "address": "0xEB678f40e2b3b208e5A89c9d1d3b08aEbe109e47",
+        "selectors": [
+          "0x98118013",
+          "0x926d2886"
+        ]
+      },
+      "facetPositionAccount": {
+        "address": "0x7B0F526779E75490d7c7aD179A284B8C34CD997B",
+        "selectors": [
+          "0xd954863c",
+          "0x42ac97a1",
+          "0x95e5ef67",
+          "0x3817ab0c",
+          "0x8e28f7e1",
+          "0xd53e9052"
+        ]
+      }
+    }
+  },
+  "LibOrderBook": {
+    "type": "plain",
+    "name": "LibOrderBook",
+    "address": "0x1B8Ac2bDf693457Ab25233f2a2865f3e7d2A63eF",
+    "deployedAt": 302779880
+  },
+  "LibOrderBook2": {
+    "type": "plain",
+    "name": "LibOrderBook2",
+    "address": "0x0035F6ca0417CD36EB62764bCBBE163E7D296059",
+    "deployedAt": 302779897
+  },
+  "OrderBook__implementation": {
+    "type": "plain",
+    "name": "OrderBook__implementation",
+    "address": "0x981cA8C8aAc913a306e7D609ecD760671C4BcbB1",
+    "deployedAt": 302779918
+  },
+  "OrderBook": {
+    "type": "upgradeable",
+    "name": "OrderBook",
+    "address": "0x8ec387586a709ECE1a9Ea83c6163c3616D8E16b4",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x981cA8C8aAc913a306e7D609ecD760671C4BcbB1"
+    },
+    "deployedAt": 302779934
+  },
+  "Delegator__implementation": {
+    "type": "plain",
+    "name": "Delegator__implementation",
+    "address": "0x8A4D49B4B8706aC8f57433dFa11fC7aF16d03e23",
+    "deployedAt": 322014614
+  },
+  "Delegator": {
+    "type": "upgradeable",
+    "name": "Delegator",
+    "address": "0xEf501d58e8d09eE8D8f28Cf812D5F57384e5d7B0",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0xbe002aFa6281f1fdE05B6E67280D14F986aE5597"
+    },
+    "deployedAt": 302779960
+  },
+  "Mux3FeeDistributor__implementation": {
+    "type": "plain",
+    "name": "Mux3FeeDistributor__implementation",
+    "address": "0x6045fa46310574f6002376b6e5ed7a64fe161a03",
+    "deployedAt": 302779975
+  },
+  "Mux3FeeDistributor": {
+    "type": "upgradeable",
+    "name": "Mux3FeeDistributor",
+    "address": "0x8824b3464dAb29Fc68cC8c74D5eAd8B05054E5F8",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x6045fa46310574f6002376b6e5ed7a64fe161a03"
+    },
+    "deployedAt": 302779990
+  },
+  "CollateralPoolEventEmitter__implementation": {
+    "type": "plain",
+    "name": "CollateralPoolEventEmitter__implementation",
+    "address": "0xe9944E142cc0312dd93C3729767B30Ac9cF8c9cB",
+    "deployedAt": 302780004
+  },
+  "CollateralPoolEventEmitter": {
+    "type": "upgradeable",
+    "name": "CollateralPoolEventEmitter",
+    "address": "0xFf5Bb66f074EfEc32daCA30f562e55e19F1eD758",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0xe9944E142cc0312dd93C3729767B30Ac9cF8c9cB"
+    },
+    "deployedAt": 302780019
+  },
+  "CollateralPool__implementation": {
+    "type": "plain",
+    "name": "CollateralPool__implementation",
+    "address": "0x2f9AC5322E6FaC446E0B9861Cf7f8A0662F7b909",
+    "deployedAt": 302780034
+  },
+  "MuxPriceProvider__implementation": {
+    "type": "plain",
+    "name": "MuxPriceProvider__implementation",
+    "address": "0x6a82D843d8e753BCf60EDaeAE7B2b66856950138",
+    "deployedAt": 302780049
+  },
+  "MuxPriceProvider": {
+    "type": "upgradeable",
+    "name": "MuxPriceProvider",
+    "address": "0x18b930154300607538895dbE21359C8ae224695A",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x6a82D843d8e753BCf60EDaeAE7B2b66856950138"
+    },
+    "deployedAt": 302780063
+  },
+  "Swapper__implementation": {
+    "type": "plain",
+    "name": "Swapper__implementation",
+    "address": "0x7f64014Cd8fA9309a43C1DD37317cCc2527D1337",
+    "deployedAt": 377939523
+  },
+  "Swapper": {
+    "type": "upgradeable",
+    "name": "Swapper",
+    "address": "0x0D37BC91a3F1807cf4305E4A5eDEb4Ee47FA7112",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x7f64014Cd8fA9309a43C1DD37317cCc2527D1337"
+    },
+    "deployedAt": 302780125
+  },
+  "CollateralPoolAumReader__implementation": {
+    "type": "plain",
+    "name": "CollateralPoolAumReader__implementation",
+    "address": "0x445C1Cea6f052F8e413894812474a3A50e0a01de",
+    "deployedAt": 302780138
+  },
+  "CollateralPoolAumReader": {
+    "type": "upgradeable",
+    "name": "CollateralPoolAumReader",
+    "address": "0x661dFB22fa624A09De093b82177A19b323f46A09",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x445C1Cea6f052F8e413894812474a3A50e0a01de"
+    },
+    "deployedAt": 302780152
+  },
+  "CallbackRegister__implementation": {
+    "type": "plain",
+    "name": "CallbackRegister__implementation",
+    "address": "0x482DD8D90Cfbe5DC4cB8ea8865A654512a4d7A51",
+    "deployedAt": 302780168
+  },
+  "CallbackRegister": {
+    "type": "upgradeable",
+    "name": "CallbackRegister",
+    "address": "0xd2Df81619E20C6699B7f2153f8A2395e5Bb2C74C",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x482DD8D90Cfbe5DC4cB8ea8865A654512a4d7A51"
+    },
+    "deployedAt": 302780182
+  },
+  "Mux3POL__implementation": {
+    "type": "plain",
+    "name": "Mux3POL__implementation",
+    "address": "0x2ef6D4B46C71f7eA0b8D0309F342100d3a5Cf7A6",
+    "deployedAt": 310004010
+  },
+  "Mux3POL": {
+    "type": "upgradeable",
+    "name": "Mux3POL",
+    "address": "0x3d1BF07B62EfCd553b0fDE81d0A4354444320F9a",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x2ef6D4B46C71f7eA0b8D0309F342100d3a5Cf7A6"
+    },
+    "deployedAt": 310004024
+  },
+  "Mux2ProxyFactory": {
+    "type": "preset",
+    "name": "Mux2ProxyFactory",
+    "address": "0x2ff2f1D9826ae2410979ae19B88c361073Ab0918"
+  },
+  "MuxOrderBook": {
+    "type": "preset",
+    "name": "MuxOrderBook",
+    "address": "0xa19fD5aB6C8DCffa2A295F78a5Bb4aC543AAF5e3"
+  },
+  "MuxDegenOrderBook": {
+    "type": "preset",
+    "name": "MuxDegenOrderBook",
+    "address": "0xab7bD145CC9B68b1904D4B6Ca93056f503C5aA19"
+  },
+  "SusdcOracleL2__implementation": {
+    "type": "plain",
+    "name": "SusdcOracleL2__implementation",
+    "address": "0x840f8BBE851f652aAD3c165c3B143b519Faa66C2",
+    "deployedAt": 369565633
+  },
+  "SusdcOracleL2": {
+    "type": "upgradeable",
+    "name": "SusdcOracleL2",
+    "address": "0xf8B3Fa720a9Cd8ABeeD5A81f11F80cD8f93E6B57",
+    "dependencies": {
+      "admin": "0xc83805E374D67954Fa61B08f6e025662850aB1b6",
+      "implementation": "0x840f8BBE851f652aAD3c165c3B143b519Faa66C2"
+    },
+    "deployedAt": 369565648
+  }
+}

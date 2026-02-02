@@ -5,3 +5,8 @@ boost_1_84_0/
 boost_1_84_0.tar.bz2
 zano-target/
 ens-contracts/
+mux3-protocol/node_modules/
+mux3-protocol/cache/
+mux3-protocol/artifacts/
+mux3-protocol/typechain-types/
+mux3-protocol/typechain
