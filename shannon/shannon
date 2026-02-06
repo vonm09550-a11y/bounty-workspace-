@@ -1,0 +1,296 @@
+#!/bin/bash
+# Shannon CLI - AI Penetration Testing Framework
+
+set -e
+
+COMPOSE_FILE="docker-compose.yml"
+
+# Load .env if present
+if [ -f .env ]; then
+  set -a
+  source .env
+  set +a
+fi
+
+show_help() {
+  cat << 'EOF'
+
+  ███████╗██╗  ██╗ █████╗ ███╗   ██╗███╗   ██╗ ██████╗ ███╗   ██╗
+  ██╔════╝██║  ██║██╔══██╗████╗  ██║████╗  ██║██╔═══██╗████╗  ██║
+  ███████╗███████║███████║██╔██╗ ██║██╔██╗ ██║██║   ██║██╔██╗ ██║
+  ╚════██║██╔══██║██╔══██║██║╚██╗██║██║╚██╗██║██║   ██║██║╚██╗██║
+  ███████║██║  ██║██║  ██║██║ ╚████║██║ ╚████║╚██████╔╝██║ ╚████║
+  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═══╝
+
+           AI Penetration Testing Framework
+
+Usage:
+  ./shannon start URL=<url> REPO=<path>   Start a pentest workflow
+  ./shannon logs ID=<workflow-id>         Tail logs for a specific workflow
+  ./shannon query ID=<workflow-id>        Query workflow progress
+  ./shannon stop                          Stop all containers
+  ./shannon help                          Show this help message
+
+Options for 'start':
+  CONFIG=<path>          Configuration file (YAML)
+  OUTPUT=<path>          Output directory for reports (default: ./audit-logs/)
+  PIPELINE_TESTING=true  Use minimal prompts for fast testing
+  ROUTER=true            Route requests through claude-code-router (multi-model support)
+
+Options for 'stop':
+  CLEAN=true             Remove all data including volumes
+
+Examples:
+  ./shannon start URL=https://example.com REPO=/path/to/repo
+  ./shannon start URL=https://example.com REPO=/path/to/repo CONFIG=./config.yaml
+  ./shannon start URL=https://example.com REPO=/path/to/repo OUTPUT=./my-reports
+  ./shannon logs ID=example.com_shannon-1234567890
+  ./shannon query ID=shannon-1234567890
+  ./shannon stop CLEAN=true
+
+Monitor workflows at http://localhost:8233
+EOF
+}
+
+# Parse KEY=value arguments into variables
+parse_args() {
+  for arg in "$@"; do
+    case "$arg" in
+      URL=*) URL="${arg#URL=}" ;;
+      REPO=*) REPO="${arg#REPO=}" ;;
+      CONFIG=*) CONFIG="${arg#CONFIG=}" ;;
+      OUTPUT=*) OUTPUT="${arg#OUTPUT=}" ;;
+      ID=*) ID="${arg#ID=}" ;;
+      CLEAN=*) CLEAN="${arg#CLEAN=}" ;;
+      PIPELINE_TESTING=*) PIPELINE_TESTING="${arg#PIPELINE_TESTING=}" ;;
+      REBUILD=*) REBUILD="${arg#REBUILD=}" ;;
+      ROUTER=*) ROUTER="${arg#ROUTER=}" ;;
+    esac
+  done
+}
+
+# Check if Temporal is running and healthy
+is_temporal_ready() {
+  docker compose -f "$COMPOSE_FILE" exec -T temporal \
+    temporal operator cluster health --address localhost:7233 2>/dev/null | grep -q "SERVING"
+}
+
+# Ensure containers are running with correct mounts
+ensure_containers() {
+  # If custom OUTPUT_DIR is set, always refresh worker to ensure correct volume mount
+  # Docker compose will only recreate if the mount actually changed
+  if [ -n "$OUTPUT_DIR" ]; then
+    echo "Ensuring worker has correct output mount..."
+    docker compose -f "$COMPOSE_FILE" up -d worker 2>/dev/null || true
+  fi
+
+  # Quick check: if Temporal is already healthy, we're good
+  if is_temporal_ready; then
+    return 0
+  fi
+
+  # Need to start containers
+  echo "Starting Shannon containers..."
+  if [ "$REBUILD" = "true" ]; then
+    # Force rebuild without cache (use when code changes aren't being picked up)
+    echo "Rebuilding with --no-cache..."
+    docker compose -f "$COMPOSE_FILE" build --no-cache worker
+  fi
+  docker compose -f "$COMPOSE_FILE" up -d --build
+
+  # Wait for Temporal to be ready
+  echo "Waiting for Temporal to be ready..."
+  for i in $(seq 1 30); do
+    if is_temporal_ready; then
+      echo "Temporal is ready!"
+      return 0
+    fi
+    if [ "$i" -eq 30 ]; then
+      echo "Timeout waiting for Temporal"
+      exit 1
+    fi
+    sleep 2
+  done
+}
+
+cmd_start() {
+  parse_args "$@"
+
+  # Validate required vars
+  if [ -z "$URL" ] || [ -z "$REPO" ]; then
+    echo "ERROR: URL and REPO are required"
+    echo "Usage: ./shannon start URL=<url> REPO=<path>"
+    exit 1
+  fi
+
+  # Check for API key (router mode can use alternative provider API keys)
+  if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+    if [ "$ROUTER" = "true" ] && { [ -n "$OPENAI_API_KEY" ] || [ -n "$OPENROUTER_API_KEY" ]; }; then
+      # Router mode with alternative provider - set a placeholder for SDK init
+      export ANTHROPIC_API_KEY="router-mode"
+    else
+      echo "ERROR: Set ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN in .env"
+      echo "       (or use ROUTER=true with OPENAI_API_KEY or OPENROUTER_API_KEY)"
+      exit 1
+    fi
+  fi
+
+  # Determine container path for REPO
+  # - If REPO is already a container path (/benchmarks/*, /target-repo), use as-is
+  # - Otherwise, it's a host path - mount to /target-repo and use that
+  case "$REPO" in
+    /benchmarks/*|/target-repo|/target-repo/*)
+      CONTAINER_REPO="$REPO"
+      ;;
+    *)
+      # Host path - export for docker-compose mount
+      export TARGET_REPO="$REPO"
+      CONTAINER_REPO="/target-repo"
+      ;;
+  esac
+
+  # Handle custom OUTPUT directory
+  # Export OUTPUT_DIR for docker-compose volume mount BEFORE starting containers
+  if [ -n "$OUTPUT" ]; then
+    # Create output directory with write permissions for container user (UID 1001)
+    mkdir -p "$OUTPUT"
+    chmod 777 "$OUTPUT"
+    export OUTPUT_DIR="$OUTPUT"
+  fi
+
+  # Handle ROUTER flag - start claude-code-router for multi-model support
+  if [ "$ROUTER" = "true" ]; then
+    # Check if router is already running
+    if docker compose -f "$COMPOSE_FILE" --profile router ps router 2>/dev/null | grep -q "running"; then
+      echo "Router already running, skipping startup..."
+    else
+      echo "Starting claude-code-router..."
+
+      # Check for provider API keys
+      if [ -z "$OPENAI_API_KEY" ] && [ -z "$OPENROUTER_API_KEY" ]; then
+        echo "WARNING: No provider API key set (OPENAI_API_KEY or OPENROUTER_API_KEY). Router may not work."
+      fi
+
+      # Start router with profile
+      docker compose -f "$COMPOSE_FILE" --profile router up -d router
+
+      # Give router a few seconds to start (health check disabled for now - TODO: debug later)
+      echo "Waiting for router to start..."
+      sleep 5
+    fi
+
+    # Set ANTHROPIC_BASE_URL to route through router
+    export ANTHROPIC_BASE_URL="http://router:3456"
+    # Set auth token to match router's APIKEY
+    export ANTHROPIC_AUTH_TOKEN="shannon-router-key"
+  fi
+
+  # Ensure audit-logs directory exists with write permissions for container user (UID 1001)
+  mkdir -p ./audit-logs
+  chmod 777 ./audit-logs
+
+  # Ensure containers are running (starts them if needed)
+  ensure_containers
+
+  # Build optional args
+  ARGS=""
+  [ -n "$CONFIG" ] && ARGS="$ARGS --config $CONFIG"
+
+  # Pass container path for output (where OUTPUT_DIR is mounted)
+  # Also pass display path so client can show the host path to user
+  if [ -n "$OUTPUT" ]; then
+    ARGS="$ARGS --output /app/output --display-output $OUTPUT"
+  fi
+
+  [ "$PIPELINE_TESTING" = "true" ] && ARGS="$ARGS --pipeline-testing"
+
+  # Run the client to submit workflow
+  docker compose -f "$COMPOSE_FILE" exec -T worker \
+    node dist/temporal/client.js "$URL" "$CONTAINER_REPO" $ARGS
+}
+
+cmd_logs() {
+  parse_args "$@"
+
+  if [ -z "$ID" ]; then
+    echo "ERROR: ID is required"
+    echo "Usage: ./shannon logs ID=<workflow-id>"
+    exit 1
+  fi
+
+  # Auto-discover the workflow log file
+  # 1. Check default location first
+  # 2. Search common output directories
+  # 3. Fall back to find command
+  WORKFLOW_LOG=""
+
+  if [ -f "./audit-logs/${ID}/workflow.log" ]; then
+    WORKFLOW_LOG="./audit-logs/${ID}/workflow.log"
+  else
+    # Search for the workflow directory (handles custom OUTPUT paths)
+    FOUND=$(find . -maxdepth 3 -path "*/${ID}/workflow.log" -type f 2>/dev/null | head -1)
+    if [ -n "$FOUND" ]; then
+      WORKFLOW_LOG="$FOUND"
+    fi
+  fi
+
+  if [ -n "$WORKFLOW_LOG" ]; then
+    echo "Tailing workflow log: $WORKFLOW_LOG"
+    tail -f "$WORKFLOW_LOG"
+  else
+    echo "ERROR: Workflow log not found for ID: $ID"
+    echo ""
+    echo "Possible causes:"
+    echo "  - Workflow hasn't started yet"
+    echo "  - Workflow ID is incorrect"
+    echo ""
+    echo "Check: ./shannon query ID=$ID for workflow details"
+    exit 1
+  fi
+}
+
+cmd_query() {
+  parse_args "$@"
+
+  if [ -z "$ID" ]; then
+    echo "ERROR: ID is required"
+    echo "Usage: ./shannon query ID=<workflow-id>"
+    exit 1
+  fi
+
+  docker compose -f "$COMPOSE_FILE" exec -T worker \
+    node dist/temporal/query.js "$ID"
+}
+
+cmd_stop() {
+  parse_args "$@"
+
+  if [ "$CLEAN" = "true" ]; then
+    docker compose -f "$COMPOSE_FILE" --profile router down -v
+  else
+    docker compose -f "$COMPOSE_FILE" --profile router down
+  fi
+}
+
+# Main command dispatch
+case "${1:-help}" in
+  start)
+    shift
+    cmd_start "$@"
+    ;;
+  logs)
+    shift
+    cmd_logs "$@"
+    ;;
+  query)
+    shift
+    cmd_query "$@"
+    ;;
+  stop)
+    shift
+    cmd_stop "$@"
+    ;;
+  help|--help|-h|*)
+    show_help
+    ;;
+esac
