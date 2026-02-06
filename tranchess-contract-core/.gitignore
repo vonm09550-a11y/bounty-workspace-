@@ -1,0 +1,16 @@
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+/node_modules/
+
+/cache/
+/artifacts/
+/deployed_addresses/
+/exported_abi/
+/coverage/
+/coverage.json
+/.env
