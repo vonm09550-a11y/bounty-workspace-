@@ -95,6 +95,22 @@ cp .env.example .env
 ./shannon start URL=https://target.com REPO=/path/to/repo CONFIG=./configs/my-config.yaml
 ```
 
+### Local (non-Docker) Execution
+
+```bash
+# Start Temporal server
+docker run -d --name temporal --network host temporalio/temporal:latest \
+  server start-dev --db-filename /home/temporal/temporal.db --ip 0.0.0.0
+
+# Start Shannon worker locally
+cd shannon
+TEMPORAL_ADDRESS=localhost:7233 node dist/temporal/worker.js &
+
+# Submit a workflow via the client
+TEMPORAL_ADDRESS=localhost:7233 ANTHROPIC_API_KEY=your-key \
+  node dist/temporal/client.js https://target.com /path/to/repo
+```
+
 ## Relevance to Bounty Program
 
 ### Strengths
@@ -111,8 +127,8 @@ cp .env.example .env
 
 - **Requires source code access** (white-box only)
 - **API costs** - Uses Claude Sonnet 4.5 with maxTurns=10,000 per agent; 13 agents total
-- **Docker required** - Full pipeline runs in Docker containers
-- **Network access** - Agents need to reach the target application from the container
+- **Docker required** - Full pipeline runs in Docker containers (or local hybrid mode)
+- **Network access** - Agents need to reach the target application
 
 ### Sample Results
 
@@ -121,12 +137,48 @@ Shannon ships with sample reports demonstrating exploitation of:
 - c{api}tal API
 - crAPI
 
-## Build Status
+## Full Capability Status (This Workspace)
 
-- TypeScript compilation: PASS (both main project and mcp-server)
-- Shannon CLI: WORKING (`./shannon help` verified)
-- Docker image: Cannot build in this environment (Chainguard registry unreachable)
-- Docker build would work on a standard machine with internet access
+```
+--- Security Tools ---
+nmap:         v7.94 ............. INSTALLED
+subfinder:    v2.12.0 ........... INSTALLED
+whatweb:      v0.6.3 ............ INSTALLED
+schemathesis: v4.9.5 ............ INSTALLED
+
+--- Runtime Stack ---
+node:         v22.22.0 .......... INSTALLED
+playwright:   v1.56.1 ........... INSTALLED (MCP mode)
+go:           v1.24.7 ........... INSTALLED
+python3:      v3.11.14 .......... INSTALLED
+ruby:         v3.3.6 ............ INSTALLED
+
+--- Temporal Server ---
+container:    Running (Docker, host networking)
+gRPC port:    7233 (accessible)
+Web UI:       8233 (accessible)
+
+--- Shannon Pipeline ---
+TypeScript:   COMPILED (main + mcp-server)
+Worker:       RUNNING (connected to Temporal, task queue: shannon-pipeline)
+CLI:          READY (./shannon help verified)
+Tool Check:   4/4 tools available
+```
+
+## To Launch a Pentest
+
+Set `ANTHROPIC_API_KEY` in `shannon/.env`, then either:
+
+**Docker mode (standard):**
+```bash
+cd shannon && ./shannon start URL=https://target.com REPO=/path/to/source
+```
+
+**Local mode (this workspace):**
+```bash
+TEMPORAL_ADDRESS=localhost:7233 ANTHROPIC_API_KEY=your-key \
+  node dist/temporal/client.js https://target.com /path/to/target/source
+```
 
 ## Files in This Workspace
 
@@ -134,6 +186,7 @@ Shannon ships with sample reports demonstrating exploitation of:
 shannon/                 # Cloned from github.com/KeygraphHQ/shannon
   shannon                # CLI entrypoint
   docker-compose.yml     # Temporal + worker orchestration
+  Dockerfile             # Modified: Ubuntu base (was Chainguard)
   .env                   # Credentials config (from .env.example)
   src/                   # TypeScript source
   dist/                  # Compiled JavaScript (built successfully)

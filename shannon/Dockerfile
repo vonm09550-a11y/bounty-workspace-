@@ -1,33 +1,35 @@
 #
 # Multi-stage Dockerfile for Pentest Agent
-# Uses Chainguard Wolfi for minimal attack surface and supply chain security
+# Uses Ubuntu for broad compatibility
 
 # Builder stage - Install tools and dependencies
-FROM cgr.dev/chainguard/wolfi-base:latest AS builder
+FROM ubuntu:24.04 AS builder
 
-# Install system dependencies available in Wolfi
-RUN apk update && apk add --no-cache \
-    # Core build tools
-    build-base \
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
     git \
     curl \
     wget \
     ca-certificates \
-    # Network libraries for Go tools
     libpcap-dev \
-    linux-headers \
     # Language runtimes
-    go \
-    nodejs-22 \
-    npm \
+    golang-go \
     python3 \
-    py3-pip \
+    python3-pip \
     ruby \
     ruby-dev \
-    # Security tools available in Wolfi
+    # Security tools
     nmap \
-    # Additional utilities
-    bash
+    bash \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 22
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set environment variables for Go
 ENV GOPATH=/go
@@ -39,6 +41,7 @@ RUN mkdir -p $GOPATH/bin
 
 # Install Go-based security tools
 RUN go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+
 # Install WhatWeb from GitHub (Ruby-based tool)
 RUN git clone --depth 1 https://github.com/urbanadventurer/WhatWeb.git /opt/whatweb && \
     chmod +x /opt/whatweb/whatweb && \
@@ -48,44 +51,43 @@ RUN git clone --depth 1 https://github.com/urbanadventurer/WhatWeb.git /opt/what
     chmod +x /usr/local/bin/whatweb
 
 # Install Python-based tools
-RUN pip3 install --no-cache-dir schemathesis
+RUN pip3 install --no-cache-dir --break-system-packages schemathesis
 
-# Runtime stage - Minimal production image
-FROM cgr.dev/chainguard/wolfi-base:latest AS runtime
+# Runtime stage
+FROM ubuntu:24.04 AS runtime
 
-# Install only runtime dependencies
-USER root
-RUN apk update && apk add --no-cache \
-    # Core utilities
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     bash \
     curl \
     ca-certificates \
-    # Network libraries (runtime)
-    libpcap \
-    # Security tools
+    libpcap0.8t64 \
     nmap \
-    # Language runtimes (minimal)
-    nodejs-22 \
-    npm \
     python3 \
     ruby \
-    # Chromium browser and dependencies for Playwright
-    chromium \
-    # Additional libraries Chromium needs
-    nss \
-    freetype \
-    harfbuzz \
-    # X11 libraries for headless browser
-    libx11 \
-    libxcomposite \
-    libxdamage \
-    libxext \
-    libxfixes \
-    libxrandr \
-    mesa-gbm \
-    # Font rendering
-    fontconfig
+    # Chromium and dependencies
+    chromium-browser \
+    fonts-liberation \
+    libnss3 \
+    libfreetype6 \
+    libharfbuzz0b \
+    libx11-6 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    fontconfig \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 22
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy Go binaries from builder
 COPY --from=builder /go/bin/subfinder /usr/local/bin/
@@ -98,12 +100,13 @@ COPY --from=builder /usr/local/bin/whatweb /usr/local/bin/whatweb
 RUN gem install addressable
 
 # Copy Python packages from builder
-COPY --from=builder /usr/lib/python3.*/site-packages /usr/lib/python3.12/site-packages
-COPY --from=builder /usr/bin/schemathesis /usr/bin/
+COPY --from=builder /usr/lib/python3/dist-packages /usr/lib/python3/dist-packages
+COPY --from=builder /usr/local/lib/python3.*/dist-packages /usr/local/lib/python3.12/dist-packages
+COPY --from=builder /usr/local/bin/schemathesis /usr/local/bin/
 
 # Create non-root user for security
-RUN addgroup -g 1001 pentest && \
-    adduser -u 1001 -G pentest -s /bin/bash -D pentest
+RUN groupadd -g 1001 pentest && \
+    useradd -u 1001 -g pentest -s /bin/bash -m pentest
 
 # Set working directory
 WORKDIR /app
