@@ -1,0 +1,25 @@
+authentication:
+  login_type: none  # Web3 wallet-based auth, no traditional form login
+
+rules:
+  avoid:
+    - description: "Legacy V1 contracts are out of scope per bounty rules"
+      type: path
+      url_path: "/v1"
+
+    - description: "Do not perform DDoS or load testing"
+      type: path
+      url_path: "*"
+
+  focus:
+    - description: "Main web application - test for XSS, auth bypass, cookie theft"
+      type: subdomain
+      url_path: "tranchess.com"
+
+    - description: "Focus on wallet interaction endpoints for transaction tampering"
+      type: path
+      url_path: "/api"
+
+    - description: "Look for subdomain takeover opportunities"
+      type: subdomain
+      url_path: "*.tranchess.com"
