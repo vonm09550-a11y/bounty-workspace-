@@ -324,8 +324,20 @@ function testRemote(hub) {
 				authors: [{ address: authAddr, definition: authDef, authentifiers: {} }],
 				messages: [{ app: 'definition', payload_hash: b64Hash(payload, true), payload: payload }],
 			};
-			if (ref.witness_list_unit) u.witness_list_unit = ref.witness_list_unit;
-			else u.witnesses = w;
+			// v4.0+ requires witness_list_unit, inline witnesses not allowed
+			// walk chain if reference unit doesn't carry one
+			var wlu = ref.witness_list_unit;
+			if (!wlu) {
+				for (var pu of (ref.parent_units || [])) {
+					var pj = (await req('get_joint', pu)).response;
+					if (pj.joint && pj.joint.unit && pj.joint.unit.witness_list_unit) {
+						wlu = pj.joint.unit.witness_list_unit;
+						break;
+					}
+				}
+			}
+			if (wlu) u.witness_list_unit = wlu;
+			else u.witnesses = w; // pre-v4 network fallback
 
 			u.authors[0].authentifiers = { r: sign(u, kp.priv) };
 			u.headers_commission = headersSize(u);
