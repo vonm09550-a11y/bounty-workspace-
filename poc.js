@@ -247,9 +247,9 @@ function testVerify() {
 		authors: [{ address: addr, definition: ["sig", { pubkey: kp.pub64 }], authentifiers: {} }],
 		messages: [{ app: 'definition', payload_hash: ph, payload: payload }]
 	};
+	u.authors[0].authentifiers = { r: sign(u, kp.priv) };
 	u.headers_commission = headersSize(u);
 	u.payload_commission = payloadSize(u);
-	u.authors[0].authentifiers = { r: sign(u, kp.priv) };
 	u.unit = unitHash(u);
 
 	var ok = aa.length === 32 && ph.length === 44 && addr.length === 32 && u.unit.length === 44;
@@ -327,9 +327,9 @@ function testRemote(hub) {
 			if (ref.witness_list_unit) u.witness_list_unit = ref.witness_list_unit;
 			else u.witnesses = w;
 
+			u.authors[0].authentifiers = { r: sign(u, kp.priv) };
 			u.headers_commission = headersSize(u);
 			u.payload_commission = payloadSize(u);
-			u.authors[0].authentifiers = { r: sign(u, kp.priv) };
 			u.unit = unitHash(u);
 
 			// send joint
