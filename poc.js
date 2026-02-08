@@ -305,6 +305,10 @@ function testRemote(hub) {
 			var ball = joint.ball || ref.last_ball;
 			var ballUnit = joint.ball ? parent : ref.last_ball_unit;
 
+			// derive version/alt from the network's own units
+			var ver = ref.version || '4.0';
+			var alt = ref.alt || '1';
+
 			// build malicious unit
 			var kp = keygen();
 			var authDef = ["sig", { pubkey: kp.pub64 }];
@@ -314,7 +318,7 @@ function testRemote(hub) {
 			var payload = { address: aaAddr, definition: aaDef };
 
 			var u = {
-				version: '4.0t', alt: '2', timestamp: Math.round(Date.now() / 1000),
+				version: ver, alt: alt, timestamp: Math.round(Date.now() / 1000),
 				parent_units: [parent].sort(),
 				last_ball: ball, last_ball_unit: ballUnit,
 				authors: [{ address: authAddr, definition: authDef, authentifiers: {} }],
