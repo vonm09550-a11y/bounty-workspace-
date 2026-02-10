@@ -48,7 +48,7 @@ contract CatchClausePOC is Test {
     MockERC721CustomError mockNFT;
 
     function setUp() public {
-        vm.createSelectFork("https://eth.llamarpc.com");
+        vm.createSelectFork("https://ethereum-rpc.publicnode.com");
 
         seller = vm.addr(SELLER_PK);
         buyer = vm.addr(BUYER_PK);
