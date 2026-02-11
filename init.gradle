@@ -1,0 +1,15 @@
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+}
+
+gradle.beforeProject { project ->
+    project.plugins.whenPluginAdded { plugin ->
+        if (plugin.class.name.contains('SonarQubePlugin')) {
+            project.sonarqube.skipProject = true
+        }
+    }
+}
