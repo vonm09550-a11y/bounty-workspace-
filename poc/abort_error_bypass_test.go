@@ -78,8 +78,16 @@ func TestAbortErrorStateBypass(t *testing.T) {
 	_, err = stateDB.Finalize()
 	require.NoError(t, err)
 
-	// Verify funds permanently locked after finalization
-	precompileSeiAddr := sdk.AccAddress(precompileAddr.Bytes())
-	finalPrecompileBalance := k.BankKeeper().GetBalance(ctx, precompileSeiAddr, "usei").Amount
-	require.True(t, finalPrecompileBalance.IsPositive())
+	// Verify funds permanently locked after finalization via fresh StateDB
+	freshStateDB := state.NewDBImpl(ctx, k, false)
+	finalSenderBalance := freshStateDB.GetBalance(evmAddr)
+	finalPrecompileBalance := freshStateDB.GetBalance(precompileAddr)
+
+	// Confirm sender permanently lost funds
+	permanentSenderLoss := new(uint256.Int).Sub(senderBalanceBefore, finalSenderBalance)
+	require.True(t, permanentSenderLoss.Gt(uint256.NewInt(0)))
+
+	// Confirm precompile permanently holds funds
+	permanentPrecompileGain := new(uint256.Int).Sub(finalPrecompileBalance, precompileBalanceBefore)
+	require.True(t, permanentPrecompileGain.Gt(uint256.NewInt(0)))
 }
