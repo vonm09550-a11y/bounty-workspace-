@@ -5411,6 +5411,42 @@ def setup_mcp_server(hexstrike_client: HexStrikeClient) -> FastMCP:
 
         return result
 
+    @mcp.tool()
+    def take_screenshot(url: str, output_path: str = "", headless: bool = True,
+                        wait_time: int = 3, full_page: bool = False) -> Dict[str, Any]:
+        """
+        Navigate to a URL and capture a screenshot in a single step.
+
+        Args:
+            url: Target URL to screenshot
+            output_path: Where to save the PNG (default: auto-generated in /tmp)
+            headless: Run browser without visible window (default: True)
+            wait_time: Seconds to wait after page load before capturing (default: 3)
+            full_page: Capture the full scrollable page height (default: False)
+
+        Returns:
+            Dict with screenshot_path, screenshot_base64, page_title, and url
+        """
+        data_payload = {
+            "url": url,
+            "output_path": output_path,
+            "headless": headless,
+            "wait_time": wait_time,
+            "full_page": full_page,
+        }
+
+        logger.info(f"{HexStrikeColors.NEON_BLUE}📸 Taking screenshot of: {url}{HexStrikeColors.RESET}")
+        result = hexstrike_client.safe_post("api/tools/take-screenshot", data_payload)
+
+        if result.get("success"):
+            path = result.get("result", {}).get("screenshot_path", "")
+            title = result.get("result", {}).get("page_title", "")
+            logger.info(f"{HexStrikeColors.SUCCESS}✅ Screenshot saved: {path} ('{title}'){HexStrikeColors.RESET}")
+        else:
+            logger.error(f"{HexStrikeColors.ERROR}❌ Screenshot failed for {url}{HexStrikeColors.RESET}")
+
+        return result
+
     return mcp
 
 def parse_args():

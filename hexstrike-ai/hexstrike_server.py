@@ -17250,6 +17250,69 @@ def get_alternative_tools():
         logger.error(f"Error getting alternative tools: {str(e)}")
         return jsonify({"error": f"Server error: {str(e)}"}), 500
 
+@app.route("/api/tools/take-screenshot", methods=["POST"])
+def take_screenshot_endpoint():
+    """Navigate to a URL and capture a screenshot in a single call."""
+    try:
+        params = request.json or {}
+        url = params.get("url", "")
+        headless = params.get("headless", True)
+        wait_time = params.get("wait_time", 3)
+        output_path = params.get("output_path", "")
+        full_page = params.get("full_page", False)
+
+        if not url:
+            return jsonify({"error": "url parameter is required"}), 400
+
+        logger.info(f"[SCREENSHOT] Navigating to {url}")
+
+        # Setup browser
+        if not browser_agent.driver:
+            setup_success = browser_agent.setup_browser(headless, None)
+            if not setup_success:
+                return jsonify({"error": "Failed to setup browser"}), 500
+
+        # Navigate
+        browser_agent.driver.get(url)
+        time.sleep(wait_time)
+
+        # Determine output path
+        if not output_path:
+            timestamp = int(time.time())
+            output_path = f"/tmp/hexstrike_screenshot_{timestamp}.png"
+
+        if full_page:
+            # Expand browser window to capture full page height
+            total_height = browser_agent.driver.execute_script(
+                "return document.body.scrollHeight"
+            )
+            browser_agent.driver.set_window_size(1280, total_height)
+            time.sleep(0.5)
+
+        browser_agent.driver.save_screenshot(output_path)
+        browser_agent.screenshots.append(output_path)
+
+        # Read screenshot as base64 for inline return
+        with open(output_path, "rb") as f:
+            screenshot_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+        logger.info(f"[SCREENSHOT] Saved to {output_path}")
+
+        return jsonify({
+            "success": True,
+            "screenshot_path": output_path,
+            "screenshot_base64": screenshot_b64,
+            "url": browser_agent.driver.current_url,
+            "page_title": browser_agent.driver.title,
+            "full_page": full_page,
+            "timestamp": datetime.now().isoformat(),
+        })
+
+    except Exception as e:
+        logger.error(f"[SCREENSHOT] Error: {str(e)}")
+        return jsonify({"error": f"Screenshot failed: {str(e)}"}), 500
+
+
 # Create the banner after all classes are defined
 BANNER = ModernVisualEngine.create_banner()
 
