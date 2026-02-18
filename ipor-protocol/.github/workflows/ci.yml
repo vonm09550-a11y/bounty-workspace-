@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  notify:
+    uses: ./.github/workflows/notify-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  foundry-tests:
+    needs: notify
+    uses: ./.github/workflows/foundry-tests.yml
+    secrets:
+      ETHEREUM_PROVIDER_URL: ${{ secrets.ETHEREUM_PROVIDER_URL }}
+      ARBITRUM_PROVIDER_URL: ${{ secrets.ARBITRUM_PROVIDER_URL }}
+      BASE_PROVIDER_URL: ${{ secrets.BASE_PROVIDER_URL }}
+    with:
+      test-options: '--no-match-path "test/fork/*"'
+      fork-test-options: '--match-path "test/fork/*"'
+
+  report:
+    if: ${{ always() }}
+    needs:
+      - notify
+      - foundry-tests
+    uses: ./.github/workflows/report-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    with:
+      success: ${{ needs.foundry-tests.result == 'success' }}
+      slack-status-msg-id: ${{ needs.notify.outputs.slack-status-msg-id }}

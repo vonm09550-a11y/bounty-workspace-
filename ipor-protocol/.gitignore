@@ -1,0 +1,60 @@
+### Environment ###
+/.env
+
+### Node build artifacts ###
+/node_modules
+
+### Smart Contracts build artifacts ###
+/contracts/oracles/artifacts/
+/contracts/amm/artifacts/
+/contracts/artifacts/
+/contracts/interfaces/artifacts/
+/contracts/libraries/types/artifacts/
+/test-eth-gas-report.log
+/docs
+/broadcast
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### macOS system files ###
+.DS_Store
+
+### Ansible build artifacts ###
+/contracts.zip
+/coverage/
+/bin/
+/test/output
+/.nyc_output/
+slither-report.json
+.vscode/settings.json
+/logs/
+
+### hardhat ###
+/artifacts/
+/cache/
+
+# OpenZeppelin
+.openzeppelin/*.json
+/coverage.json
+/types/
+/ipor-abi/
+/abi/
+
+### Smart Contracts migration artifacts ###
+.ipor/
+.logs/
+out/
+
+
+### Utiles results ###
+iporErrorList.json
+
+### ETH dumps ###
+/contracts/**/artifacts/
+
+*_flattened.sol
+/.VSCodeCounter/

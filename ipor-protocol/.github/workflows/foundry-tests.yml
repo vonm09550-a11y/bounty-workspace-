@@ -1,0 +1,103 @@
+name: Tests in foundry
+
+on:
+  workflow_call:
+    secrets:
+      ETHEREUM_PROVIDER_URL:
+        required: true
+      ARBITRUM_PROVIDER_URL:
+        required: true
+      BASE_PROVIDER_URL:
+        required: true
+
+    inputs:
+
+      node-version:
+        description: "NodeJS version"
+        type: string
+        default: 20.17.0
+        required: false
+
+      test-enabled:
+        description: "Enable Forge tests"
+        type: boolean
+        default: true
+        required: false
+
+      fork-test-enabled:
+        description: "Enable Forge fork tests"
+        type: boolean
+        default: true
+        required: false
+
+      test-options:
+        description: "Extra options in Forge test command"
+        type: string
+        default: ""
+        required: false
+
+      fork-test-options:
+        description: "Extra options in Forge fork test command"
+        type: string
+        default: ""
+        required: false
+
+jobs:
+  foundry-tests:
+    runs-on:
+      group: foundry-build
+
+    steps:
+      - name: Checkout
+        # from tag: v4.1.7
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          submodules: recursive
+
+      - name: Setup node
+        # from tag: v4.0.4
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Set up node_modules cache
+        # from tag: v4.2.3
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install
+        run: npm install
+
+      - name: Install Foundry
+        # from tag: v1.2.0-ipor
+        uses: IPOR-Labs/foundry-toolchain@18ecb60c02f281f6906d3349abfe450d295be7a8
+        with:
+          version: nightly-03ea54c63e33e3175a6f44d8cfe3718bd6c962ba
+
+      - name: Run Forge build
+        run: |
+          forge --version
+          forge build
+        id: build
+
+      - name: Run Forge tests
+        if: inputs.test-enabled
+        env:
+          ETHEREUM_PROVIDER_URL: ${{ secrets.ETHEREUM_PROVIDER_URL }}
+          ARBITRUM_PROVIDER_URL: ${{ secrets.ARBITRUM_PROVIDER_URL }}
+          BASE_PROVIDER_URL: ${{ secrets.BASE_PROVIDER_URL }}
+        run: |
+          forge test ${{ inputs.test-options }} -vvv
+        id: test
+
+      - name: Run Forge fork tests
+        if: inputs.fork-test-enabled
+        env:
+          ETHEREUM_PROVIDER_URL: ${{ secrets.ETHEREUM_PROVIDER_URL }}
+          ARBITRUM_PROVIDER_URL: ${{ secrets.ARBITRUM_PROVIDER_URL }}
+          BASE_PROVIDER_URL: ${{ secrets.BASE_PROVIDER_URL }}
+        run: |
+          forge test ${{ inputs.fork-test-options }} --fork-url ${{ secrets.ETHEREUM_PROVIDER_URL }} -vvv
+        id: fork-test
