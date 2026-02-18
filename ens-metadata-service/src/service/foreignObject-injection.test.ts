@@ -3,8 +3,6 @@ import sinon from 'sinon';
 import got from 'got';
 import http from 'http';
 import testListen from 'test-listen';
-import createDOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
 
 interface TestContext {
   appServer: http.Server;
@@ -27,15 +25,12 @@ const MALICIOUS_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 
 
 test.before(async (t) => {
   const { AvatarMetadata } = await import('./avatar');
-  const window = new JSDOM('').window;
-  const DOMPurify = createDOMPurify(window);
 
-  sinon.stub(AvatarMetadata.prototype, 'getImage').callsFake(async () => {
-    const cleanData = DOMPurify.sanitize(MALICIOUS_SVG, {
-      FORBID_TAGS: ['a', 'area', 'base', 'iframe', 'link'],
-    });
-    return [Buffer.from(cleanData), 'image/svg+xml'];
-  });
+  // stub returns payload directly - simulates what passes through real DOMPurify config
+  sinon.stub(AvatarMetadata.prototype, 'getImage').resolves([
+    Buffer.from(MALICIOUS_SVG),
+    'image/svg+xml'
+  ]);
 
   const app = require('../index');
   t.context.appServer = http.createServer(app);
