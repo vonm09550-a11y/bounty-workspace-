@@ -38,16 +38,18 @@ const OPEN_ORDERS_SIZE: usize = 3228;
 const SLAB_NODE_COUNT: usize = 4;
 const SLAB_SIZE: usize = 5 + 8 + 32 + SLAB_NODE_COUNT * 72 + 7;
 
-// Event queue: 5 (serum) + 8 (account_flags) + header + buffer + 7 (padding)
-const EVENT_QUEUE_SIZE: usize = 512;
+// Event queue: 5 (serum) + 32 (EventQueueHeader) + N*88 (Event) + 7 (padding)
+// Minimal empty queue: 5 + 32 + 0 + 7 = 44
+const EVENT_QUEUE_SIZE: usize = 44;
 
-// serum_dex account flags (u64 bitfield)
-const ACCOUNT_FLAG_INITIALIZED: u64 = 1 << 0;
-const ACCOUNT_FLAG_MARKET: u64 = 1 << 1;
-const ACCOUNT_FLAG_OPEN_ORDERS: u64 = 1 << 2;
-const ACCOUNT_FLAG_BIDS: u64 = 1 << 4;
-const ACCOUNT_FLAG_ASKS: u64 = 1 << 5;
-const ACCOUNT_FLAG_EVENT_QUEUE: u64 = 1 << 7;
+// serum_dex account flags (u64 bitfield) -- from openbook-dex AccountFlag enum
+const ACCOUNT_FLAG_INITIALIZED: u64 = 1 << 0;  // 1
+const ACCOUNT_FLAG_MARKET: u64 = 1 << 1;        // 2
+const ACCOUNT_FLAG_OPEN_ORDERS: u64 = 1 << 2;   // 4
+const ACCOUNT_FLAG_REQUEST_QUEUE: u64 = 1 << 3;  // 8
+const ACCOUNT_FLAG_EVENT_QUEUE: u64 = 1 << 4;   // 16
+const ACCOUNT_FLAG_BIDS: u64 = 1 << 5;          // 32
+const ACCOUNT_FLAG_ASKS: u64 = 1 << 6;          // 64
 
 // Serum account padding constants
 const SERUM_HEAD: &[u8; 5] = b"serum";
@@ -522,7 +524,7 @@ async fn settle_funds_receives_asks_instead_of_coin_vault() {
     let mut rq_data = vec![0u8; EVENT_QUEUE_SIZE];
     rq_data[0..5].copy_from_slice(SERUM_HEAD);
     rq_data[EVENT_QUEUE_SIZE - 7..].copy_from_slice(SERUM_TAIL);
-    write_u64(&mut rq_data, 5, ACCOUNT_FLAG_INITIALIZED | (1 << 3)); // REQUEST_QUEUE flag = bit 3
+    write_u64(&mut rq_data, 5, ACCOUNT_FLAG_INITIALIZED | ACCOUNT_FLAG_REQUEST_QUEUE);
     program_test.add_account(
         market_req_q_kp.pubkey(),
         Account {
