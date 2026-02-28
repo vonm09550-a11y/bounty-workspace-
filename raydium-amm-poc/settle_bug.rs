@@ -169,7 +169,12 @@ fn build_open_orders(market: &Pubkey, owner: &Pubkey) -> Vec<u8> {
     write_u64(&mut buf, b, ACCOUNT_FLAG_INITIALIZED | ACCOUNT_FLAG_OPEN_ORDERS);
     write_pubkey(&mut buf, b + 8, market);
     write_pubkey(&mut buf, b + 40, owner);
-    // native_coin_free=0, native_coin_total=0, native_pc_free=0, native_pc_total=0
+    // native_coin_free=0, native_coin_total=1000 (coins locked in open orders)
+    // This makes total_coin = vault(100) + serum(1000) = 1100
+    // So amount_out(500) < total_coin(1100) passes InsufficientFunds check
+    // But amount_out(500) > vault(100) triggers settle path
+    write_u64(&mut buf, b + 80, 1000); // native_coin_total
+    // native_pc_free=0, native_pc_total=0
     // free_slot_bits = all 1s (all slots free = no open orders)
     buf[b + 104..b + 120].copy_from_slice(&u128::MAX.to_le_bytes());
     // is_bid_bits = 0, orders = 0, client_order_ids = 0, referrer_rebates = 0
