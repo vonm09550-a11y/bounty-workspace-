@@ -1,0 +1,17 @@
+{
+  "name": "counterstake-evm",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "truffle test"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.0.0",
+    "@openzeppelin/test-helpers": "^0.5.10",
+    "@truffle/hdwallet-provider": "^1.7.0",
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "ganache-cli": "^6.12.2",
+    "truffle": "^5.4.0"
+  }
+}
