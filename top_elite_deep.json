@@ -1,0 +1,419 @@
+[
+  {
+    "address": "0x7fba7e745bd97f828c824589680749b55a8c04ab",
+    "account_value": 5547028.256575,
+    "alltime_pnl": 4320450.347934,
+    "total_fills_90d": 1208,
+    "total_closing_90d": 348,
+    "overall_wr": 97.70114942528735,
+    "total_pnl_90d": 2801499.0586759956,
+    "profit_factor": 48.65234705876868,
+    "eth_btc_closing": 346,
+    "eth_btc_wr": 97.97687861271676,
+    "eth_btc_pnl": 2806983.3364159954,
+    "eth_btc_pf": 53.65787977867343,
+    "eth_btc_vol_pct": 99.27642375048801,
+    "losing_weeks": 0,
+    "total_weeks": 1,
+    "weekly_pnl": {
+      "2026-W26": 2801499.0586759956
+    },
+    "open_positions": [
+      "ETH"
+    ],
+    "score": 4863.397059453097,
+    "eth_detail": {
+      "closing": 346,
+      "wins": 339,
+      "pnl": 2806983.3364159954
+    },
+    "btc_detail": {
+      "closing": 0,
+      "wins": 0,
+      "pnl": 0
+    }
+  },
+  {
+    "address": "0xc7290b4b308431a985fa9e3e8a335c2f7650517c",
+    "account_value": 157707.019987,
+    "alltime_pnl": 6089943.425754,
+    "total_fills_90d": 89,
+    "total_closing_90d": 28,
+    "overall_wr": 89.28571428571429,
+    "total_pnl_90d": 3905380.7383939996,
+    "profit_factor": 21746.68073433656,
+    "eth_btc_closing": 23,
+    "eth_btc_wr": 100.0,
+    "eth_btc_pnl": 3905453.6295399996,
+    "eth_btc_pf": Infinity,
+    "eth_btc_vol_pct": 71.0464992277572,
+    "losing_weeks": 0,
+    "total_weeks": 2,
+    "weekly_pnl": {
+      "2026-W22": 1064335.2763999999,
+      "2026-W25": 2841045.461994
+    },
+    "open_positions": [
+      "HYPE"
+    ],
+    "score": 3552.3249613878597,
+    "eth_detail": {
+      "closing": 17,
+      "wins": 17,
+      "pnl": 1064335.2763999999
+    },
+    "btc_detail": {
+      "closing": 6,
+      "wins": 6,
+      "pnl": 2841118.35314
+    }
+  },
+  {
+    "address": "0x757df2c060ec6c7ba898fa6570aa98c1f46294ba",
+    "account_value": 100653.6388,
+    "alltime_pnl": 8025970.896002,
+    "total_fills_90d": 168,
+    "total_closing_90d": 81,
+    "overall_wr": 100.0,
+    "total_pnl_90d": 69238.351144,
+    "profit_factor": Infinity,
+    "eth_btc_closing": 42,
+    "eth_btc_wr": 100.0,
+    "eth_btc_pnl": 26231.922103,
+    "eth_btc_pf": Infinity,
+    "eth_btc_vol_pct": 70.48048047836905,
+    "losing_weeks": 0,
+    "total_weeks": 5,
+    "weekly_pnl": {
+      "2026-W16": 63.0,
+      "2026-W20": 15522.65,
+      "2026-W22": 11142.395982,
+      "2026-W25": 5.074891,
+      "2026-W26": 42505.230271
+    },
+    "open_positions": [],
+    "score": 3524.0240239184523,
+    "eth_detail": {
+      "closing": 21,
+      "wins": 21,
+      "pnl": 13616.072103
+    },
+    "btc_detail": {
+      "closing": 21,
+      "wins": 21,
+      "pnl": 12615.85
+    }
+  },
+  {
+    "address": "0x350e33a777d510616fbdb483d1de3b50d1edfcfb",
+    "account_value": 473829.827626,
+    "alltime_pnl": 15481410.794489,
+    "total_fills_90d": 2000,
+    "total_closing_90d": 890,
+    "overall_wr": 58.31460674157304,
+    "total_pnl_90d": 452281.15221292,
+    "profit_factor": 3.558102259950248,
+    "eth_btc_closing": 44,
+    "eth_btc_wr": 84.0909090909091,
+    "eth_btc_pnl": 369768.43402999995,
+    "eth_btc_pf": 83.60609854207827,
+    "eth_btc_vol_pct": 59.94937401925117,
+    "losing_weeks": 0,
+    "total_weeks": 3,
+    "weekly_pnl": {
+      "2026-W14": 39759.08749,
+      "2026-W15": 249260.2244234099,
+      "2026-W16": 163261.84029950993
+    },
+    "open_positions": [
+      "BTC",
+      "ETH",
+      "XRP",
+      "NEAR",
+      "HYPE",
+      "VVV"
+    ],
+    "score": 2520.598680354879,
+    "eth_detail": {
+      "closing": 0,
+      "wins": 0,
+      "pnl": 0
+    },
+    "btc_detail": {
+      "closing": 44,
+      "wins": 37,
+      "pnl": 369768.43402999995
+    }
+  },
+  {
+    "address": "0x4b1c09fa8322548360a76a3747e32a60a864bc38",
+    "account_value": 1979855.092474,
+    "alltime_pnl": 3208947.388904,
+    "total_fills_90d": 2000,
+    "total_closing_90d": 397,
+    "overall_wr": 94.45843828715365,
+    "total_pnl_90d": 37432.994021999984,
+    "profit_factor": 34.65290428889713,
+    "eth_btc_closing": 273,
+    "eth_btc_wr": 100.0,
+    "eth_btc_pnl": 27613.95670599999,
+    "eth_btc_pf": Infinity,
+    "eth_btc_vol_pct": 45.704325577869966,
+    "losing_weeks": 0,
+    "total_weeks": 2,
+    "weekly_pnl": {
+      "2026-W25": 28147.741596,
+      "2026-W26": 9285.252426000001
+    },
+    "open_positions": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "AVAX",
+      "BNB",
+      "LTC",
+      "DOGE",
+      "SUI",
+      "LDO",
+      "LINK",
+      "XRP",
+      "BCH",
+      "AAVE",
+      "TRX",
+      "UNI",
+      "ADA",
+      "NEAR",
+      "TAO",
+      "ENA",
+      "XLM",
+      "HYPE",
+      "PAXG",
+      "ZEC",
+      "XMR"
+    ],
+    "score": 2285.2162788934984,
+    "eth_detail": {
+      "closing": 25,
+      "wins": 25,
+      "pnl": 3778.0355529999997
+    },
+    "btc_detail": {
+      "closing": 248,
+      "wins": 248,
+      "pnl": 23835.92115299999
+    }
+  },
+  {
+    "address": "0x2d99fe0f36c1aebd28a1a2c0e82e8ca13c2ea351",
+    "account_value": 662275.827757,
+    "alltime_pnl": 10284280.453411,
+    "total_fills_90d": 611,
+    "total_closing_90d": 489,
+    "overall_wr": 98.77300613496932,
+    "total_pnl_90d": 1943114.9752149992,
+    "profit_factor": 10656.998498437642,
+    "eth_btc_closing": 186,
+    "eth_btc_wr": 100.0,
+    "eth_btc_pnl": 1670375.130085999,
+    "eth_btc_pf": Infinity,
+    "eth_btc_vol_pct": 42.023853875342745,
+    "losing_weeks": 1,
+    "total_weeks": 8,
+    "weekly_pnl": {
+      "2026-W14": -0.01922,
+      "2026-W16": 441807.00895299995,
+      "2026-W17": 19402.303671,
+      "2026-W18": 1228568.1211329994,
+      "2026-W20": 6203.640204,
+      "2026-W22": 91996.47160399999,
+      "2026-W23": 72767.915374,
+      "2026-W24": 82369.533496
+    },
+    "open_positions": [
+      "BTC"
+    ],
+    "score": 1838.543607046245,
+    "eth_detail": {
+      "closing": 0,
+      "wins": 0,
+      "pnl": 0
+    },
+    "btc_detail": {
+      "closing": 186,
+      "wins": 186,
+      "pnl": 1670375.130085999
+    }
+  },
+  {
+    "address": "0x325edd95bb016c36027ce3b9f7595af7094a9564",
+    "account_value": 306553.628081,
+    "alltime_pnl": 3670447.332816,
+    "total_fills_90d": 2000,
+    "total_closing_90d": 644,
+    "overall_wr": 87.11180124223603,
+    "total_pnl_90d": 248742.5071022201,
+    "profit_factor": 11.708207098312629,
+    "eth_btc_closing": 39,
+    "eth_btc_wr": 94.87179487179486,
+    "eth_btc_pnl": 43337.6509900002,
+    "eth_btc_pf": 72.64254764128131,
+    "eth_btc_vol_pct": 36.49765183544794,
+    "losing_weeks": 0,
+    "total_weeks": 11,
+    "weekly_pnl": {
+      "2026-W14": 67654.43878622018,
+      "2026-W15": 40309.01097499999,
+      "2026-W18": 444.71117,
+      "2026-W19": 7643.692025,
+      "2026-W20": 2597.702347,
+      "2026-W21": 6286.759476000001,
+      "2026-W22": 73.8489,
+      "2026-W23": 22358.15865399999,
+      "2026-W24": 8331.129309,
+      "2026-W25": 58385.12280199999,
+      "2026-W26": 34657.932658000005
+    },
+    "open_positions": [
+      "LIT"
+    ],
+    "score": 1731.2988691174023,
+    "eth_detail": {
+      "closing": 34,
+      "wins": 33,
+      "pnl": 29335.8415160001
+    },
+    "btc_detail": {
+      "closing": 5,
+      "wins": 4,
+      "pnl": 14001.809474000102
+    }
+  },
+  {
+    "address": "0x0e3f5bb797e3953fed2a319544d0e821b4a11e1c",
+    "account_value": 11241.812729,
+    "alltime_pnl": 2406700.580306999,
+    "total_fills_90d": 2000,
+    "total_closing_90d": 1375,
+    "overall_wr": 94.83636363636364,
+    "total_pnl_90d": 48342.496122710145,
+    "profit_factor": 16.170732508596586,
+    "eth_btc_closing": 1247,
+    "eth_btc_wr": 97.59422614274258,
+    "eth_btc_pnl": 47006.32801200015,
+    "eth_btc_pf": 16.039997966763675,
+    "eth_btc_vol_pct": 97.27177496686728,
+    "losing_weeks": 0,
+    "total_weeks": 6,
+    "weekly_pnl": {
+      "2026-W14": 6027.695140069997,
+      "2026-W15": 14385.394743829995,
+      "2026-W16": 4385.859766000003,
+      "2026-W17": 7556.947937549994,
+      "2026-W18": 11788.621226240002,
+      "2026-W19": 4197.977309020003
+    },
+    "open_positions": [
+      "BTC",
+      "HYPE"
+    ],
+    "score": 1522.7032489705043,
+    "eth_detail": {
+      "closing": 1079,
+      "wins": 1078,
+      "pnl": 42658.97423100015
+    },
+    "btc_detail": {
+      "closing": 168,
+      "wins": 139,
+      "pnl": 4347.353780999999
+    }
+  },
+  {
+    "address": "0xfd97600ac44b3c4e20ac1a5f23e3b18d10fa5912",
+    "account_value": 223574.02244,
+    "alltime_pnl": 4120116.448823,
+    "total_fills_90d": 1405,
+    "total_closing_90d": 291,
+    "overall_wr": 99.3127147766323,
+    "total_pnl_90d": 310830.55137544015,
+    "profit_factor": 25.61672822596553,
+    "eth_btc_closing": 53,
+    "eth_btc_wr": 100.0,
+    "eth_btc_pnl": 31513.55570100001,
+    "eth_btc_pf": Infinity,
+    "eth_btc_vol_pct": 31.42149176102374,
+    "losing_weeks": 1,
+    "total_weeks": 9,
+    "weekly_pnl": {
+      "2026-W14": 49302.36801713,
+      "2026-W15": 27625.22779883,
+      "2026-W18": 17442.18787048,
+      "2026-W21": -3097.2692930000003,
+      "2026-W22": 83765.94926600008,
+      "2026-W23": 43005.06574,
+      "2026-W24": 16326.816743000003,
+      "2026-W25": 72421.75146500001,
+      "2026-W26": 4038.453768
+    },
+    "open_positions": [
+      "HYPE"
+    ],
+    "score": 1396.5107449343884,
+    "eth_detail": {
+      "closing": 0,
+      "wins": 0,
+      "pnl": 0
+    },
+    "btc_detail": {
+      "closing": 53,
+      "wins": 53,
+      "pnl": 31513.55570100001
+    }
+  },
+  {
+    "address": "0xbe4e91ae63090eeb4165dfcfc35db3a4eb76e75e",
+    "account_value": 245655.280958,
+    "alltime_pnl": 3146608.933408,
+    "total_fills_90d": 1800,
+    "total_closing_90d": 773,
+    "overall_wr": 83.05304010349288,
+    "total_pnl_90d": 258961.6304499999,
+    "profit_factor": 1.8762085683999767,
+    "eth_btc_closing": 122,
+    "eth_btc_wr": 88.52459016393442,
+    "eth_btc_pnl": 463258.4528339998,
+    "eth_btc_pf": 14.755128977816023,
+    "eth_btc_vol_pct": 45.338122211825585,
+    "losing_weeks": 2,
+    "total_weeks": 13,
+    "weekly_pnl": {
+      "2026-W14": 11940.260466,
+      "2026-W15": -252570.16112500013,
+      "2026-W16": 980.7170090000001,
+      "2026-W17": 8630.456587999997,
+      "2026-W18": 2541.77092,
+      "2026-W19": -14130.317768000028,
+      "2026-W20": 104.53139999999999,
+      "2026-W21": 811.4508,
+      "2026-W22": 117378.40559999998,
+      "2026-W23": 284529.74861399987,
+      "2026-W24": 55.8022,
+      "2026-W25": 92072.191446,
+      "2026-W26": 6616.7743
+    },
+    "open_positions": [
+      "BTC"
+    ],
+    "score": 501.09468532584907,
+    "eth_detail": {
+      "closing": 0,
+      "wins": 0,
+      "pnl": 0
+    },
+    "btc_detail": {
+      "closing": 122,
+      "wins": 108,
+      "pnl": 463258.4528339998
+    }
+  }
+]
