@@ -1,0 +1,51 @@
+{
+  "analysis_date": "2026-08-30",
+  "methodology": "9 Hyperliquid onchain data sources (S2 Funding, S5 Orderbook, S8 Historical Orders, S9 Ledger, S12 Technicals, S14 TWAP, S16 Vault Consensus, S18 Open Orders, S19 Fees) scored 0-10 per candidate direction. Weights: S16_vaults 30%, S5_book 12%, S18_orders 12%, S2_funding 10%, S8_orders 10%, S9_ledger 5%, S12_tech 5%, S14_twap 3%, S19_fees 3%. Signal weighting: 55% onchain, 40% main signals, 5% technical.",
+  "candidates_analyzed": 12,
+  "long_candidates": ["BTC", "XMR", "HYPE", "ETH", "LINK", "AAVE"],
+  "short_candidates": ["WLD", "WLFI", "TRUMP", "SUI", "ATOM", "BERA"],
+  "top3": [
+    {
+      "rank": 1,
+      "asset": "ETH",
+      "direction": "LONG",
+      "score": 7.18,
+      "price_at_analysis": 2500.4,
+      "key_signals": {
+        "vault_consensus": "70% long, 28 vaults. $9M exposure. drkmttr $4.9M position with $1.8M unrealized profit (37% return)",
+        "orderbook": "1.28 bid/ask ratio. Balanced with buy edge. $600K limit buy at $2,002 from LongLINK vault",
+        "technicals": "RSI 61.4, MACD bullish, volume surging +109.4%, 7d +2.24%",
+        "funding": "0.00125%/8h baseline. Cheap to hold. Not crowded",
+        "smart_money": "drkmttr (715% APR vault) $4.9M long, DailyTradeAI 84% buy orders, multiple vaults accumulating"
+      }
+    },
+    {
+      "rank": 2,
+      "asset": "BTC",
+      "direction": "LONG",
+      "score": 7.09,
+      "price_at_analysis": 78817.0,
+      "key_signals": {
+        "vault_consensus": "81% long, 42 vaults (broadest consensus). $16.6M exposure. BredoStrategy (768% APR) $3.9M long",
+        "orderbook": "3.73x bid/ask ratio - STRONGEST buy wall in entire analysis. Massive buy support",
+        "technicals": "RSI 54.7, MACD bullish, volume declining -13.5%, 7d +1.86%",
+        "funding": "0.0013%/8h baseline. Cheap. Trend falling = less crowded",
+        "smart_money": "BredoStrategy 81% buy orders, DailyTradeAI 87% buy orders, intothecryptoverse BTC-only vault"
+      }
+    },
+    {
+      "rank": 3,
+      "asset": "ATOM",
+      "direction": "SHORT",
+      "score": 6.89,
+      "price_at_analysis": 3.1,
+      "key_signals": {
+        "vault_consensus": "73% short, 11 vaults. Systemic Strategies $741K position (97% of shorts) with $130K profit (17% return). Zero quality longs",
+        "orderbook": "Slightly ask-heavy. Sellers have edge. No TPs set = shorts not planning to close",
+        "technicals": "RSI 42.4 WEAKEST in entire set. MACD bearish. 7d -7.80%. Sustained downtrend",
+        "funding": "Near zero = VERY cheap to hold short. No crowding on either side",
+        "smart_money": "Systemic Strategies (98% APR vault) dominant short. DailyTradeAI long losing -$5.3K. Longs punished"
+      }
+    }
+  ]
+}
