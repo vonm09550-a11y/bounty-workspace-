@@ -1,0 +1,55 @@
+{
+  "analysis_date": "2026-08-30",
+  "status": "ONCHAIN LAYER CLOSED -- ALL SDK SOURCES EXHAUSTED",
+  "total_sdk_methods_used": 34,
+  "final_6_closure": {
+    "1_liquidation_map": {
+      "finding": "NO LIQUIDATION CASCADE RISK",
+      "detail": "18/20 vaults use cross margin with no fixed liquidation price. Only Delta_01 has visible liq at $941.9 (irrelevant). Zero forced-sell risk above $942.",
+      "impact_on_trade": "SL placement is unconstrained by liquidation clusters. No cascade risk at any reasonable level."
+    },
+    "2_cross_asset_hedging": {
+      "drkmttr": "UNHEDGED. $27.3M all-long: XMR ($14M), ETH ($6.75M), HYPE ($6.5M). Pure directional bull. 35% margin utilization.",
+      "delta01": "HEDGED. Long ETH ($1.09M) + Short BTC ($846K, -$80K uPnL). Betting ETH outperforms BTC. Also long LIT/PENDLE/HYPE/ZEC/SOL.",
+      "yisanqi": "UNHEDGED. 65+ positions ALL LONG. BTC/ZEC/ETH/HYPE/SOL/AAVE/SUI/ADA + memes. Pure market-long. 66.7% margin utilization.",
+      "acevault": "HEAVILY HEDGED. Long BTC/HYPE/ETH core + 40 small altcoin shorts. Long-majors-short-alts strategy.",
+      "impact_on_trade": "drkmttr (largest ETH long) is fully unhedged = maximum conviction. If drkmttr's thesis is wrong, the fallout is severe. But 35% margin util means they have $12.6M in reserve."
+    },
+    "3_capital_flows": {
+      "finding": "ALL INFLOW. ZERO LIQUIDATIONS.",
+      "drkmttr": "+$7,271,477 inflow in 3 days (319 ledger entries). Massive new capital entering.",
+      "systemic_strats": "+$1,437,920 inflow",
+      "growi_hf": "+$871,376 inflow",
+      "acevault": "+$47,013 inflow",
+      "tera_liquid": "+$18,634 inflow",
+      "yisanqi": "+$13,886 inflow",
+      "impact_on_trade": "STRONGEST signal in the entire analysis. $9.66M NET INFLOW to ETH long vaults in 3 days. Zero outflow. Zero liquidations. Fresh capital is flooding in."
+    },
+    "4_twap_institutional": {
+      "finding": "Zero TWAP execution detected across all vaults and leaders.",
+      "impact_on_trade": "Whales are using limit orders and algo execution, not institutional TWAP. Accumulation is happening through the order book directly."
+    },
+    "5_historical_orders": {
+      "delta01": "72% buy orders (333 buy / 128 sell out of 461). ACCUMULATING.",
+      "btc_eth_cta": "93% buy orders (732 buy / 51 sell out of 783). HEAVY ACCUMULATING.",
+      "acevault": "89% buy orders (34 buy / 4 sell out of 38). ACCUMULATING.",
+      "growi_hf": "77% buy orders (20 buy / 6 sell out of 26). ACCUMULATING.",
+      "systemic": "50% balanced (grid trading).",
+      "yisanqi": "49% balanced.",
+      "drkmttr": "No order history visible (orders placed through vault mechanism).",
+      "impact_on_trade": "4 out of 6 trackable vaults are actively accumulating ETH. Zero are distributing."
+    },
+    "6_vault_equity_skin_in_game": {
+      "drkmttr_leader": "$5,021,731 personal equity staked in own vault",
+      "systemic_leader": "$1,641,373 across 3 vaults",
+      "growi_leader": "$559,736",
+      "delta01_leader": "$171,789",
+      "tera_liquid_leader": "$157,596",
+      "yisanqi_leader": "$119,786",
+      "acevault_leader": "$63,745",
+      "btc_eth_cta_leader": "$60,188",
+      "total_leader_skin": "$7,795,944",
+      "impact_on_trade": "drkmttr has $5M of personal capital in the vault. Total leader skin-in-the-game across top 8 is $7.8M. These are not paper positions."
+    }
+  }
+}
