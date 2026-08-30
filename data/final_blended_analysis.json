@@ -1,0 +1,153 @@
+{
+  "analysis_date": "2026-08-30",
+  "asset": "ETH",
+  "direction": "LONG",
+  "blended_score": 7.45,
+  "total_data_sources": 3,
+  "total_api_methods_used": {
+    "hyperliquid": 34,
+    "polymarket": 11,
+    "treeofalpha": 1,
+    "total": 46
+  },
+  "signal_layers": {
+    "onchain": {
+      "score": 8.2,
+      "weight": 0.55,
+      "signals": [
+        "$9.66M net inflow to ETH long vaults in 3 days",
+        "drkmttr $27M all-long ETH/XMR/HYPE, UNHEDGED with $5M personal skin",
+        "90% of top 20 whales run naked (no SL/TP)",
+        "Funding rate +0.01% (mildly positive, sustainable)",
+        "Order book: $47M bids vs $31M asks at ETH ~$2,510 (60/40 bid-heavy)",
+        "Vault consensus: 7/10 top vaults long ETH",
+        "34 SDK methods exhausted across 4 extraction phases"
+      ]
+    },
+    "polymarket": {
+      "score": 6.8,
+      "weight": 0.22,
+      "signals": [
+        "52% probability ETH hits $3,000 by Dec 2026",
+        "27.5% probability to $3,500 (+16% month-over-month)",
+        "Dip to $1,500 probability FALLING (-32% MoM) = bearish fade",
+        "$3.3M bid-heavy on $1,500 dip protection but NO-heavy holders = hedging not conviction",
+        "Whale barbell strategy: buying both $1K dip AND $5K upside",
+        "Fed rate hike 48.5% by Sep (HAWKISH macro headwind)",
+        "11 API methods leveraged, 10 markets deep-scanned, 59 macro events"
+      ]
+    },
+    "news": {
+      "score": 6.5,
+      "weight": 0.18,
+      "signals": [
+        "$226M ETH ETF single-day inflow, nearly matching BTC (CRITICAL bullish)",
+        "Russia's Sberbank to accept ETH (institutional adoption)",
+        "21Shares Ethereum Staking ETF - SEC 8-K filing (staking ETF progress)",
+        "Saylor back to BTC buying (sector tailwind)",
+        "BTC ETF outflow $201M ended 9-day inflow streak (near-term headwind)",
+        "ETH deposit-contract overhaul drafted (protocol improvement)",
+        "News sentiment: 64% bullish on ETH, 55% bullish macro",
+        "2,635 news items analyzed across 178 hours from 15+ quality sources"
+      ]
+    },
+    "technical": {
+      "score": 5.5,
+      "weight": 0.05
+    }
+  },
+  "position": {
+    "asset": "ETH",
+    "direction": "LONG",
+    "blended_score": 7.45,
+    "confidence": "MODERATE",
+    "entry": {
+      "type": "MARKET",
+      "price": 2510,
+      "rationale": "Current price supported by $47M bid wall, vault consensus long, 52% Polymarket probability of $3K"
+    },
+    "take_profit": {
+      "primary_tp": 2800,
+      "rationale": "$2,800 = conservative target below $3K resistance. Polymarket shows 52% probability of $3K. Order book thins above $2,700.",
+      "extended_tp": 3000,
+      "extended_rationale": "Only if momentum continues. $3K is key Polymarket probability pivot (52%). Risk of reversal at this level."
+    },
+    "stop_loss": {
+      "price": 2380,
+      "rationale": "Below recent swing low. Polymarket shows only 17.5% probability of $1,750 dip. Funding is cheap (0.01%/8h). $130 risk per unit.",
+      "hard_sl": 2300,
+      "hard_rationale": "Emergency exit. Below this level, Polymarket dip probabilities start compounding."
+    },
+    "leverage": {
+      "recommended": "7x cross",
+      "rationale": "Cross margin preferred per vault consensus (whales use cross). 7x gives $3,500 effective exposure on $500.",
+      "liquidation_price_approx": 2150,
+      "margin_note": "Cross margin uses full $500 account as buffer. Liq price well below SL."
+    },
+    "risk_reward": {
+      "capital": 500,
+      "risk_usd": 181,
+      "risk_pct": 36.2,
+      "reward_usd": 404,
+      "reward_pct": 80.9,
+      "rr_ratio": 2.23,
+      "funding_cost_daily": 0.14,
+      "max_hold_days_before_funding_matters": 30
+    },
+    "signal_layers": {
+      "onchain": {
+        "score": 8.2,
+        "weight": "55%",
+        "top_signal": "$9.66M net inflow to ETH long vaults + drkmttr $27M all-long unhedged"
+      },
+      "polymarket": {
+        "score": 6.8,
+        "weight": "22%",
+        "top_signal": "52% probability $3K by Dec, dip fear FALLING -32% MoM"
+      },
+      "news": {
+        "score": 6.5,
+        "weight": "18%",
+        "top_signal": "$226M single-day ETH ETF inflow + Sberbank ETH acceptance"
+      },
+      "technical": {
+        "score": 5.5,
+        "weight": "5%",
+        "top_signal": "RSI neutral ~50, MACD flat, no strong directional signal"
+      }
+    },
+    "bull_case": [
+      "Vault whales $9.66M net long inflows = strongest onchain signal",
+      "52% Polymarket probability of $3K = above coin flip",
+      "$226M ETH ETF inflow = institutional demand surge",
+      "Dip fear fading (-32% MoM on $1.5K probability)",
+      "Sberbank ETH acceptance = new adoption vector",
+      "Funding cheap at 0.01% = no crowd leverage pressure",
+      "$47M vs $31M order book = 60/40 bid-heavy"
+    ],
+    "bear_case": [
+      "Fed rate hike 48.5% probability by Sep = hawkish headwind",
+      "BTC ETF outflow ended 9-day streak = risk-off signal",
+      "DeFi exploits (Cronos $75M, Moonwell $8.7M) = sector risk",
+      "Polymarket: only 27.5% probability of $3.5K = limited upside",
+      "Technical analysis flat (RSI ~50, MACD neutral)"
+    ],
+    "execution_notes": [
+      "Enter at market ~$2,510",
+      "Set SL at $2,380 immediately",
+      "Set TP at $2,800 as primary target",
+      "Monitor funding rate: if >0.05%/8h, tighten SL",
+      "Monitor BTC ETF flows daily: sustained outflows = tighten SL",
+      "Monitor Polymarket $3K probability: if drops below 40%, exit",
+      "If $2,800 hit, consider trailing stop to $2,650 and extend to $3,000"
+    ]
+  },
+  "data_files": {
+    "onchain_full": "data/eth_final_intel.json",
+    "onchain_closure": "data/onchain_closure.json",
+    "polymarket_basic": "data/polymarket_eth_intel.json",
+    "polymarket_deep": "data/polymarket_deep_intel.json",
+    "news_intel": "data/treeofalpha_news_intel.json",
+    "top3_analysis": "data/top3_trade_analysis.json"
+  }
+}

@@ -1,0 +1,503 @@
+{
+  "layer": "TREE_OF_ALPHA_NEWS_INTEL",
+  "extraction_date": "2026-08-30",
+  "api_methods_used": [
+    "REST /api/news"
+  ],
+  "coverage": {
+    "total_news_fetched": 2635,
+    "time_span_hours": 178,
+    "quality_sources": 11,
+    "eth_direct_news": 39,
+    "macro_crypto_news": 317,
+    "total_crypto_relevant": 356,
+    "high_impact_catalysts_72h": 128,
+    "source_breakdown": {
+      "cointelegraph": 112,
+      "decrypt": 100,
+      "the_block": 69,
+      "coindesk": 68,
+      "wsj": 40,
+      "bloomberg": 26,
+      "whitehouse": 20,
+      "sec_fillings": 17,
+      "forbes": 14
+    }
+  },
+  "sentiment_analysis": {
+    "eth_news": {
+      "total": 421,
+      "bullish": 85,
+      "bearish": 48,
+      "neutral": 288,
+      "sentiment_ratio": 0.64,
+      "interpretation": "64% bullish among opinionated ETH news -- mildly bullish"
+    },
+    "macro_crypto": {
+      "total": 1101,
+      "bullish": 204,
+      "bearish": 167,
+      "neutral": 730,
+      "sentiment_ratio": 0.55,
+      "interpretation": "55% bullish macro sentiment -- barely positive, nearly neutral"
+    },
+    "catalyst_scoring": {
+      "bullish_weight": 41,
+      "bearish_weight": 25,
+      "neutral_weight": 4,
+      "bull_pct": 58.6,
+      "bear_pct": 35.7
+    }
+  },
+  "key_catalysts": [
+    {
+      "headline": "Russia's largest bank Sberbank plans to accept BTC, ETH and USDT",
+      "impact": "HIGH",
+      "sentiment": "BULLISH",
+      "weight": 8,
+      "reason": "Top 3 global bank adding ETH payments = massive adoption signal"
+    },
+    {
+      "headline": "Cronos network halts after Tectonic exploit estimated at $75M",
+      "impact": "HIGH",
+      "sentiment": "BEARISH",
+      "weight": 6,
+      "reason": "DeFi exploit highlights sector risk, but not ETH-specific"
+    },
+    {
+      "headline": "Saylor signals Strategy is 'Back' to Bitcoin buying",
+      "impact": "HIGH",
+      "sentiment": "BULLISH",
+      "weight": 7,
+      "reason": "BTC accumulation lifts entire crypto sector including ETH"
+    },
+    {
+      "headline": "Bitcoin ETFs end 9-day inflow streak as BTC dips below $78K",
+      "impact": "HIGH",
+      "sentiment": "BEARISH",
+      "weight": 7,
+      "reason": "ETF outflow signals institutional risk-off, affects ETH correlation"
+    },
+    {
+      "headline": "BTC ETF flows -$201M (Aug 28)",
+      "impact": "MEDIUM",
+      "sentiment": "BEARISH",
+      "weight": 5,
+      "reason": "Single-day outflow but within normal volatility range"
+    },
+    {
+      "headline": "Ethereum researchers draft deposit-contract overhaul to prevent replay attacks",
+      "impact": "MEDIUM",
+      "sentiment": "BULLISH",
+      "weight": 6,
+      "reason": "Protocol-level improvement shows active development"
+    },
+    {
+      "headline": "Moonwell DeFi exploit $8.7M on Base (L2)",
+      "impact": "MEDIUM",
+      "sentiment": "BEARISH",
+      "weight": 4,
+      "reason": "Small exploit on L2, contained impact"
+    },
+    {
+      "headline": "Bitcoin rally backed by solid spot support (QCP Capital)",
+      "impact": "MEDIUM",
+      "sentiment": "BULLISH",
+      "weight": 6,
+      "reason": "BTC spot demand confirms broader crypto strength"
+    },
+    {
+      "headline": "Circle partners with Chelsea FC as main shirt sponsor",
+      "impact": "MEDIUM",
+      "sentiment": "BULLISH",
+      "weight": 5,
+      "reason": "USDC/stablecoin mainstream adoption, positive for DeFi/ETH ecosystem"
+    },
+    {
+      "headline": "SBI Holdings invests $270M in Indonesian crypto exchange",
+      "impact": "MEDIUM",
+      "sentiment": "BULLISH",
+      "weight": 5,
+      "reason": "Asian institutional capital flowing into crypto infrastructure"
+    },
+    {
+      "headline": "Polish PM seeks fresh vote on vetoed crypto bill",
+      "impact": "MEDIUM",
+      "sentiment": "NEUTRAL",
+      "weight": 4,
+      "reason": "European regulatory uncertainty, could go either way"
+    },
+    {
+      "headline": "Hyperliquid: Permissionless HIP-4 deployments to be enabled",
+      "impact": "MEDIUM",
+      "sentiment": "BULLISH",
+      "weight": 4,
+      "reason": "Trading infrastructure improvement on key ETH-adjacent DEX"
+    },
+    {
+      "headline": "Fogo blockchain halted after 400M token attack",
+      "impact": "MEDIUM",
+      "sentiment": "BEARISH",
+      "weight": 3,
+      "reason": "Chain halt on alternative L1, not ETH but adds sector caution"
+    }
+  ],
+  "top_eth_headlines": [
+    {
+      "title": "CROWDFUNDINSIDER: DeFi Development Corp. Unveils Real-Time Dashboard Tracking Solana (SOL) Network Health",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-29 22:30",
+      "url": "https://www.crowdfundinsider.com/2026/08/302634-defi-development-corp-unveils-real-time-dashboard-tracking-solana-sol-network-health",
+      "symbols": [
+        "SOL_USDT",
+        "SOL_BTC"
+      ]
+    },
+    {
+      "title": "DECRYPT: Charles Schwab Expands Crypto Trading Beyond Bitcoin and Ethereum",
+      "source": "DECRYPT",
+      "time": "2026-08-28 16:39",
+      "url": "https://decrypt.co/376819",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: Ethereum ETFs Take $226M in a Day, Almost Matching Bitcoin's Haul",
+      "source": "DECRYPT",
+      "time": "2026-08-28 14:17",
+      "url": "https://decrypt.co/376810",
+      "symbols": []
+    },
+    {
+      "title": "CROWDFUNDINSIDER: Ethereum (ETH) Researchers Draft a Deposit-Contract Overhaul to Prepare Staking for Quantum-Resistant Keys",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-28 13:31",
+      "url": "https://www.crowdfundinsider.com/2026/08/302639-ethereum-eth-researchers-draft-a-deposit-contract-overhaul-to-prepare-staking-for-quantum-resistant-keys",
+      "symbols": []
+    },
+    {
+      "title": "CROWDFUNDINSIDER: DeFi Exploit : Moonwell Freezes Base Borrowing After $8.7M MAMO Price-Manipulation Incident",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-28 12:27",
+      "url": "https://www.crowdfundinsider.com/2026/08/302632-defi-exploit-moonwell-freezes-base-borrowing-after-8-7m-mamo-price-manipulation-incident",
+      "symbols": []
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - Grayscale Ethereum Classic Trust (ETC) (0001705181) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-27 20:06",
+      "url": "https://www.sec.gov/Archives/edgar/data/1705181/000119312526371263/0001193125-26-371263-index.htm",
+      "symbols": [
+        "ETC_USDT",
+        "ETC_BTC"
+      ]
+    },
+    {
+      "title": "DECRYPT: No, Ledger Wasn\u2019t Hacked: Vulnerable Ethereum App Was Patched Before Exploit, Company Says",
+      "source": "DECRYPT",
+      "time": "2026-08-27 18:16",
+      "url": "https://decrypt.co/376750/no-ledger-wasnt-hacked-ethereum-app-exploit",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: No, Ledger Wasn't Hacked: Vulnerable Ethereum App Was Patched Before Exploit, Company Says",
+      "source": "DECRYPT",
+      "time": "2026-08-27 18:16",
+      "url": "https://decrypt.co/376750",
+      "symbols": []
+    },
+    {
+      "title": "THE BLOCK: DeFi Development Corp resumes Solana purchases, acquiring nearly 20,000 SOL",
+      "source": "THE BLOCK",
+      "time": "2026-08-27 15:31",
+      "url": "https://www.theblock.co/news/business/2026-08-27-defi-development-resumes-solana-purchases-acquiring-nearly-20000-sol-412932",
+      "symbols": [
+        "THE_USDT",
+        "SOL_USDT",
+        "SOL_BTC"
+      ]
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - DeFi Development Corp. (0001805526) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-27 12:42",
+      "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000058/0001805526-26-000058-index.htm",
+      "symbols": []
+    },
+    {
+      "title": "COINDESK: Bitcoin experts prefer this defined-risk strategy for the next leg higher in prices",
+      "source": "COINDESK",
+      "time": "2026-08-27 11:15",
+      "url": "https://www.coindesk.com/daybook-us/2026/08/27/bitcoin-experts-prefer-this-defined-risk-strategy-for-the-next-leg-higher-in-prices",
+      "symbols": []
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - 21Shares Hyperliquid Staking ETF (0002090011) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-26 20:22",
+      "url": "https://www.sec.gov/Archives/edgar/data/2090011/000121390026093988/0001213900-26-093988-index.htm",
+      "symbols": []
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - 21Shares Polkadot Staking ETF (0002054247) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-26 20:15",
+      "url": "https://www.sec.gov/Archives/edgar/data/2054247/000121390026093977/0001213900-26-093977-index.htm",
+      "symbols": []
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - 21Shares Solana Staking ETF (0002028834) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-26 20:14",
+      "url": "https://www.sec.gov/Archives/edgar/data/2028834/000121390026093971/0001213900-26-093971-index.htm",
+      "symbols": []
+    },
+    {
+      "title": "SEC FILLINGS: 8-K - 21Shares Ethereum Staking ETF (0001992508) (Filer)",
+      "source": "SEC FILLINGS",
+      "time": "2026-08-26 20:13",
+      "url": "https://www.sec.gov/Archives/edgar/data/1992508/000121390026093968/0001213900-26-093968-index.htm",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: Galaxy Opens Retail Crypto-Backed Credit Lines on Bitcoin, Ethereum and Solana",
+      "source": "DECRYPT",
+      "time": "2026-08-26 19:56",
+      "url": "https://decrypt.co/376646",
+      "symbols": []
+    },
+    {
+      "title": "CROWDFUNDINSIDER: Galaxy Digital Rolls Out Retail Crypto Credit Line Backed by Bitcoin, Ethereum, Solana",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-26 18:08",
+      "url": "https://www.crowdfundinsider.com/2026/08/301800-galaxy-digital-rolls-out-retail-crypto-credit-line-backed-by-bitcoin-ethereum-solana",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: Ethereum Devs Propose Deposit Contract Overhaul to Quantum-Proof Staking",
+      "source": "DECRYPT",
+      "time": "2026-08-26 15:04",
+      "url": "https://decrypt.co/376599",
+      "symbols": []
+    },
+    {
+      "title": "THE BLOCK: SOL treasury firm DeFi Development launches real-time 'State of Solana' intelligence platform",
+      "source": "THE BLOCK",
+      "time": "2026-08-26 14:06",
+      "url": "https://www.theblock.co/news/markets/2026-08-26-sol-treasury-firm-defi-development-launches-real-time-state-of-solana-intelligence-platform-412798",
+      "symbols": [
+        "THE_USDT",
+        "SOL_USDT",
+        "SOL_BTC"
+      ]
+    },
+    {
+      "title": "COINDESK: Ethereum developers propose first step to protect ETH staking from quantum attacks",
+      "source": "COINDESK",
+      "time": "2026-08-26 13:30",
+      "url": "https://www.coindesk.com/tech/2026/08/26/ethereum-developers-propose-first-step-to-protect-eth-staking-from-quantum-attacks",
+      "symbols": []
+    }
+  ],
+  "top_macro_headlines": [
+    {
+      "title": "DECRYPT: Strategy\u2019s Bitcoin Is $2.8 Billion in Profit\u2014Is Saylor Teeing Up a Buy?",
+      "source": "DECRYPT",
+      "time": "2026-08-30 19:40",
+      "url": "https://decrypt.co/376884/strategy-bitcoin-2-8-billion-profit-saylor-btc-buy",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: Strategy's Bitcoin Is $2.8 Billion in Profit\u2014Is Saylor Teeing Up a Buy?",
+      "source": "DECRYPT",
+      "time": "2026-08-30 19:39",
+      "url": "https://decrypt.co/376884",
+      "symbols": []
+    },
+    {
+      "title": "THE BLOCK: Crypto.com-linked Cronos network halts after Tectonic exploit estimated at $75 million",
+      "source": "THE BLOCK",
+      "time": "2026-08-30 18:39",
+      "url": "https://www.theblock.co/news/defi/2026-08-30-crypto-com-linked-cronos-network-halts-after-tectonic-exploit-estimated-at-75-million-413069",
+      "symbols": [
+        "THE_USDT"
+      ]
+    },
+    {
+      "title": "COINTELEGRAPH: Saylor signals Strategy is 'Back' to Bitcoin buying",
+      "source": "COINTELEGRAPH",
+      "time": "2026-08-30 17:58",
+      "url": "https://cointelegraph.com/news/saylor-signals-strategy-is-back-to-bitcoin-buying",
+      "symbols": []
+    },
+    {
+      "title": "THE BLOCK: Chainalysis accuses ICE of unfairly steering $95 million blockchain contract to TRM Labs",
+      "source": "THE BLOCK",
+      "time": "2026-08-30 17:51",
+      "url": "https://www.theblock.co/news/business/2026-08-30-chainalysis-accuses-ice-of-unfairly-steering-95-million-blockchain-contract-to-trm-labs-413066",
+      "symbols": [
+        "THE_USDT"
+      ]
+    },
+    {
+      "title": "COINDESK: A $1.1 million crypto card hack crashed a neobank's token 49%",
+      "source": "COINDESK",
+      "time": "2026-08-29 23:49",
+      "url": "https://www.coindesk.com/web3/2026/08/29/a-usd1-1-million-crypto-card-hack-crashed-a-neobank-s-token-49",
+      "symbols": []
+    },
+    {
+      "title": "CROWDFUNDINSIDER: Polish PM Donald Tusk Seeks Fresh Vote on Vetoed Crypto Bill as Zondacrypto Probe Widens",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-29 22:29",
+      "url": "https://www.crowdfundinsider.com/2026/08/303106-polish-pm-donald-tusk-seeks-fresh-vote-on-vetoed-crypto-bill-as-zondacrypto-probe-widens",
+      "symbols": []
+    },
+    {
+      "title": "THE BLOCK: Layer 1 blockchain Fogo halts mainnet after attacker receives 400 million FOGO tokens, 10% of circulating supply",
+      "source": "THE BLOCK",
+      "time": "2026-08-29 21:15",
+      "url": "https://www.theblock.co/news/defi/2026-08-29-layer-1-blockchain-fogo-halts-mainnet-after-attacker-receives-400-million-fogo-tokens-10-of-circulating-supply-413064",
+      "symbols": [
+        "THE_USDT",
+        "FOGO_USDT"
+      ]
+    },
+    {
+      "title": "COINTELEGRAPH: Polygon discloses security flaws fixed in recent hard forks",
+      "source": "COINTELEGRAPH",
+      "time": "2026-08-29 20:28",
+      "url": "https://cointelegraph.com/news/polygon-discloses-security-flaws-fixed-in-recent-hard-forks",
+      "symbols": []
+    },
+    {
+      "title": "DECRYPT: Bitcoin's Oldest Coins Are Waking Up in 2026 at a Pace Rarely Seen",
+      "source": "DECRYPT",
+      "time": "2026-08-29 15:31",
+      "url": "https://decrypt.co/376866",
+      "symbols": []
+    },
+    {
+      "title": "COINDESK: The next trillion-dollar currency may not be a stablecoin \u2014 it might not even have a name yet",
+      "source": "COINDESK",
+      "time": "2026-08-29 15:00",
+      "url": "https://www.coindesk.com/business/2026/08/29/the-next-trillion-dollar-currency-may-not-be-a-stablecoin-it-might-not-even-have-a-name-yet",
+      "symbols": []
+    },
+    {
+      "title": "COINDESK: Swift's $1.5 quadrillion network faces a blockchain test",
+      "source": "COINDESK",
+      "time": "2026-08-29 15:00",
+      "url": "https://www.coindesk.com/business/2026/08/29/swift-s-usd1-5-quadrillion-network-faces-a-blockchain-test",
+      "symbols": []
+    },
+    {
+      "title": "FORBES: 'Get Ready'\u2014Bitcoin Is Suddenly Hurtling Toward A 'Huge' Money Printing Price Shock",
+      "source": "FORBES",
+      "time": "2026-08-29 12:51",
+      "url": "https://www.forbes.com/sites/digital-assets/2026/08/29/get-ready-bitcoin-is-suddenly-hurtling-toward-a-huge-money-printing-price-shock",
+      "symbols": []
+    },
+    {
+      "title": "COINTELEGRAPH: Stablecoins not credible for payments at scale, BIS chief says",
+      "source": "COINTELEGRAPH",
+      "time": "2026-08-29 08:01",
+      "url": "https://cointelegraph.com/news/stablecoins-not-credible-payments-scale-bis-chief",
+      "symbols": []
+    },
+    {
+      "title": "COINTELEGRAPH: Bitcoin ETFs end 9-day inflow streak as BTC dips below $78K",
+      "source": "COINTELEGRAPH",
+      "time": "2026-08-29 06:47",
+      "url": "https://cointelegraph.com/news/bitcoin-etf-end-9-day-inflow-streak-btc-below-78k",
+      "symbols": []
+    },
+    {
+      "title": "BLOOMBERG: Reform UK Seeks to Play Down Crypto, Show Off Diplomatic Clout",
+      "source": "BLOOMBERG",
+      "time": "2026-08-29 04:24",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-29/reform-uk-seeks-to-play-down-crypto-show-off-diplomatic-clout",
+      "symbols": []
+    },
+    {
+      "title": "CROWDFUNDINSIDER: Evernorth's SEC Registration Takes Effect, Opening Path to Nasdaq Listing as XRP Treasury Firmhttps",
+      "source": "CROWDFUNDINSIDER",
+      "time": "2026-08-28 21:56",
+      "url": "https://www.crowdfundinsider.com/2026/08/302653-evernorths-sec-registration-takes-effect-opening-path-to-nasdaq-listing-as-xrp-treasury-firm",
+      "symbols": [
+        "XRP_USDT",
+        "XRP_BTC"
+      ]
+    },
+    {
+      "title": "DECRYPT: Bitcoin Rally Stalls, But Long-Term Sentiment Remains Bullish",
+      "source": "DECRYPT",
+      "time": "2026-08-28 21:16",
+      "url": "https://decrypt.co/376846",
+      "symbols": []
+    },
+    {
+      "title": "WSJ: Bitcoin Treasury Corporation Reports Q2 2026 Financial Results",
+      "source": "WSJ",
+      "time": "2026-08-28 20:59",
+      "url": "https://www.wsj.com/articles/bitcoin-treasury-corporation-reports-q2-2026-financial-results-bef682f7/#",
+      "symbols": []
+    },
+    {
+      "title": "COINTELEGRAPH: Chelsea FC gets a stablecoin sponsor after UK FCA warning to clubs",
+      "source": "COINTELEGRAPH",
+      "time": "2026-08-28 17:46",
+      "url": "https://cointelegraph.com/news/chelsea-football-circle-sponsor-fca-warning-questionable-deals",
+      "symbols": []
+    }
+  ],
+  "category_distribution": {
+    "adoption": {
+      "total": 384,
+      "eth_direct": 128
+    },
+    "regulation": {
+      "total": 594,
+      "eth_direct": 192
+    },
+    "defi_staking": {
+      "total": 241,
+      "eth_direct": 177
+    },
+    "l2_scaling": {
+      "total": 246,
+      "eth_direct": 79
+    },
+    "whale_flow": {
+      "total": 444,
+      "eth_direct": 157
+    },
+    "exploit_risk": {
+      "total": 86,
+      "eth_direct": 41
+    },
+    "price_action": {
+      "total": 415,
+      "eth_direct": 137
+    },
+    "upgrade_tech": {
+      "total": 218,
+      "eth_direct": 104
+    }
+  },
+  "composite_score": {
+    "news_signal_score": 5.9,
+    "direction": "MILDLY BULLISH",
+    "confidence": "MODERATE",
+    "scoring_method": "Weighted catalyst impact (HIGH=7-8w, MEDIUM=4-6w), bull/bear ratio normalized to 0-10",
+    "key_signals": [
+      "Sberbank ETH acceptance = strongest single bullish catalyst (w=8)",
+      "BTC ETF outflow streak end = near-term headwind (w=7) but contained",
+      "Saylor back to buying = sector-level bullish (w=7)",
+      "DeFi exploits (Cronos $75M, Moonwell $8.7M) = risk factor but not ETH-specific",
+      "ETH protocol improvements active (deposit contract overhaul)",
+      "Asian institutional flows ($270M SBI) = long-term bullish infrastructure",
+      "News flow 64% bullish on ETH, 55% bullish on macro = modest positive sentiment",
+      "No major negative ETH-specific catalysts in 7-day window"
+    ]
+  }
+}
