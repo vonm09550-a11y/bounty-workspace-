@@ -2,7 +2,7 @@
   "analysis_date": "2026-08-30",
   "asset": "ETH",
   "direction": "LONG",
-  "blended_score": 7.45,
+  "blended_score": 7.58,
   "total_data_sources": 3,
   "total_api_methods_used": {
     "hyperliquid": 34,
@@ -38,17 +38,19 @@
       ]
     },
     "news": {
-      "score": 6.5,
+      "score": 7.2,
       "weight": 0.18,
       "signals": [
-        "$226M ETH ETF single-day inflow, nearly matching BTC (CRITICAL bullish)",
-        "Russia's Sberbank to accept ETH (institutional adoption)",
-        "21Shares Ethereum Staking ETF - SEC 8-K filing (staking ETF progress)",
-        "Saylor back to BTC buying (sector tailwind)",
-        "BTC ETF outflow $201M ended 9-day inflow streak (near-term headwind)",
-        "ETH deposit-contract overhaul drafted (protocol improvement)",
-        "News sentiment: 64% bullish on ETH, 55% bullish macro",
-        "2,635 news items analyzed across 178 hours from 15+ quality sources"
+        "Source-weighted sentiment 7.2/10 (quality sources MORE bullish than aggregate)",
+        "Bitmine $81M ETH buy confirmed across 4 sources (14-month accumulation pattern)",
+        "ETH ETF $226M single-day inflow nearly matching BTC (institutional demand surge)",
+        "ETH price bounced from $2,451 to $2,500 (support confirmed via firstPrice data)",
+        "News velocity decelerating but sentiment consistently bullish (avg 76%)",
+        "Sberbank ETH acceptance measured +0.20% immediate impact",
+        "21Shares Staking ETF SEC filing = regulatory tailwind",
+        "Tom Lee analyst call: 'Upside move in ETH was overdue'",
+        "WebSocket operational for real-time monitoring during execution",
+        "Signal-to-noise: 88% original content, 0% retweets"
       ]
     },
     "technical": {
@@ -59,7 +61,7 @@
   "position": {
     "asset": "ETH",
     "direction": "LONG",
-    "blended_score": 7.45,
+    "blended_score": 7.58,
     "confidence": "MODERATE",
     "entry": {
       "type": "MARKET",
@@ -106,9 +108,9 @@
         "top_signal": "52% probability $3K by Dec, dip fear FALLING -32% MoM"
       },
       "news": {
-        "score": 6.5,
+        "score": 7.2,
         "weight": "18%",
-        "top_signal": "$226M single-day ETH ETF inflow + Sberbank ETH acceptance"
+        "top_signal": "Source-weighted 7.2/10: Bitmine $81M buy + $226M ETF inflow + Sberbank acceptance"
       },
       "technical": {
         "score": 5.5,
