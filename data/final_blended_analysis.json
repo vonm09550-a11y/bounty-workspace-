@@ -2,13 +2,14 @@
   "analysis_date": "2026-08-30",
   "asset": "ETH",
   "direction": "LONG",
-  "blended_score": 7.58,
-  "total_data_sources": 3,
+  "blended_score": 7.64,
+  "total_data_sources": 4,
   "total_api_methods_used": {
-    "hyperliquid": 34,
+    "hyperliquid": 35,
     "polymarket": 11,
     "treeofalpha": 1,
-    "total": 46
+    "technical": 10,
+    "total": 57
   },
   "signal_layers": {
     "onchain": {
@@ -54,8 +55,20 @@
       ]
     },
     "technical": {
-      "score": 5.5,
-      "weight": 0.05
+      "score": 6.7,
+      "weight": 0.05,
+      "signals": [
+        "EMA aligned bullish on ALL 4 timeframes (1d/4h/1h/15m)",
+        "Price above SMA200 and VWAP on all timeframes",
+        "4h Bollinger Band SQUEEZE -- pending breakout setup",
+        "MACD bullish on 3/4 timeframes",
+        "1d ADX 45.63 = strong established uptrend",
+        "1d RSI 72.8 = OVERBOUGHT (primary technical risk)",
+        "1h RSI cooling from 86 to 65 = healthy pullback",
+        "1d ATR $93.72 validates SL placement at 1.3x ATR",
+        "730 candles analyzed across 4 timeframes",
+        "10 indicators deployed: RSI, MACD, BB, ATR, VWAP, EMA, SMA, ADX"
+      ]
     }
   },
   "position": {
@@ -113,9 +126,9 @@
         "top_signal": "Source-weighted 7.2/10: Bitmine $81M buy + $226M ETF inflow + Sberbank acceptance"
       },
       "technical": {
-        "score": 5.5,
+        "score": 6.7,
         "weight": "5%",
-        "top_signal": "RSI neutral ~50, MACD flat, no strong directional signal"
+        "top_signal": "All 4 TFs EMA-aligned bullish, 4h BB squeeze pending breakout, 1d RSI overbought caution"
       }
     },
     "bull_case": [
@@ -132,7 +145,7 @@
       "BTC ETF outflow ended 9-day streak = risk-off signal",
       "DeFi exploits (Cronos $75M, Moonwell $8.7M) = sector risk",
       "Polymarket: only 27.5% probability of $3.5K = limited upside",
-      "Technical analysis flat (RSI ~50, MACD neutral)"
+      "Daily RSI 72.8 overbought -- risk of brief pullback to $2,450 before continuation"
     ],
     "execution_notes": [
       "Enter at market ~$2,510",
@@ -150,6 +163,7 @@
     "polymarket_basic": "data/polymarket_eth_intel.json",
     "polymarket_deep": "data/polymarket_deep_intel.json",
     "news_intel": "data/treeofalpha_news_intel.json",
-    "top3_analysis": "data/top3_trade_analysis.json"
+    "top3_analysis": "data/top3_trade_analysis.json",
+    "technical_analysis": "data/technical_analysis_intel.json"
   }
 }

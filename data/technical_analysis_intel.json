@@ -1,0 +1,277 @@
+{
+  "analysis_date": "2026-08-30",
+  "asset": "ETH",
+  "current_price": 2505.1,
+  "data_source": "Hyperliquid SDK candles_snapshot",
+  "timeframes_analyzed": 4,
+  "total_candles": 730,
+  "methods_used": [
+    "candles_snapshot (4 timeframes)",
+    "score_technical",
+    "rsi",
+    "macd",
+    "bollinger_bands",
+    "atr",
+    "vwap",
+    "ema",
+    "sma",
+    "adx_derived"
+  ],
+  "multi_timeframe": {
+    "1h": {
+      "candles": 169,
+      "span": "7 days",
+      "bias": "LONG",
+      "raw_score": "2/6",
+      "score_10": 6.7,
+      "rsi": 65.65,
+      "macd_histogram": 4.4,
+      "macd_signal": "bullish",
+      "bb_position": 0.819,
+      "ema_20": 2480.99,
+      "ema_50": 2469.19,
+      "ema_9": 2496.24,
+      "sma_200": 2472.12,
+      "ema_alignment": "bullish (price > EMA20 > EMA50)",
+      "above_sma200": true,
+      "atr": 14.68,
+      "atr_pct": 0.59,
+      "vwap": 2481.43,
+      "above_vwap": true,
+      "adx": 43.25,
+      "adx_interpretation": "strong trend",
+      "vol_ratio": 0.46,
+      "vol_interpretation": "below average",
+      "bb_width": 0.039,
+      "bb_squeeze": false,
+      "price_range": {
+        "high": 2566.4,
+        "low": 2405.4,
+        "range_pct": 6.69
+      },
+      "rsi_trajectory": [
+        86.26,
+        68.73,
+        69.98,
+        65.55,
+        65.65
+      ],
+      "rsi_note": "Cooling from overbought 86 to neutral 65 -- healthy pullback"
+    },
+    "15m": {
+      "candles": 289,
+      "span": "3 days",
+      "bias": "NEUTRAL",
+      "raw_score": "0/6",
+      "score_10": 5.0,
+      "rsi": 54.51,
+      "macd_histogram": -2.4,
+      "macd_signal": "bearish (short-term consolidation)",
+      "bb_position": 0.405,
+      "ema_20": 2502.9,
+      "ema_50": 2488.47,
+      "ema_alignment": "bullish (price > EMA20 > EMA50)",
+      "above_sma200": true,
+      "sma_200": 2453.73,
+      "atr": 8.82,
+      "vwap": 2478.07,
+      "above_vwap": true,
+      "adx": 28.89,
+      "adx_interpretation": "moderate trend",
+      "vol_ratio": 0.41,
+      "bb_width": 0.0175,
+      "bb_squeeze": false
+    },
+    "4h": {
+      "candles": 181,
+      "span": "30 days",
+      "bias": "LONG",
+      "raw_score": "2/6",
+      "score_10": 6.7,
+      "rsi": 63.07,
+      "macd_histogram": 3.67,
+      "macd_signal": "bullish",
+      "bb_position": 0.834,
+      "ema_20": 2469.66,
+      "ema_50": 2425.03,
+      "ema_alignment": "bullish (price > EMA20 > EMA50)",
+      "above_sma200": true,
+      "sma_200": 2096.96,
+      "atr": 29.11,
+      "atr_pct": 1.16,
+      "vwap": 2191.74,
+      "above_vwap": true,
+      "adx": 23.63,
+      "adx_interpretation": "emerging trend",
+      "vol_ratio": 0.12,
+      "bb_width": 0.0446,
+      "bb_squeeze": true,
+      "bb_squeeze_note": "Volatility compression on 4h = pending breakout setup",
+      "rsi_trajectory": [
+        49.47,
+        51.15,
+        57.28,
+        63.0,
+        63.07
+      ],
+      "rsi_note": "Rising from neutral to bullish -- building momentum"
+    },
+    "1d": {
+      "candles": 91,
+      "span": "90 days",
+      "bias": "NEUTRAL",
+      "raw_score": "0/6",
+      "score_10": 5.0,
+      "rsi": 72.76,
+      "rsi_note": "OVERBOUGHT -- caution on daily, but EMA/MACD still bullish",
+      "macd_histogram": 16.75,
+      "macd_signal": "bullish (strong)",
+      "bb_position": 0.747,
+      "ema_20": 2287.02,
+      "ema_50": 2086.72,
+      "ema_alignment": "bullish (price > EMA20 > EMA50)",
+      "above_sma200": true,
+      "sma_200": 1877.22,
+      "atr": 93.72,
+      "atr_pct": 3.74,
+      "vwap": 1901.16,
+      "above_vwap": true,
+      "adx": 45.63,
+      "adx_interpretation": "STRONG established trend",
+      "vol_ratio": 0.52,
+      "price_range": {
+        "high": 2566.4,
+        "low": 1504.4,
+        "range_pct": 70.59
+      },
+      "rsi_trajectory": [
+        77.26,
+        77.39,
+        70.02,
+        70.69,
+        72.76
+      ],
+      "rsi_note_detail": "Hovering at overbought boundary since breakout from $1,800 range"
+    }
+  },
+  "synthesis": {
+    "structure": {
+      "rating": "STRONG BULLISH",
+      "evidence": [
+        "EMA aligned bullish on ALL 4 timeframes (9 > 20 > 50)",
+        "Price above SMA200 on ALL 4 timeframes",
+        "Price above VWAP on ALL 4 timeframes",
+        "Price $2,505 is +33.5% above 1d SMA200 ($1,877)"
+      ]
+    },
+    "momentum": {
+      "rating": "BULLISH WITH CAUTION",
+      "evidence": [
+        "MACD bullish on 3/4 timeframes (bearish only on 15m = short-term consolidation)",
+        "1d MACD histogram +16.75 = strong bullish momentum",
+        "1d RSI 72.8 = OVERBOUGHT (primary risk signal)",
+        "1h RSI cooling from 86 to 65 = healthy overbought relief",
+        "4h RSI rising from 49 to 63 = building momentum"
+      ]
+    },
+    "volatility": {
+      "rating": "BREAKOUT SETUP",
+      "evidence": [
+        "4h Bollinger Band SQUEEZE detected (width below 50-period avg)",
+        "1h ATR $14.68 (0.59%) = tight intraday range",
+        "1d ATR $93.72 (3.74%) = ~$94 daily expected move",
+        "BB squeeze on 4h with bullish structure = high probability upside breakout"
+      ]
+    },
+    "volume": {
+      "rating": "BELOW AVERAGE",
+      "evidence": [
+        "Volume ratio below 1.0 on all timeframes (0.12 to 0.52)",
+        "Low volume in uptrend = lack of new conviction BUT also no distribution",
+        "Weekend/off-hours factor may depress volume readings"
+      ]
+    },
+    "trend_strength": {
+      "rating": "STRONG",
+      "evidence": [
+        "1h ADX 43.25 = strong trend",
+        "1d ADX 45.63 = very strong established trend",
+        "4h ADX 23.63 = emerging trend (not fully developed on intermediate TF)",
+        "15m ADX 28.89 = moderate trend"
+      ]
+    }
+  },
+  "key_levels": {
+    "immediate_resistance": 2530.0,
+    "resistance_note": "Recent 1h rejection zone, price bounced from 2530 to 2505",
+    "key_resistance": 2566.4,
+    "key_resistance_note": "7-day and 30-day high",
+    "immediate_support": 2480.0,
+    "support_note": "1h EMA20 ($2,481) and VWAP ($2,481)",
+    "key_support": 2453.7,
+    "key_support_note": "15m SMA200 and 4h recent swing low"
+  },
+  "risk_flags": [
+    "Daily RSI 72.8 = overbought -- pullback to $2,400-$2,450 zone possible before continuation",
+    "Volume below average on all timeframes -- uptrend needs volume confirmation",
+    "Price near upper BB on 1h (0.82) and 4h (0.83) -- short-term mean reversion risk",
+    "1d ATR $93.72 validates SL at $2,380 (within 1.3 ATR from entry)"
+  ],
+  "confluence_signals": [
+    "4/4 timeframes: EMA aligned bullish",
+    "4/4 timeframes: above SMA200",
+    "4/4 timeframes: above VWAP",
+    "3/4 timeframes: MACD bullish",
+    "2/4 timeframes: ADX > 40 (strong trend)",
+    "1/4 timeframes: Bollinger squeeze (4h breakout setup)",
+    "1/4 timeframes: RSI overbought (1d caution)"
+  ],
+  "scoring": {
+    "timeframe_scores": {
+      "1d": {
+        "score": 5.0,
+        "weight": 0.35,
+        "contribution": 1.75
+      },
+      "4h": {
+        "score": 6.7,
+        "weight": 0.3,
+        "contribution": 2.01
+      },
+      "1h": {
+        "score": 6.7,
+        "weight": 0.25,
+        "contribution": 1.675
+      },
+      "15m": {
+        "score": 5.0,
+        "weight": 0.1,
+        "contribution": 0.5
+      }
+    },
+    "base_weighted": 5.94,
+    "structural_bonus": 0.5,
+    "structural_bonus_reason": "All 4 TFs above SMA200+VWAP, perfect EMA alignment",
+    "vwap_bonus": 0.3,
+    "vwap_bonus_reason": "Price above VWAP on all timeframes = institutional buyers supporting",
+    "squeeze_bonus": 0.3,
+    "squeeze_bonus_reason": "4h BB squeeze with bullish structure = high prob breakout",
+    "volume_penalty": -0.3,
+    "volume_penalty_reason": "Below-average volume on all timeframes",
+    "overbought_penalty": 0.0,
+    "overbought_note": "Already captured in 1d raw score (RSI 72.8 triggered -2 in score_technical)",
+    "final_score": 6.74,
+    "final_score_rounded": 6.7,
+    "bias": "LONG",
+    "confidence": "MODERATE-HIGH"
+  },
+  "position_implications": {
+    "entry_validation": "CONFIRMED -- structure supports $2,510 entry, price above all key MAs",
+    "sl_validation": "CONFIRMED -- SL $2,380 is 1.3x daily ATR below entry, below key support",
+    "tp_validation": "CONFIRMED -- TP $2,800 is 3.1x daily ATR above entry, achievable given 4h breakout setup",
+    "timing_note": "4h BB squeeze suggests breakout within 24-48h. 1d RSI overbought may cause brief dip to $2,450-$2,480 before upside continuation.",
+    "optimal_entry": "Limit at $2,480 (VWAP/EMA20 confluence) for better R:R, or market at current $2,505 if breakout imminent"
+  },
+  "signal_score": "6.7/10",
+  "signal_interpretation": "Structurally bullish across all timeframes. MACD confirms momentum. 4h BB squeeze = pending breakout. Daily RSI overbought is the primary risk -- expect brief consolidation before continuation. Volume needs to confirm any breakout above $2,530."
+}
