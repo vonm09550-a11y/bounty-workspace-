@@ -1,0 +1,147 @@
+{
+  "analysis_date": "2026-08-30",
+  "asset": "ETH",
+  "direction": "LONG",
+  "status": "ALL HYPERLIQUID SDK SOURCES EXHAUSTED",
+  "sources_executed": {
+    "main_9": [
+      "S2_funding",
+      "S5_orderbook",
+      "S8_historical_orders",
+      "S9_ledger",
+      "S12_technicals",
+      "S14_twap",
+      "S16_vaults",
+      "S18_open_orders",
+      "S19_fees"
+    ],
+    "narrowing_6": [
+      "S3_portfolio",
+      "S6_correlation",
+      "S10_funding_cost",
+      "S15_subaccounts",
+      "S17_agents",
+      "S20_vault_equities"
+    ],
+    "eth_deep_6": [
+      "SA_fills",
+      "SB_portfolio_pnl",
+      "SC_spot",
+      "SD_live_trades_ws",
+      "SE_live_oi_ws",
+      "SF_basis"
+    ],
+    "final_closure": [
+      "S5_deep_orderbook_profiling",
+      "S12_multi_timeframe_candles",
+      "meta_asset_ctxs_live",
+      "funding_24h_granular",
+      "user_rate_limit_whales",
+      "user_role_whales",
+      "open_orders_basic",
+      "query_order_by_oid",
+      "ws_l2book",
+      "ws_bbo",
+      "ws_candle_1m"
+    ],
+    "total_unique_sdk_methods_used": 28
+  },
+  "drkmttr_tpsl": {
+    "tp": "NONE",
+    "sl": "NONE",
+    "limit_buys": "22 staggered buys $2,191-$2,401, ~577 ETH (~$1.35M)",
+    "strategy": "NAKED hold + systematic dip accumulation ladder",
+    "position": {
+      "size_eth": 2687.26,
+      "entry": 1844.28,
+      "value": 6747701,
+      "lev": "4x cross",
+      "upnl": 1791632,
+      "roe_pct": 144.6
+    }
+  },
+  "top20_whale_tpsl": {
+    "naked_pct": 90,
+    "with_tp": 2,
+    "with_sl": 1,
+    "exits": [
+      {
+        "vault": "Akka Hyper AI",
+        "size": 3.5,
+        "tp": 2646.5,
+        "sl": 2346.9
+      },
+      {
+        "vault": "\u4e00\u4e09\u4e03",
+        "size": 82.5,
+        "tp": 2800.0,
+        "sl": "NONE"
+      }
+    ]
+  },
+  "deep_orderbook": {
+    "spread_bps": 0.4,
+    "bid_ask_ratio": 1.15,
+    "bid_depth": "$9.46M (3,769 ETH)",
+    "ask_depth": "$8.21M (3,270 ETH)",
+    "top_bid_wall": "438 ETH at $2,508.8",
+    "top_ask_wall": "599 ETH at $2,512.4"
+  },
+  "live_market": {
+    "mark": 2510.3,
+    "oracle": 2509.2,
+    "premium_pct": 0.044,
+    "funding": "0.00125%/8h (floor)",
+    "oi": 899527,
+    "vol_24h": 775250441,
+    "day_chg_pct": 2.37,
+    "annualized_cost": "1.37%"
+  },
+  "multi_tf": {
+    "4h_pattern": "3 consecutive GREEN candles, volume accelerating 10K>63K>162K ETH",
+    "resistance": [
+      2537,
+      2566
+    ],
+    "support": [
+      2405,
+      2425,
+      2448
+    ],
+    "vwap_4h": 2478
+  },
+  "rate_limits": {
+    "drkmttr_vault": {
+      "requests": 2062,
+      "cum_vol": 8244501
+    },
+    "drkmttr_leader": {
+      "requests": 705,
+      "cum_vol": 1096374
+    },
+    "dailytradeai": {
+      "requests": 15298,
+      "cum_vol": 5120808,
+      "note": "MOST ACTIVE algo by far"
+    },
+    "bredostrategy": {
+      "requests": 1937,
+      "cum_vol": 1163363
+    },
+    "systemic_ls": {
+      "requests": 0,
+      "note": "Delegates entirely or uses different address"
+    },
+    "delta01": {
+      "requests": 0,
+      "note": "Same pattern"
+    }
+  },
+  "websocket_feeds": {
+    "l2book": "0.3 updates/sec. 20 bid + 20 ask levels per update",
+    "bbo": "3.5 updates/sec. Real-time spread: $0.10 (0.4 bps)",
+    "candle_1m": "Live 1m candles with OHLCV and trade count",
+    "trades": "Already captured in SD",
+    "activeAssetCtx": "Already captured in SE"
+  }
+}
