@@ -1,0 +1,50 @@
+name: Integration
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    name: Integration tests
+    runs-on: arc-public-runner-set-euw1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync --locked --all-extras --all-groups
+
+      - name: Run integration tests
+        env:
+          POLYMARKET_RUN_METERED_TESTS: "1"
+          POLYMARKET_INTEGRATION_ENVIRONMENT_CONFIG: ${{ vars.POLYMARKET_INTEGRATION_ENVIRONMENT_CONFIG }}
+          POLYMARKET_PRIVATE_KEY: ${{ secrets.POLYMARKET_PRIVATE_KEY }}
+          POLYMARKET_DEPOSIT_WALLET: ${{ vars.POLYMARKET_DEPOSIT_WALLET }}
+          POLYMARKET_PROXY_PRIVATE_KEY: ${{ secrets.POLYMARKET_PROXY_PRIVATE_KEY }}
+          POLYMARKET_PROXY_WALLET: ${{ vars.POLYMARKET_PROXY_WALLET }}
+          POLYMARKET_SAFE_PRIVATE_KEY: ${{ secrets.POLYMARKET_SAFE_PRIVATE_KEY }}
+          POLYMARKET_SAFE_WALLET: ${{ vars.POLYMARKET_SAFE_WALLET }}
+          POLYMARKET_BUILDER_CODE: ${{ vars.POLYMARKET_BUILDER_CODE }}
+          POLYMARKET_BUILDER_API_KEY: ${{ vars.POLYMARKET_BUILDER_API_KEY }}
+          POLYMARKET_BUILDER_SECRET: ${{ secrets.POLYMARKET_BUILDER_SECRET }}
+          POLYMARKET_BUILDER_PASSPHRASE: ${{ secrets.POLYMARKET_BUILDER_PASSPHRASE }}
+          POLYMARKET_RELAYER_API_KEY: ${{ vars.POLYMARKET_RELAYER_API_KEY }}
+          POLYMARKET_RELAYER_API_KEY_ADDRESS: ${{ vars.POLYMARKET_RELAYER_API_KEY_ADDRESS }}
+        run: uv run pytest -m integration

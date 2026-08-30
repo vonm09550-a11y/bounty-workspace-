@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify
+    uses: ./.github/workflows/verify.yml
+
+  integration:
+    name: Integration
+    needs: verify
+    uses: ./.github/workflows/integration.yml
+    secrets: inherit
