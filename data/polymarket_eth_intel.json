@@ -1,0 +1,106 @@
+{
+  "scan_date": "2026-08-30",
+  "events_scanned": 619,
+  "active": 147,
+  "crypto_relevant": 45,
+  "eth_price_consensus": {
+    "3000_by_dec": {
+      "prob": 0.52,
+      "vol": 81094
+    },
+    "2750_by_dec": {
+      "prob": 0.725,
+      "vol": 53334
+    },
+    "3500_by_dec": {
+      "prob": 0.275,
+      "vol": 614089
+    },
+    "4000_by_dec": {
+      "prob": 0.145,
+      "vol": 370373
+    },
+    "5000_by_dec": {
+      "prob": 0.067,
+      "vol": 456578
+    },
+    "dip_2000_by_dec": {
+      "prob": 0.445,
+      "vol": 6613
+    },
+    "dip_1500_by_dec": {
+      "prob": 0.145,
+      "vol": 2506703
+    },
+    "dip_1250_by_dec": {
+      "prob": 0.095,
+      "vol": 522267
+    },
+    "1000_or_3000_first": {
+      "prob_1000": 0.34,
+      "prob_3000": 0.66,
+      "vol": 101648
+    },
+    "ath_by_dec": {
+      "prob": 0.0705,
+      "vol": 569511
+    },
+    "ath_by_sep": {
+      "prob": 0.0095,
+      "vol": 325539
+    }
+  },
+  "btc_correlated": {
+    "ath_by_dec": {
+      "prob": 0.082,
+      "vol": 1785580
+    },
+    "150k_by_dec": {
+      "prob": 0.028,
+      "vol": 2823283
+    },
+    "outperforms_gold": {
+      "prob": 0.255,
+      "vol": 450078
+    },
+    "best_performer_2026": {
+      "prob": 0.165,
+      "vol": 435919
+    },
+    "sp500_best": {
+      "prob": 0.555,
+      "vol": 193471
+    }
+  },
+  "macro": {
+    "fed_rate_end_2026_most_likely": "4.0% (39.7% probability, $1.37M volume)",
+    "ecb_hiking_sep": {
+      "prob": 0.983,
+      "vol": 103216
+    },
+    "powell_out_by_dec": {
+      "prob": 0.165,
+      "vol": 156753
+    },
+    "warsh_confirmed_rates_above_2.5": {
+      "prob": 0.945,
+      "vol": 9648
+    }
+  },
+  "risk": {
+    "cex_insolvent_2026": {
+      "prob": 0.039,
+      "vol": 134564
+    },
+    "record_liquidation_2026": {
+      "prob": 0.0775,
+      "vol": 70480
+    },
+    "china_unban": {
+      "prob": 0.0205,
+      "vol": 1060909
+    }
+  },
+  "signal_score": "6.5/10",
+  "signal_interpretation": "Mildly bullish. TP $2,800 within consensus (52% chance of $3,000). Downside risk real (44.5% chance of $2,000 touch). No moonshot. $3,000 before $1,000 at 66% confidence."
+}
