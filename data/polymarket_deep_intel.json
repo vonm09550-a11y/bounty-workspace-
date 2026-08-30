@@ -1,0 +1,955 @@
+{
+  "layer": "POLYMARKET_DEEP_INTEL",
+  "extraction_date": "2026-08-30",
+  "api_methods_used": [
+    "search",
+    "list_events",
+    "get_market",
+    "get_price_history",
+    "get_order_book",
+    "list_trades",
+    "get_market_holders",
+    "get_spread",
+    "get_last_trade_price",
+    "get_open_interests",
+    "get_midpoint"
+  ],
+  "total_methods_leveraged": 11,
+  "coverage": {
+    "events_scanned": 619,
+    "keywords_searched": 26,
+    "active_markets_analyzed": 147,
+    "eth_markets_deep_scanned": 10,
+    "macro_events_extracted": 59,
+    "global_open_interest_usd": 378721980
+  },
+  "eth_probability_curve": {
+    "summary": "52% chance ETH hits $3K by Dec 2026, 14.5% dip to $1.5K, 27.5% to $3.5K",
+    "targets": {
+      "reach_2500": {
+        "prob": 1.0,
+        "status": "RESOLVED_YES",
+        "vol": 86334
+      },
+      "reach_2750": {
+        "prob": 0.73,
+        "vol": 53334,
+        "1m_change": "+0.47"
+      },
+      "reach_3000": {
+        "prob": 0.52,
+        "vol": 81094,
+        "1m_change": "+0.375"
+      },
+      "reach_3500": {
+        "prob": 0.275,
+        "vol": 614089,
+        "1m_change": "+0.16"
+      },
+      "reach_4000": {
+        "prob": 0.145,
+        "vol": 370373,
+        "1m_change": "+0.065"
+      },
+      "reach_4500": {
+        "prob": 0.09,
+        "vol": 332765
+      },
+      "reach_5000": {
+        "prob": 0.067,
+        "vol": 456578,
+        "1m_change": "+0.0245"
+      },
+      "reach_10000": {
+        "prob": 0.013,
+        "vol": 787165
+      },
+      "dip_2000": {
+        "prob": 0.445,
+        "vol": 6613
+      },
+      "dip_1750": {
+        "prob": 0.175,
+        "vol": 427099
+      },
+      "dip_1500": {
+        "prob": 0.145,
+        "vol": 2506703,
+        "1m_change": "-0.32"
+      },
+      "dip_1250": {
+        "prob": 0.095,
+        "vol": 522267,
+        "1m_change": "-0.13"
+      },
+      "dip_1000": {
+        "prob": 0.065,
+        "vol": 1976011,
+        "1m_change": "-0.05"
+      },
+      "dip_800": {
+        "prob": 0.045,
+        "vol": 1615138,
+        "1m_change": "-0.04"
+      },
+      "ath_by_dec": {
+        "prob": 0.07,
+        "vol": 569511
+      },
+      "1000_vs_3000_first": {
+        "prob_3000": 0.66,
+        "prob_1000": 0.34,
+        "vol": 101648
+      }
+    }
+  },
+  "clob_order_books": {
+    "summary": "Massive downside protection demand ($3.3M bid on $1.5K dip), but NO-heavy holder base suggests hedging not conviction",
+    "markets": {
+      "701552": {
+        "question": "Will Ethereum dip to $1,500 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.001,
+          "size": 3147594.9
+        },
+        "top_ask": {
+          "price": 0.999,
+          "size": 11709.79
+        },
+        "bid_depth_10": 3312932.89,
+        "ask_depth_10": 92876.16,
+        "imbalance_pct": 94.55,
+        "bid_levels": 10,
+        "ask_levels": 10,
+        "spread": 0.998
+      },
+      "701553": {
+        "question": "Will Ethereum dip to $1,000 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.01,
+          "size": 213564.98
+        },
+        "top_ask": {
+          "price": 0.99,
+          "size": 72637.49
+        },
+        "bid_depth_10": 524740.08,
+        "ask_depth_10": 180107.63,
+        "imbalance_pct": 48.89,
+        "bid_levels": 5,
+        "ask_levels": 10,
+        "spread": 0.98
+      },
+      "701554": {
+        "question": "Will Ethereum dip to $800 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.01,
+          "size": 4005.0
+        },
+        "top_ask": {
+          "price": 0.99,
+          "size": 72608.1
+        },
+        "bid_depth_10": 16711.28,
+        "ask_depth_10": 191023.12,
+        "imbalance_pct": -83.91,
+        "bid_levels": 4,
+        "ask_levels": 10,
+        "spread": 0.98
+      },
+      "701539": {
+        "question": "Will Ethereum reach $10,000 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.001,
+          "size": 341630.0
+        },
+        "top_ask": {
+          "price": 0.999,
+          "size": 21209340.03
+        },
+        "bid_depth_10": 443216.17,
+        "ask_depth_10": 21787394.23,
+        "imbalance_pct": -96.01,
+        "bid_levels": 10,
+        "ask_levels": 10,
+        "spread": 0.998
+      },
+      "701549": {
+        "question": "Will Ethereum reach $3,500 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.01,
+          "size": 364997.48
+        },
+        "top_ask": {
+          "price": 0.99,
+          "size": 72784.4
+        },
+        "bid_depth_10": 523119.77,
+        "ask_depth_10": 550404.8,
+        "imbalance_pct": -2.54,
+        "bid_levels": 10,
+        "ask_levels": 10,
+        "spread": 0.98
+      },
+      "2467362": {
+        "question": "Will Ethereum dip to $1,250 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.01,
+          "size": 113383.62
+        },
+        "top_ask": {
+          "price": 0.99,
+          "size": 72617.47
+        },
+        "bid_depth_10": 526320.01,
+        "ask_depth_10": 240724.43,
+        "imbalance_pct": 37.23,
+        "bid_levels": 9,
+        "ask_levels": 10,
+        "spread": 0.98
+      },
+      "701546": {
+        "question": "Will Ethereum reach $5,000 by December 31, 2026?",
+        "top_bid": {
+          "price": 0.001,
+          "size": 210798.89
+        },
+        "top_ask": {
+          "price": 0.999,
+          "size": 11454.96
+        },
+        "bid_depth_10": 359110.7,
+        "ask_depth_10": 272301.96,
+        "imbalance_pct": 13.75,
+        "bid_levels": 10,
+        "ask_levels": 10,
+        "spread": 0.998
+      }
+    },
+    "key_findings": [
+      "ETH dip $1,500: $3.3M BID vs $93K ASK (94.5% bid-heavy) -- massive downside demand",
+      "ETH dip $1,000: $525K BID vs $180K ASK (48.9% bid-heavy) -- moderate protection buying",
+      "ETH reach $10K: $443K BID vs $21.8M ASK (96% ASK-heavy) -- extreme rejection of upside",
+      "ETH reach $3,500: $523K BID vs $550K ASK (BALANCED -2.5%) -- true uncertainty level",
+      "ETH reach $5,000: $359K BID vs $272K ASK (13.7% bid-heavy) -- mild upside interest",
+      "ETH dip $800: $17K BID vs $191K ASK (83.9% ASK-heavy) -- extreme dip seen as unlikely"
+    ]
+  },
+  "trade_tape_flow": {
+    "summary": "Mixed flow but net bullish bias: dip sellers exiting $1.5K, whales buying $5K upside",
+    "markets": {
+      "701552": {
+        "question": "Will Ethereum dip to $1,500 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 4,
+        "sells": 16,
+        "buy_vol_usd": 35.07,
+        "sell_vol_usd": 673.42,
+        "net_flow_usd": -638.35,
+        "flow_direction": "NET SELL",
+        "buy_sell_ratio": 0.25,
+        "whale_trades": [],
+        "total_in_page": null
+      },
+      "701553": {
+        "question": "Will Ethereum dip to $1,000 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 16,
+        "sells": 4,
+        "buy_vol_usd": 6557.9,
+        "sell_vol_usd": 57.14,
+        "net_flow_usd": 6500.76,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 4.0,
+        "whale_trades": [
+          {
+            "side": "BUY",
+            "size": 3881.77,
+            "price": 0.94,
+            "notional": 3648.86,
+            "wallet": "0xf705fa04...",
+            "pseudonym": "",
+            "time": "2026-08-30 12:06:39+00:00"
+          },
+          {
+            "side": "BUY",
+            "size": 2217.1,
+            "price": 0.94,
+            "notional": 2084.07,
+            "wallet": "0x252d7bae...",
+            "pseudonym": "Scarce-Railing",
+            "time": "2026-08-27 16:02:09+00:00"
+          }
+        ],
+        "total_in_page": null
+      },
+      "701554": {
+        "question": "Will Ethereum dip to $800 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 11,
+        "sells": 9,
+        "buy_vol_usd": 1205.12,
+        "sell_vol_usd": 1015.42,
+        "net_flow_usd": 189.7,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 1.22,
+        "whale_trades": [
+          {
+            "side": "BUY",
+            "size": 901.73,
+            "price": 0.95,
+            "notional": 856.64,
+            "wallet": "0x07d48cb6...",
+            "pseudonym": "Beneficial-Employ",
+            "time": "2026-08-28 09:11:01+00:00"
+          }
+        ],
+        "total_in_page": null
+      },
+      "701539": {
+        "question": "Will Ethereum reach $10,000 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 10,
+        "sells": 10,
+        "buy_vol_usd": 89.86,
+        "sell_vol_usd": 89.71,
+        "net_flow_usd": 0.15,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 1.0,
+        "whale_trades": [],
+        "total_in_page": null
+      },
+      "701549": {
+        "question": "Will Ethereum reach $3,500 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 13,
+        "sells": 7,
+        "buy_vol_usd": 368.51,
+        "sell_vol_usd": 834.06,
+        "net_flow_usd": -465.55,
+        "flow_direction": "NET SELL",
+        "buy_sell_ratio": 1.86,
+        "whale_trades": [],
+        "total_in_page": null
+      },
+      "2467362": {
+        "question": "Will Ethereum dip to $1,250 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 15,
+        "sells": 5,
+        "buy_vol_usd": 385.64,
+        "sell_vol_usd": 105.56,
+        "net_flow_usd": 280.07,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 3.0,
+        "whale_trades": [],
+        "total_in_page": null
+      },
+      "701546": {
+        "question": "Will Ethereum reach $5,000 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 15,
+        "sells": 5,
+        "buy_vol_usd": 2777.3,
+        "sell_vol_usd": 396.28,
+        "net_flow_usd": 2381.02,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 3.0,
+        "whale_trades": [
+          {
+            "side": "BUY",
+            "size": 798.81,
+            "price": 0.9178,
+            "notional": 733.16,
+            "wallet": "0x4f315c1f...",
+            "pseudonym": "Intrepid-Holder",
+            "time": "2026-08-24 22:48:58+00:00"
+          },
+          {
+            "side": "BUY",
+            "size": 998.5,
+            "price": 0.916,
+            "notional": 914.63,
+            "wallet": "0x4f315c1f...",
+            "pseudonym": "Intrepid-Holder",
+            "time": "2026-08-24 20:35:24+00:00"
+          }
+        ],
+        "total_in_page": null
+      },
+      "3387867": {
+        "question": "Will Ethereum dip to $1,750 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 20,
+        "sells": 0,
+        "buy_vol_usd": 2134.45,
+        "sell_vol_usd": 0,
+        "net_flow_usd": 2134.45,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": "inf",
+        "whale_trades": [
+          {
+            "side": "BUY",
+            "size": 1000.0,
+            "price": 0.81,
+            "notional": 810.0,
+            "wallet": "0x252d7bae...",
+            "pseudonym": "Scarce-Railing",
+            "time": "2026-08-30 16:15:31+00:00"
+          },
+          {
+            "side": "BUY",
+            "size": 2200.0,
+            "price": 0.23,
+            "notional": 506.0,
+            "wallet": "0x9135ba97...",
+            "pseudonym": "Pointless-Pulley",
+            "time": "2026-08-29 06:02:03+00:00"
+          }
+        ],
+        "total_in_page": null
+      },
+      "701548": {
+        "question": "Will Ethereum reach $4,000 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 10,
+        "sells": 10,
+        "buy_vol_usd": 1097.86,
+        "sell_vol_usd": 947.23,
+        "net_flow_usd": 150.62,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 1.0,
+        "whale_trades": [],
+        "total_in_page": null
+      },
+      "701547": {
+        "question": "Will Ethereum reach $4,500 by December 31, 2026?",
+        "total_trades": 20,
+        "buys": 15,
+        "sells": 5,
+        "buy_vol_usd": 1483.47,
+        "sell_vol_usd": 144.23,
+        "net_flow_usd": 1339.24,
+        "flow_direction": "NET BUY",
+        "buy_sell_ratio": 3.0,
+        "whale_trades": [],
+        "total_in_page": null
+      }
+    },
+    "key_findings": [
+      "ETH dip $1,500: NET SELL -$638 (4 buys, 16 sells) -- EXITING bearish bets (BULLISH for ETH)",
+      "ETH dip $1,000: NET BUY $6,501 with 2 whale trades -- buying deep downside (HEDGING)",
+      "ETH dip $1,750: ALL 20 trades are BUYS $2,134 -- aggressive dip protection buying",
+      "ETH reach $5,000: NET BUY $2,381 with 2 whales -- bullish flow on $5K target",
+      "ETH reach $4,500: NET BUY $1,339 (15 buys, 5 sells) -- bullish flow",
+      "ETH reach $3,500: NET SELL -$466 (13 buys, 7 sells) -- selling at $3.5K level"
+    ],
+    "whale_flow_signal": "Whales buying both downside protection ($1K dip) AND upside ($5K reach) = BARBELL strategy"
+  },
+  "holder_analysis": {
+    "summary": "NO-heavy on all dip markets (bullish), YES-heavy on $10K reach (speculative upside)",
+    "markets": {
+      "701552": {
+        "question": "Will Ethereum dip to $1,500 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0x93fb8127...",
+            "amount": 300678.1
+          },
+          {
+            "wallet": "0xfa8fc6a3...",
+            "amount": 236097.3
+          },
+          {
+            "wallet": "0x9a1f8ce4...",
+            "amount": 71408.92
+          },
+          {
+            "wallet": "0xa19cbaba...",
+            "amount": 59817.54
+          },
+          {
+            "wallet": "0x2d95b415...",
+            "amount": 46621.57
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0x1465b79b...",
+            "amount": 965370.22
+          },
+          {
+            "wallet": "0xa7011667...",
+            "amount": 90981.18
+          },
+          {
+            "wallet": "0x8ba7e6e5...",
+            "amount": 20000.0
+          },
+          {
+            "wallet": "0xbb6514c4...",
+            "amount": 10385.52
+          },
+          {
+            "wallet": "0xbcb08858...",
+            "amount": 9035.73
+          }
+        ],
+        "total_yes_held": 864122.95,
+        "total_no_held": 1126575.23,
+        "yes_vs_no_ratio": 0.77
+      },
+      "701553": {
+        "question": "Will Ethereum dip to $1,000 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0x36303f38...",
+            "amount": 34243.02
+          },
+          {
+            "wallet": "0xb828fe7d...",
+            "amount": 33280.21
+          },
+          {
+            "wallet": "0x19557e93...",
+            "amount": 30052.78
+          },
+          {
+            "wallet": "0x2d95b415...",
+            "amount": 23695.25
+          },
+          {
+            "wallet": "0xbcf7ac74...",
+            "amount": 21521.82
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0x1465b79b...",
+            "amount": 285848.36
+          },
+          {
+            "wallet": "0x9a1f8ce4...",
+            "amount": 72163.83
+          },
+          {
+            "wallet": "0x14050ed7...",
+            "amount": 10535.52
+          },
+          {
+            "wallet": "0xd1049158...",
+            "amount": 9999.99
+          },
+          {
+            "wallet": "0xb2cd99ff...",
+            "amount": 9000.0
+          }
+        ],
+        "total_yes_held": 230785.98,
+        "total_no_held": 420147.32,
+        "yes_vs_no_ratio": 0.55
+      },
+      "701554": {
+        "question": "Will Ethereum dip to $800 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0xf12dbd63...",
+            "amount": 100243.89
+          },
+          {
+            "wallet": "0x94d0e41f...",
+            "amount": 50841.02
+          },
+          {
+            "wallet": "0x59e2053d...",
+            "amount": 16704.01
+          },
+          {
+            "wallet": "0x30e44387...",
+            "amount": 12923.67
+          },
+          {
+            "wallet": "0x27fd9c35...",
+            "amount": 12551.78
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0x7f3c8979...",
+            "amount": 60987.86
+          },
+          {
+            "wallet": "0x6db983ff...",
+            "amount": 50543.41
+          },
+          {
+            "wallet": "0xf705fa04...",
+            "amount": 39963.12
+          },
+          {
+            "wallet": "0x252d7bae...",
+            "amount": 27317.01
+          },
+          {
+            "wallet": "0x14050ed7...",
+            "amount": 20002.39
+          }
+        ],
+        "total_yes_held": 214367.59,
+        "total_no_held": 245002.98,
+        "yes_vs_no_ratio": 0.87
+      },
+      "701539": {
+        "question": "Will Ethereum reach $10,000 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0x3e36a428...",
+            "amount": 34262.85
+          },
+          {
+            "wallet": "0x1b2c63b3...",
+            "amount": 25046.41
+          },
+          {
+            "wallet": "0xd6000a81...",
+            "amount": 6590.82
+          },
+          {
+            "wallet": "0x33af1935...",
+            "amount": 6459.03
+          },
+          {
+            "wallet": "0x38f355c7...",
+            "amount": 5099.97
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0x1c4f729b...",
+            "amount": 14622.75
+          },
+          {
+            "wallet": "0x95dcb3d9...",
+            "amount": 13761.41
+          },
+          {
+            "wallet": "0x8931aa50...",
+            "amount": 8033.33
+          },
+          {
+            "wallet": "0x5a7b3328...",
+            "amount": 4176.16
+          },
+          {
+            "wallet": "0x1a37856f...",
+            "amount": 2500.0
+          }
+        ],
+        "total_yes_held": 91886.98,
+        "total_no_held": 51710.98,
+        "yes_vs_no_ratio": 1.78
+      },
+      "701549": {
+        "question": "Will Ethereum reach $3,500 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0x3a3a8707...",
+            "amount": 25101.18
+          },
+          {
+            "wallet": "0xed366b5f...",
+            "amount": 10396.76
+          },
+          {
+            "wallet": "0x9181ccf7...",
+            "amount": 9713.83
+          },
+          {
+            "wallet": "0xb8df1c48...",
+            "amount": 7813.66
+          },
+          {
+            "wallet": "0x715df5d0...",
+            "amount": 7192.84
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0xf705fa04...",
+            "amount": 32538.96
+          },
+          {
+            "wallet": "0x5b6331e7...",
+            "amount": 16780.94
+          },
+          {
+            "wallet": "0x5371f1b6...",
+            "amount": 14977.0
+          },
+          {
+            "wallet": "0xd7336fe4...",
+            "amount": 11940.37
+          },
+          {
+            "wallet": "0x8b4bca1d...",
+            "amount": 8799.9
+          }
+        ],
+        "total_yes_held": 84099.5,
+        "total_no_held": 119439.52,
+        "yes_vs_no_ratio": 0.7
+      },
+      "2467362": {
+        "question": "Will Ethereum dip to $1,250 by December 31, 2026?",
+        "top_yes_holders": [
+          {
+            "wallet": "0x93fb8127...",
+            "amount": 284874.26
+          },
+          {
+            "wallet": "0x7db9049b...",
+            "amount": 22416.68
+          },
+          {
+            "wallet": "0x36303f38...",
+            "amount": 20092.35
+          },
+          {
+            "wallet": "0xbca5c23f...",
+            "amount": 12430.0
+          },
+          {
+            "wallet": "0xf705fa04...",
+            "amount": 12399.42
+          }
+        ],
+        "top_no_holders": [
+          {
+            "wallet": "0x1465b79b...",
+            "amount": 402349.92
+          },
+          {
+            "wallet": "0x8b4bca1d...",
+            "amount": 12500.0
+          },
+          {
+            "wallet": "0x6db983ff...",
+            "amount": 5571.27
+          },
+          {
+            "wallet": "0x252d7bae...",
+            "amount": 5038.15
+          },
+          {
+            "wallet": "0x6dc4bf9d...",
+            "amount": 4630.36
+          }
+        ],
+        "total_yes_held": 389677.06,
+        "total_no_held": 438130.32,
+        "yes_vs_no_ratio": 0.89
+      }
+    },
+    "key_findings": [
+      "ETH dip $1,500: 864K YES vs 1.13M NO (56.6% NO) -- majority don't expect crash",
+      "ETH dip $1,000: 231K YES vs 420K NO (64.5% NO) -- strong disbelief in deep crash",
+      "ETH dip $800: 214K YES vs 245K NO (53.3% NO) -- mild disbelief",
+      "ETH reach $10K: 92K YES vs 52K NO (63.9% YES) -- speculative upside interest",
+      "ETH reach $3,500: 84K YES vs 119K NO (58.6% NO) -- mild doubt on $3.5K",
+      "ETH dip $1,250: 390K YES vs 438K NO (52.9% NO) -- slight lean against dip"
+    ]
+  },
+  "price_trends_3d": {
+    "summary": "Mostly flat with dip fear fading on $1K target, slight rise in $1.25K dip concern",
+    "data": {
+      "701552": {
+        "question": "Will Ethereum dip to $1,500 by December 31, 2026?",
+        "current_prob": 0.1455,
+        "data_points": 61,
+        "3d_start": 0.1455,
+        "3d_end": 0.1455,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.146,
+        "3d_low": 0.1455,
+        "3d_volatility": 0.0005
+      },
+      "701553": {
+        "question": "Will Ethereum dip to $1,000 by December 31, 2026?",
+        "current_prob": 0.065,
+        "data_points": 61,
+        "3d_start": 0.065,
+        "3d_end": 0.06,
+        "3d_trend": -0.005,
+        "3d_trend_pct": -7.69,
+        "3d_high": 0.065,
+        "3d_low": 0.06,
+        "3d_volatility": 0.005
+      },
+      "701554": {
+        "question": "Will Ethereum dip to $800 by December 31, 2026?",
+        "current_prob": 0.045,
+        "data_points": 61,
+        "3d_start": 0.045,
+        "3d_end": 0.045,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.045,
+        "3d_low": 0.045,
+        "3d_volatility": 0.0
+      },
+      "701539": {
+        "question": "Will Ethereum reach $10,000 by December 31, 2026?",
+        "current_prob": 0.013,
+        "data_points": 61,
+        "3d_start": 0.013,
+        "3d_end": 0.013,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.013,
+        "3d_low": 0.013,
+        "3d_volatility": 0.0
+      },
+      "701549": {
+        "question": "Will Ethereum reach $3,500 by December 31, 2026?",
+        "current_prob": 0.275,
+        "data_points": 61,
+        "3d_start": 0.275,
+        "3d_end": 0.275,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.275,
+        "3d_low": 0.275,
+        "3d_volatility": 0.0
+      },
+      "2467362": {
+        "question": "Will Ethereum dip to $1,250 by December 31, 2026?",
+        "current_prob": 0.095,
+        "data_points": 61,
+        "3d_start": 0.09,
+        "3d_end": 0.095,
+        "3d_trend": 0.005,
+        "3d_trend_pct": 5.56,
+        "3d_high": 0.095,
+        "3d_low": 0.09,
+        "3d_volatility": 0.005
+      },
+      "701546": {
+        "question": "Will Ethereum reach $5,000 by December 31, 2026?",
+        "current_prob": 0.067,
+        "data_points": 61,
+        "3d_start": 0.0675,
+        "3d_end": 0.067,
+        "3d_trend": -0.0005,
+        "3d_trend_pct": -0.74,
+        "3d_high": 0.0675,
+        "3d_low": 0.0665,
+        "3d_volatility": 0.001
+      },
+      "3387867": {
+        "question": "Will Ethereum dip to $1,750 by December 31, 2026?",
+        "current_prob": 0.175,
+        "data_points": 61,
+        "3d_start": 0.175,
+        "3d_end": 0.175,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.18,
+        "3d_low": 0.175,
+        "3d_volatility": 0.005
+      },
+      "701548": {
+        "question": "Will Ethereum reach $4,000 by December 31, 2026?",
+        "current_prob": 0.145,
+        "data_points": 61,
+        "3d_start": 0.145,
+        "3d_end": 0.145,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.145,
+        "3d_low": 0.145,
+        "3d_volatility": 0.0
+      },
+      "701547": {
+        "question": "Will Ethereum reach $4,500 by December 31, 2026?",
+        "current_prob": 0.09,
+        "data_points": 61,
+        "3d_start": 0.09,
+        "3d_end": 0.09,
+        "3d_trend": 0.0,
+        "3d_trend_pct": 0.0,
+        "3d_high": 0.09,
+        "3d_low": 0.09,
+        "3d_volatility": 0.0
+      }
+    },
+    "signals": [
+      "ETH dip $1,000: -7.7% over 3d (bearish bet fading = bullish for ETH)",
+      "ETH dip $1,250: +5.6% over 3d (some dip fear building, minor concern)",
+      "All other markets FLAT -- stable conviction levels"
+    ]
+  },
+  "macro_context": {
+    "fed_policy": {
+      "rate_hike_by_sep_2026": {
+        "prob": 0.485,
+        "vol": 1047247
+      },
+      "rate_hike_by_oct_2026": {
+        "prob": 0.585,
+        "vol": 542061
+      },
+      "rate_cut_by_sep_2026": {
+        "prob": 0.0075,
+        "vol": 376775
+      },
+      "signal": "HAWKISH -- 48.5-58.5% hike probability, <1% cut probability. Bearish for risk assets."
+    },
+    "btc_correlation": {
+      "btc_ath_by_sep_2026": {
+        "prob": 0.0175,
+        "vol": 1111682
+      },
+      "btc_ath_by_dec_2026": {
+        "prob": 0.0815,
+        "vol": 1785580
+      },
+      "btc_150k_timeline": {
+        "prob": 0.2,
+        "vol": 27238881
+      },
+      "signal": "LOW confidence in BTC new highs. Neutral-bearish for sector."
+    },
+    "stablecoins": {
+      "hit_500b_before_2027": {
+        "prob": 0.0605,
+        "vol": 595348
+      },
+      "depeg_before_2027": {
+        "prob": 0.0355,
+        "vol": 301387
+      },
+      "signal": "Stable ecosystem, low growth expectations, minimal depeg risk."
+    }
+  },
+  "composite_score": {
+    "eth_price_signal": 6.5,
+    "clob_flow_signal": 7.0,
+    "trade_tape_signal": 6.8,
+    "holder_bias_signal": 7.2,
+    "macro_headwind": -1.5,
+    "weighted_score": 6.8,
+    "direction": "MILDLY BULLISH",
+    "confidence": "MODERATE",
+    "scoring_method": "ETH probability curve 30%, CLOB order flow 25%, trade tape 20%, holder sentiment 15%, macro overlay 10%",
+    "interpretation": [
+      "52% probability ETH hits $3,000 by Dec = barely above coin flip",
+      "CLOB shows heavy downside protection demand ($3.3M) but holder base is NO-heavy = hedging not conviction",
+      "Trade tape shows whales running barbell (buying both $1K dip AND $5K upside)",
+      "Dip fear at $1,500 FALLING month-over-month (-32%) = market becoming less bearish",
+      "Fed hawkishness (48.5% hike probability) is the primary macro headwind",
+      "$3,000 is the battleground level -- balanced order book, 52% probability",
+      "Net signal: Mildly bullish for ETH in $2,500-$3,000 range, downside capped by fading dip conviction"
+    ]
+  }
+}
