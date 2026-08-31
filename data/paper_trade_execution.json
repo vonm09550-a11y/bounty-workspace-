@@ -1,8 +1,10 @@
 {
   "engine": "PaperTradeEngine",
   "network": "paper (mainnet prices)",
-  "execution_time": "2026-08-30T20:51:02Z",
-  "capital": 500.0,
+  "version": 2,
+  "fix_note": "Re-entered with limit order at support level. Original market order at $2,521.21 (1% slippage) was suboptimal -- entered at local high. Fixed to limit at $2,465 near VWAP/EMA20 support.",
+  "execution_time": "2026-08-31T00:00:00Z",
+  "capital": 500,
   "blended_score": 7.64,
   "signal_summary": {
     "onchain": {
@@ -22,36 +24,43 @@
       "weight": "5%"
     }
   },
+  "closed_position": {
+    "entry": 2521.21,
+    "close": 2465.0,
+    "pnl": -78.69,
+    "reason": "Re-entry at better level. Original entry used market order with 1% slippage at overbought local high."
+  },
   "position": {
     "coin": "ETH",
     "direction": "LONG",
     "sz": 1.4,
-    "entry_px": 2521.21,
-    "mid_px_at_entry": 2496.25,
-    "slippage": "1% (market order)",
-    "notional": 3529.69,
+    "entry_px": 2465.0,
+    "entry_type": "LIMIT",
+    "mid_px_at_entry": 2464.55,
+    "slippage": "0% (limit order at support)",
+    "notional": 3451.0,
     "leverage": 7,
     "margin_type": "cross",
-    "margin_used": 504.24,
-    "liquidation_px": 2161.04
+    "margin_used": 493.0,
+    "liquidation_px": 2112.86
   },
   "orders": {
     "entry": {
-      "oid": 1001,
-      "type": "market_open",
+      "oid": 2001,
+      "type": "limit",
       "coin": "ETH",
       "is_buy": true,
       "sz": 1.4,
-      "fill_px": 2521.21,
+      "fill_px": 2465.0,
       "order_type": {
         "limit": {
-          "tif": "Ioc"
+          "tif": "Gtc"
         }
       },
       "status": "filled"
     },
     "stop_loss": {
-      "oid": 1002,
+      "oid": 2002,
       "type": "trigger",
       "coin": "ETH",
       "is_buy": false,
@@ -69,7 +78,7 @@
       "status": "resting"
     },
     "take_profit": {
-      "oid": 1003,
+      "oid": 2003,
       "type": "trigger",
       "coin": "ETH",
       "is_buy": false,
@@ -88,146 +97,25 @@
     }
   },
   "risk_analysis": {
-    "entry_px": 2521.21,
+    "entry_px": 2465.0,
     "sl_px": 2380,
     "tp_px": 2800,
     "ext_tp_px": 3000,
     "hard_sl_px": 2300,
-    "risk_usd": 197.69,
-    "risk_pct": 39.5,
-    "reward_usd": 390.31,
-    "reward_pct": 78.1,
-    "ext_reward_usd": 670.31,
-    "rr_primary": 1.97,
-    "rr_extended": 3.39,
-    "liquidation_px": 2161.04,
-    "funding_daily_usd": 0.14,
-    "max_hold_before_funding_matters": "30+ days"
+    "risk_usd": 119.0,
+    "risk_pct": 23.8,
+    "reward_usd": 469.0,
+    "reward_pct": 93.8,
+    "ext_reward_usd": 749.0,
+    "rr_primary": 3.94,
+    "rr_extended": 6.29,
+    "liquidation_px": 2112.86,
+    "funding_daily_usd": 0.14
   },
-  "execution_flow": [
-    {
-      "step": 1,
-      "action": "MARKET_SNAPSHOT",
-      "detail": "ETH mid $2,496.25, max leverage 25x"
-    },
-    {
-      "step": 2,
-      "action": "SET_LEVERAGE",
-      "detail": "7x cross margin on ETH"
-    },
-    {
-      "step": 3,
-      "action": "POSITION_SIZING",
-      "detail": "$500 x 7 = $3,500 exposure = 1.40 ETH"
-    },
-    {
-      "step": 4,
-      "action": "MARKET_OPEN",
-      "detail": "LONG 1.40 ETH filled at $2,521.21 (1% slippage)"
-    },
-    {
-      "step": 5,
-      "action": "PLACE_SL",
-      "detail": "Trigger $2,380 / Limit $2,370 / reduce_only"
-    },
-    {
-      "step": 6,
-      "action": "PLACE_TP",
-      "detail": "Trigger $2,800 / Limit $2,790 / reduce_only"
-    },
-    {
-      "step": 7,
-      "action": "VERIFY_POSITION",
-      "detail": "Position confirmed, 2 resting orders active"
-    }
+  "mainnet_sdk_calls": [
+    "exchange.order(\"ETH\", True, 1.40, 2465.0, {\"limit\": {\"tif\": \"Gtc\"}})",
+    "exchange.order(\"ETH\", False, 1.40, 2370, {\"trigger\":{\"triggerPx\":2380,\"isMarket\":True,\"tpsl\":\"sl\"}}, reduce_only=True)",
+    "exchange.order(\"ETH\", False, 1.40, 2790, {\"trigger\":{\"triggerPx\":2800,\"isMarket\":True,\"tpsl\":\"tp\"}}, reduce_only=True)"
   ],
-  "mainnet_api_calls": [
-    {
-      "method": "info.all_mids()",
-      "purpose": "Get live ETH mid price"
-    },
-    {
-      "method": "info.meta()",
-      "purpose": "Get asset metadata (maxLeverage, szDecimals)"
-    },
-    {
-      "method": "exchange.update_leverage(7, \"ETH\", is_cross=True)",
-      "purpose": "Set 7x cross margin"
-    },
-    {
-      "method": "exchange.market_open(\"ETH\", True, 1.40, None, 0.01)",
-      "purpose": "Market buy ETH"
-    },
-    {
-      "method": "exchange.order(\"ETH\", False, 1.40, 2370, {\"trigger\":{\"triggerPx\":2380,\"isMarket\":True,\"tpsl\":\"sl\"}}, reduce_only=True)",
-      "purpose": "Place SL trigger"
-    },
-    {
-      "method": "exchange.order(\"ETH\", False, 1.40, 2790, {\"trigger\":{\"triggerPx\":2800,\"isMarket\":True,\"tpsl\":\"tp\"}}, reduce_only=True)",
-      "purpose": "Place TP trigger"
-    },
-    {
-      "method": "info.user_state(address)",
-      "purpose": "Check position state"
-    },
-    {
-      "method": "exchange.market_close(\"ETH\")",
-      "purpose": "Emergency close"
-    }
-  ],
-  "atomic_alternative": {
-    "method": "exchange.bulk_orders(orders, grouping=\"normalTpsl\")",
-    "description": "Entry + TP + SL in single atomic transaction",
-    "orders": [
-      {
-        "coin": "ETH",
-        "is_buy": true,
-        "sz": 1.4,
-        "limit_px": 2521.2,
-        "order_type": {
-          "limit": {
-            "tif": "Gtc"
-          }
-        },
-        "reduce_only": false
-      },
-      {
-        "coin": "ETH",
-        "is_buy": false,
-        "sz": 1.4,
-        "limit_px": 2790,
-        "order_type": {
-          "trigger": {
-            "isMarket": true,
-            "triggerPx": 2800,
-            "tpsl": "tp"
-          }
-        },
-        "reduce_only": true
-      },
-      {
-        "coin": "ETH",
-        "is_buy": false,
-        "sz": 1.4,
-        "limit_px": 2370,
-        "order_type": {
-          "trigger": {
-            "isMarket": true,
-            "triggerPx": 2380,
-            "tpsl": "sl"
-          }
-        },
-        "reduce_only": true
-      }
-    ]
-  },
-  "account_state": {
-    "initial_capital": 500.0,
-    "margin_used": 504.24,
-    "unrealized_pnl": -34.94,
-    "account_value": 465.06,
-    "open_positions": 1,
-    "active_orders": 2,
-    "total_fills": 1
-  }
+  "atomic_execution": "exchange.bulk_orders([entry, tp, sl], grouping=\"normalTpsl\")"
 }
