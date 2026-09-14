@@ -68,3 +68,53 @@ trades or OHLCV, or wallet analytics beyond the profile balance endpoints. Those
 - The skills' default RPC (`rpc.solanatracker.io/public`) is a public endpoint; we use Helius.
 - The skill scripts pin `@pump-fun/pump-sdk ^1.33`; the current SDK is 2.0.0 with `create_v2` changes (cashback deprecated, holder-reward coins). Trading instructions are unchanged across the bump.
 - `fun-block.pump.fun` is undocumented outside the skills; treat its availability as best-effort.
+
+## 6. Close-out: list and discovery endpoints (probed 2026-09-14 18:55 UTC) — tooling research CLOSED
+
+The open question from §4 was "is there a list endpoint, or do we need a log subscription for a launch
+feed?". Answer: the frontend API has two working list endpoints, so a polling feed is possible without
+any chain decoding. All probes were plain GETs with a custom User-Agent, no key.
+
+| Endpoint (`https://frontend-api-v3.pump.fun`) | Result | Shape / notes |
+|---|---|---|
+| `GET /coins?offset=N&limit=50&sort=created_timestamp&order=DESC&includeNsfw=false` | **200** | array of coin objects: `mint, creator, created_timestamp (ms), bonding_curve, virtual_*_reserves, real_*_reserves, market_cap_usd, quote_mint, quote_decimals, program, protocol, boost_mode, is_holder_reward, is_cashback_enabled, is_currently_live, twitter, website, reply_count, complete, is_banned, nsfw, token_program`. `limit` up to 50 works, offset paging works. |
+| `GET /coins/currently-live?offset=0&limit=50&includeNsfw=false` | **200** | same fields plus `ath_market_cap`, `ath_market_cap_timestamp`, `last_trade_timestamp`, `description` — coins with an active livestream |
+| `GET /coins-v2/{mint}` | 200 | per-coin detail (see §1) |
+| `GET /sol-price` | 200 | `{solPrice, asOfTimestamp, stale}` |
+| `GET /coins/user-created-coins/{wallet}` | 404 | creator history is **not** exposed here; use GMGN `created-tokens` (weight 2) or index `CreateEvent` by creator |
+| `GET /coins/latest`, `/coins/king-of-the-hill`, `/trades/latest/{mint}`, `/candlesticks/{mint}` | 404 | gone in v3 |
+| `https://advanced-api-v2.pump.fun/...` | 530 | origin down; the third-party spec lists it, do not rely on it |
+
+Measured from the newest 200 coins (18:53 UTC):
+
+| Metric | Value |
+|---|---|
+| Launch rate | 200 coins in 6.8 min = ~1,760/h = ~42K/day |
+| Quote mint | 160 SOL, 13 PUMP, 6 USDC, 3 other (exotic-quote curves are ~20% of launches) |
+| `boost_mode` | 198 NONE, 2 IN_PROGRESS |
+| `is_holder_reward` | 0 of 200 |
+| Socials at launch | 87 twitter, 38 website |
+| `is_mayhem_mode` | null on the list endpoint (on-chain `BondingCurve.isMayhemMode` remains authoritative) |
+
+Consequences for the dev-farming track (strategy 2, not started):
+
+1. **Launch feed**: poll `/coins?sort=created_timestamp` every ~10 s (50 rows covers ~100 s of launches at
+   the current rate) or subscribe to Pump-program logs and decode `CreateEventBc`. Polling is enough for
+   research; the log subscription is only needed when we act (sub-second entry).
+2. **Creator lookup**: the feed gives `creator` for every launch, so a dev watchlist is a set-membership
+   check on each new row. Creator history itself comes from GMGN `created-tokens` + `token info`, not
+   from pump.fun.
+3. **Curve state and ATH**: `coins-v2` (per mint) has `ath_market_cap`; the list endpoint does not, so
+   an outcome table per token needs one `coins-v2` call or GMGN `token info` (which we already cache).
+4. **Cost**: zero. All of this is unauthenticated HTTP; rate limits were not hit at 4 calls in 2 s.
+   Treat it as best-effort (undocumented, CORS-blocked, can change without notice).
+
+Rating of the pump.fun-side tools for the next track (1 = use first):
+
+| Rank | Tool | Why |
+|---|---|---|
+| 1 | `frontend-api-v3 /coins` list + `coins-v2` | free launch feed with creator, quote mint, socials, curve state, ATH |
+| 2 | `@pump-fun/pump-sdk` event decoders + `OnlinePumpSdk` | exact curve state and second-resolution trade feed when we go live; fee tier math for sizing |
+| 3 | `fun-block.pump.fun /agents/swap` | unsigned tx builder for a $50 test buy without writing instruction code |
+| 4 | `profile-api` balance endpoints | quick dev-wallet balance/P&L check |
+| 5 | PumpPortal websocket | only if polling proves too coarse; trades are metered |
