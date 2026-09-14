@@ -22,3 +22,8 @@ research/notdecu-wallet/data/profile.out
 research/notdecu-wallet/data/companion.out
 research/notdecu-wallet/data/tokens/*.jsonl
 research/notdecu-wallet/data/tokens/pull.*
+research/notdecu-wallet/data/devs/*.jsonl
+!research/notdecu-wallet/data/devs/candidates.jsonl
+research/notdecu-wallet/data/devs/*.log
+research/notdecu-wallet/data/devs/*.out
+research/notdecu-wallet/data/devs/probe/
