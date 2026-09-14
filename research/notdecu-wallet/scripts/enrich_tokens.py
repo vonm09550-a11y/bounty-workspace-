@@ -70,6 +70,8 @@ def pull(since, gap):
 def load():
     con = duckdb.connect(DB)
     con.execute("DROP TABLE IF EXISTS tokens")
+    cols = [c[0] for c in con.execute(f"DESCRIBE SELECT * FROM read_json_auto('{CACHE}', union_by_name=true, maximum_object_size=8000000)").fetchall()]
+    err = "_error" if "_error" in cols else "NULL::INTEGER"   # column only exists when at least one 400/404 was cached
     con.execute(f"""
         CREATE TABLE tokens AS
         SELECT _address AS token, symbol, name, TRY_CAST(total_supply AS DOUBLE) total_supply, decimals,
@@ -93,7 +95,7 @@ def load():
                TRY_CAST(wallet_tags_stat.sniper_wallets AS INTEGER) sniper_wallets, TRY_CAST(wallet_tags_stat.bundler_wallets AS INTEGER) bundler_wallets,
                link.twitter_username twitter, link.website website, link.telegram telegram,
                pool.quote_symbol quote_symbol, pool.exchange exchange, fee_distribution.launchpad fee_launchpad,
-               _error AS error_code, _fetched_at fetched_at
+               {err} AS error_code, _fetched_at fetched_at
         FROM read_json_auto('{CACHE}', union_by_name=true, maximum_object_size=8000000)
     """)
     n, e = con.execute("SELECT count(*), sum(error_code IS NOT NULL) FROM tokens").fetchone()

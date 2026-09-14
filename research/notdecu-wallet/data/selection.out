@@ -1,0 +1,144 @@
+
+### coverage
+
+ positions  with_info  errors   pct
+     27810    27810.0     0.0 100.0
+
+### launchpad of picked tokens
+
+   launchpad_platform  tokens   buy_usd  realized  pct_win
+             Pump.fun   25123 5587558.0 1507991.0     65.0
+           pump_agent    1168  236259.0   43684.0     59.7
+             letsbonk     819  181725.0   34529.0     57.9
+             stonkfun     353  154051.0   47999.0     57.5
+                 bags     136   26042.0    5912.0     55.9
+                           95  115602.0   35523.0     64.2
+meteora_virtual_curve      45   11283.0     235.0     51.1
+              bonkers      32    5907.0     780.0     65.6
+        ray_launchpad      25    5376.0     347.0     48.0
+              believe       3    1631.0     -84.0     33.3
+
+### token age at his first buy (seconds since creation)
+
+    n  p10  p25  p50  p75   p90  pct_le_30s  pct_le_2m  pct_le_10m  pct_gt_1h
+27810  3.0  5.0  9.0 26.0 128.0        77.1       89.6        95.5        3.2
+
+### age at entry band vs outcome
+
+     age  tokens   buy_usd  realized  pct_win  med_roi  med_entry_mcap
+ a <=15s   18356 3730061.0 1072026.0     65.2     10.1          5071.0
+b 15-60s    5098 1257667.0  292173.0     62.8      7.5          7822.0
+  c 1-5m    2652  735284.0  178248.0     65.1      8.3         10354.0
+ d 5-30m     746  206533.0   52705.0     63.1      6.7         12738.0
+e 30m-1d     329   97989.0   14648.0     55.9      1.6         15833.0
+   f >1d     629  300068.0   67353.0     57.6      3.8         15653.0
+
+### age at entry by month (median seconds)
+
+      m    n  p25  p50  p75
+2026-02 4534  5.0  7.0 16.0
+2026-03 5056  4.0  7.0 16.0
+2026-04 2930  4.0  7.0 14.0
+2026-05 3253  4.0  7.0 16.0
+2026-06 2888  6.0 12.0 38.0
+2026-07 3191  7.0 14.0 48.0
+2026-08 4320  6.0 14.0 58.0
+2026-09 1638  6.0 14.0 58.0
+
+### what became of the tokens he picked (status today)
+
+ launchpad_status          mig  tokens  pct  realized  pct_win
+                0 not migrated   22612 81.3  731858.0     62.0
+                1     migrated    5188 18.7  944087.0     74.9
+                2 not migrated       4  0.0     -19.0      0.0
+                2     migrated       4  0.0    1193.0     75.0
+                0     migrated       2  0.0      34.0     50.0
+
+### did he sell before or after migration (migrated tokens)
+
+                        w    n  realized
+held into/after migration 3018  767167.0
+    sold before migration 2159  178148.0
+
+### creator repeat: how many of his picks share a creator
+
+             repeat  creators  tokens  realized
+a creator seen once      8893  8893.0  494238.0
+        b 2-3 picks      1035  2355.0  160546.0
+       c 4-10 picks       429  2548.0  162608.0
+        d >10 picks       292 14004.0  857148.0
+
+### top recurring creators
+
+                                     creator  picks  buy_usd  realized  pct_win  created_count  open_count
+ bwamJzztZsepfkteWRChggmXuiiCQvpLqPietdNfSXa   1034 241221.0   54822.0     58.5         161908        1498
+7moqFjvm2MwAiMtCZoqYoTAPzRBxxMRT2ddyHThQuWjr    407  77680.0   20718.0     62.4           5905         142
+6ujZxnphRxTqveaQtLAQHFoWz16xhLWZbTijcgZN4fRp    339  70414.0   25768.0     61.4          10808         209
+DPNPVvoGdwNBY849ryx2JZzakWuWbDTfSUYr8aNfKLwA    311  68077.0   15551.0     65.3           2103          96
+FiwwHe2obYsFoxprUXRWdAgHxMfKwK7ca9YB3g8bmX13    258  61330.0   14504.0     55.8           3398         154
+29yFzeBZgxf5zqrAkKXwgZtQehRf4pL8WbV2nRJikbw8    256  55127.0   16119.0     69.1           9955         178
+CzbN6T1gKkKutvuPXcxNmV8FLqzjsDWebWmg9o8e2ZbU    222  50495.0   33387.0     80.6           4066          74
+FM1YCKED2KaqB8Uat8aB1nsffR1vezr7s6FAEieXJgke    214  41350.0   13482.0     78.0          10608         111
+8HeDT75s5g4CtCimH5B5nySqCiQhtWii8UnZhxBtFo38    204  43553.0    4083.0     53.4          10742         245
+AMRsSeU5JpqwQWJGNLMpZzRCZSFEwYQYbMnms3dD4311    203  48598.0    9560.0     58.1           3817         144
+95ZCf3jKMHeFYvPXVZW3Ek6AEPDyjebosqnc7eNioVMo    196  36328.0    8554.0     66.8           5367          83
+D9gQ6RhKEpnobPBUdWY5bPQt2p3zGk3iVz6ChpUi2ArA    190  42073.0    8428.0     60.0          20611         386
+8i5U2uNBEuTc4zskYP14zbebDg2RSwrrG8REhEnJb97K    184  38521.0   10512.0     60.3          16766         267
+6MAmqJ7aGtTReML2DezAzmRckQyFoGfKKf6gWVak7P2d    178  38430.0   11839.0     61.2            635          41
+75GMVrr2xfgAeybuNg1VMHqFE3GTFJLzEHo6xC4MwUzF    175  32690.0    8564.0     63.4           5562          92
+
+### creator history at pick time proxies (creator_created_count / open_count are as of today)
+
+   dev_launches  tokens   buy_usd  realized  pct_win  med_roi
+ a first launch    4579  987507.0  210040.0     64.7      8.1
+ b 2-5 launches    1988  454422.0  171340.0     69.5     13.6
+         c 6-20    1663  415844.0  141225.0     68.4     12.6
+d >20 (factory)   19580 4469830.0 1154548.0     63.4      8.4
+
+### creator graduated before? (open_count>0 today) vs outcome
+
+ creator_has_graduated_token  tokens  realized  pct_win
+                       False    6504  257776.0     65.5
+                        True   21306 1419378.0     64.0
+
+### creator status today vs outcome
+
+creator_status  tokens  realized  pct_win
+ creator_close   26615 1546644.0     64.3
+                   623   49688.0     59.9
+  creator_hold     572   80822.0     71.7
+
+### socials present at pick (as of today) vs outcome
+
+ has_twitter  has_website  tokens  realized  pct_win
+        True         True   18267 1129193.0     65.0
+        True        False    8676  496918.0     64.2
+       False        False     438   39986.0     54.1
+       False         True     429   11057.0     50.3
+
+### quality signals (today) vs outcome: bundler share
+
+bundler  tokens  realized  pct_win
+      0   22255  831703.0     62.3
+ 10-30%     111   31138.0     70.3
+   <10%    5434  807847.0     72.8
+  >=30%      10    6466.0     80.0
+
+### quality signals (today) vs outcome: sniper hold, rat, image dup
+
+ pct_sniper_gt30  pct_rat_gt10  pct_image_dup  pct_cto  pct_any_smart_money  pct_any_kol
+             1.2           0.4           35.9     22.6                 53.0        100.0
+
+### holders today and total fees today vs outcome
+
+holders_now  tokens  realized  pct_win  med_total_fee
+      a <20   22352  647508.0     61.2           1.43
+   b 20-100    4030  584206.0     77.9          10.28
+  c 100-500    1086  310693.0     76.3          28.89
+    d >=500     342  134746.0     73.1         141.26
+
+### supply bought per position vs migration: was he in tokens that later graduated?
+
+              g     n  med_pos  med_hold_s  realized
+graduated later  5194    258.0        50.0  945314.0
+never graduated 22616    174.0        25.0  731839.0
