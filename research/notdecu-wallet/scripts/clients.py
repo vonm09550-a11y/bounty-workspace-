@@ -1,0 +1,127 @@
+"""Thin, paced, disk-caching clients for phase 2. No data pull is started by importing this.
+
+- GmgnActivity: walks `gmgn-cli portfolio activity` by cursor (server caps 20 rows/page, weight 3).
+- Helius: parseTransactions in batches of <=100 signatures (2 req/s on the free plan), plus raw RPC.
+
+Every response page is appended to a JSONL file so a rerun resumes instead of refetching.
+"""
+import json
+import os
+import subprocess
+import time
+import urllib.error
+import urllib.request
+
+DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+GMGN_GAP_S = 0.4          # ~weight 3 per call against a 20/s bucket, with headroom
+HELIUS_ENH_GAP_S = 0.55   # free plan: 2 enhanced-API req/s
+HELIUS_RPC_GAP_S = 0.12   # free plan: 10 RPC req/s
+
+
+def load_env():
+    env = {}
+    p = os.path.expanduser("~/.config/gmgn/.env")
+    if os.path.exists(p):
+        for line in open(p):
+            if "=" in line and not line.startswith("#"):
+                k, v = line.strip().split("=", 1)
+                env[k] = v.strip('"')
+    return env
+
+
+class GmgnActivity:
+    """Resumable walk of a wallet's trade rows, newest first."""
+
+    def __init__(self, wallet, chain="sol", types=("buy", "sell"), out=None):
+        self.wallet, self.chain, self.types = wallet, chain, types
+        self.out = out or os.path.join(DATA, "activity", f"{wallet[:8]}_{'-'.join(types)}.jsonl")
+        os.makedirs(os.path.dirname(self.out), exist_ok=True)
+        self.state = self.out + ".state"
+
+    def _cli(self, cursor):
+        args = ["gmgn-cli", "portfolio", "activity", "--chain", self.chain, "--wallet", self.wallet, "--limit", "100"]
+        for t in self.types:
+            args += ["--type", t]
+        if cursor:
+            args += ["--cursor", cursor]
+        args.append("--raw")
+        r = subprocess.run(args, capture_output=True, text=True, timeout=60,
+                           env={**os.environ, "GMGN_RATE_LIMIT_AUTO_RETRY_MAX_WAIT_MS": "90000"})
+        if r.returncode != 0 or not r.stdout.strip():
+            raise RuntimeError((r.stderr or "empty stdout (soft rate limit)")[:300])
+        d = json.loads(r.stdout)
+        return d.get("data", d)
+
+    def walk(self, stop_before_ts=None, max_pages=None):
+        """Yield rows; stop when rows are older than stop_before_ts (unix) or max_pages reached."""
+        cursor = json.load(open(self.state))["cursor"] if os.path.exists(self.state) else None
+        pages = 0
+        with open(self.out, "a") as f:
+            while True:
+                d = self._cli(cursor)
+                rows = d.get("activities") or []
+                for a in rows:
+                    f.write(json.dumps(a) + "\n")
+                    yield a
+                pages += 1
+                cursor = d.get("next")
+                json.dump({"cursor": cursor, "pages": pages, "ts": time.time()}, open(self.state, "w"))
+                if not rows or not cursor:
+                    break
+                if stop_before_ts and float(rows[-1]["timestamp"]) < stop_before_ts:
+                    break
+                if max_pages and pages >= max_pages:
+                    break
+                time.sleep(GMGN_GAP_S)
+
+
+class Helius:
+    def __init__(self, key=None):
+        self.key = key or load_env().get("HELIUS_API_KEY")
+        if not self.key:
+            raise RuntimeError("HELIUS_API_KEY not configured")
+        self._last = {"enh": 0.0, "rpc": 0.0}
+
+    def _pace(self, kind, gap):
+        wait = self._last[kind] + gap - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        self._last[kind] = time.time()
+
+    def _post(self, url, body, retries=4):
+        for i in range(retries):
+            # default "Python-urllib" UA is rejected (403) by api.helius.xyz's CDN
+            req = urllib.request.Request(url, method="POST", data=json.dumps(body).encode(),
+                                         headers={"content-type": "application/json",
+                                                  "User-Agent": "notdecu-research/0.1"})
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    return json.loads(r.read().decode())
+            except urllib.error.HTTPError as e:  # noqa: F821
+                if e.code == 429 and i < retries - 1:
+                    time.sleep(2 ** (i + 1))
+                    continue
+                raise
+
+    def parse(self, signatures, cache=None):
+        """Parse up to 100 signatures per call; caches by signature in a JSONL file."""
+        cache = cache or os.path.join(DATA, "helius", "parsed.jsonl")
+        os.makedirs(os.path.dirname(cache), exist_ok=True)
+        have = set()
+        if os.path.exists(cache):
+            for line in open(cache):
+                have.add(json.loads(line)["signature"])
+        todo = [s for s in dict.fromkeys(signatures) if s not in have]
+        with open(cache, "a") as f:
+            for i in range(0, len(todo), 100):
+                self._pace("enh", HELIUS_ENH_GAP_S)
+                out = self._post(f"https://api.helius.xyz/v0/transactions?api-key={self.key}",
+                                 {"transactions": todo[i:i + 100]})
+                for t in out:
+                    f.write(json.dumps(t) + "\n")
+        return cache
+
+    def rpc(self, method, params):
+        self._pace("rpc", HELIUS_RPC_GAP_S)
+        return self._post(f"https://mainnet.helius-rpc.com/?api-key={self.key}",
+                          {"jsonrpc": "2.0", "id": 1, "method": method, "params": params})["result"]

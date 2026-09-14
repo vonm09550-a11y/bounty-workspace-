@@ -100,6 +100,23 @@ First observations (not conclusions):
 - Realized ROI is stable at 19–23% across every window: no decay, no one-coin dependence
   visible in the buckets.
 
+## 4b. Helius and keyless tools — set up and pre-tested (2026-09-14, second pass)
+
+`HELIUS_API_KEY` is stored next to the GMGN key in `~/.config/gmgn/.env`. Every check in
+`scripts/env_check.py` passes except GMGN `holdings`, which stays blocked until the PEM exists.
+Full findings: `knowledge/pretests.md`. The two that change the plan:
+
+- **The address history on-chain is 98% spam.** The newest 1,000 signatures span 13 seconds and
+  are failed transactions from other wallets referencing him (copy-bot swarm, most likely). Helius
+  enhanced history cannot index his trades through that noise. Phase 2 therefore uses **GMGN
+  activity as the index** (his trades only, with `tx_hash`) and **Helius `parseTransactions`**
+  (100 signatures per call, 1.3 s per batch measured) as the enricher.
+- **Every one of his sampled trades runs through one router program**,
+  `FLASHX8DrLbgeR8FcfNV1F5krxYcYMUdBkrP1EPBtxB9`, hitting pump.fun curve, PumpSwap, Meteora,
+  Raydium and Jupiter underneath, with SOL fee transfers to a small set of bot accounts. Some
+  pump.fun tokens he trades are quoted in ARB or UNI instead of SOL, which GMGN records as
+  separate ARB/UNI legs (the source of its `arbitrager` tag).
+
 ## 5. Constraints and open items for approval
 
 1. **Private key.** If you have the PEM generated when the API key was created, adding it as
@@ -113,8 +130,10 @@ First observations (not conclusions):
 
 ## 6. Proposed Phase 2 plan (waiting on approval)
 
-1. **Pull** 30 days of `activity` (buy/sell, then transferIn/transferOut) into
-   `data/activity/*.jsonl`, resumable by cursor.
+1. **Pull** 30 days of GMGN `activity` (buy/sell, then transferIn/transferOut) into
+   `data/activity/*.jsonl`, resumable by cursor (`scripts/clients.py`), then enrich every unique
+   `tx_hash` with Helius `parseTransactions` into `data/helius/parsed.jsonl` (router program,
+   venue programs, fee/tip accounts, slot, priority fee, token legs).
 2. **Reconstruct positions** per token: first buy time, entry market cap (`price_usd ×
    total_supply`), clip size, buys/sells per position, hold time, realized P&L, fees.
 3. **Enrich** each token (rate-paced): `token info` (launchpad, creator, open_timestamp,
