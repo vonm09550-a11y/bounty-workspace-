@@ -17,6 +17,7 @@ import urllib.error
 WALLET = "4vw54BmAogeRV3vPKWyFet5yf8DTLcREzdSzx4rw9Ud9"
 PUMP_PROGRAM = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
 PUMPSWAP_PROGRAM = "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA"
+RAYDIUM_LAUNCHLAB = "LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj"   # letsbonk and stonk.fun run on it
 WSOL = "So11111111111111111111111111111111111111112"
 
 
@@ -122,8 +123,11 @@ def idls():
     ref = os.path.join(here, "..", "refs", "idl")
     pump = json.load(open(os.path.join(ref, "pump.json")))
     amm = json.load(open(os.path.join(ref, "pump_amm.json")))
+    lab = json.load(open(os.path.join(ref, "raydium_launchpad.json")))
     assert pump["address"] == PUMP_PROGRAM and amm["address"] == PUMPSWAP_PROGRAM
-    return f"pump {len(pump['instructions'])} ix, pump_amm {len(amm['instructions'])} ix, addresses match"
+    assert lab["address"] == RAYDIUM_LAUNCHLAB
+    return (f"pump {len(pump['instructions'])} ix, pump_amm {len(amm['instructions'])} ix, "
+            f"raydium_launchpad {len(lab['instructions'])} ix (letsbonk + stonk.fun), addresses match")
 
 
 def pylibs():
