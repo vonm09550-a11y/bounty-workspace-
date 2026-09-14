@@ -49,9 +49,9 @@ def pull(since, gap):
         for addr in todo:
             try:
                 d = g.info(addr)
-            except RuntimeError as e:
-                log(f"  error on {addr[:8]}: {e}; sleeping 90 s")
-                time.sleep(90)
+            except Exception as e:  # noqa: BLE001 — never let one bad call end a multi-hour pull
+                log(f"  error on {addr[:8]}: {type(e).__name__}: {str(e)[:120]}; sleeping 60 s")
+                time.sleep(60)
                 continue
             if d is None:
                 d = {}

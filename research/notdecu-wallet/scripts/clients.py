@@ -93,7 +93,10 @@ class GmgnActivity:
                 if e.code == 401 and "TIMESTAMP" in body:
                     continue  # clock skew on one attempt; rebuilt on the next loop
                 raise RuntimeError(f"HTTP {e.code}: {body}")
-        raise RuntimeError("rate-limited repeatedly; stop and resume later")
+            except (urllib.error.URLError, OSError):
+                time.sleep(3.0 * (i + 1))
+                continue
+        raise RuntimeError("rate-limited or network errors repeatedly; stop and resume later")
 
     def _cli(self, cursor):
         args = ["gmgn-cli", "portfolio", "activity", "--chain", self.chain, "--wallet", self.wallet, "--limit", "100"]
@@ -167,7 +170,11 @@ class GmgnToken:
                 if e.code in (400, 404):
                     return {"_error": e.code, "_body": body}
                 raise RuntimeError(f"HTTP {e.code}: {body}")
-        raise RuntimeError("rate-limited repeatedly")
+            except (urllib.error.URLError, OSError) as e:
+                # proxy/TLS hiccup (seen: SSL UNEXPECTED_EOF_WHILE_READING) — back off and retry
+                time.sleep(3.0 * (i + 1))
+                continue
+        raise RuntimeError("rate-limited or network errors repeatedly")
 
 
 class Helius:
