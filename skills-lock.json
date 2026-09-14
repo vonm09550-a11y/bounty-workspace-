@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "coin-fees": {
+      "source": "pump-fun/pump-fun-skills",
+      "sourceType": "github",
+      "skillPath": "coin-fees/SKILL.md",
+      "computedHash": "43fda2649c808e30b7c88591f5c297b13b4473da27b99da2d0e604a43e56253c"
+    },
+    "create-coin": {
+      "source": "pump-fun/pump-fun-skills",
+      "sourceType": "github",
+      "skillPath": "create-coin/SKILL.md",
+      "computedHash": "794c1bc5df1c50e23a35e9a75c406a2017e72363ef6a1b51b86e3ea8e92ecbe4"
+    },
     "gmgn-contract-dd": {
       "source": "GMGNAI/gmgn-skills",
       "sourceType": "github",
@@ -84,6 +96,18 @@
       "sourceType": "github",
       "skillPath": "skills/gmgn-wallet-analysis/SKILL.md",
       "computedHash": "4a89f67403272f9c717bfbe918fdc58fe81d1c3ef86ad544e0e8ef6594142945"
+    },
+    "swap": {
+      "source": "pump-fun/pump-fun-skills",
+      "sourceType": "github",
+      "skillPath": "swap/SKILL.md",
+      "computedHash": "44a4456fced6527d248e8272c1f95831ab059a61a015e11c87b2b12d39aaff93"
+    },
+    "tokenized-agents": {
+      "source": "pump-fun/pump-fun-skills",
+      "sourceType": "github",
+      "skillPath": "tokenized-agents/SKILL.md",
+      "computedHash": "8d7a6d853027d4a45d1715672cc6d4ae4432264a3bce6e66f4ea7ccf68682797"
     }
   }
 }

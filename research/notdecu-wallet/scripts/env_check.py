@@ -130,6 +130,19 @@ def idls():
             f"raydium_launchpad {len(lab['instructions'])} ix (letsbonk + stonk.fun), addresses match")
 
 
+def pumpfun_http():
+    st, d, dt = http("https://frontend-api-v3.pump.fun/sol-price")
+    st2, c, dt2 = http("https://frontend-api-v3.pump.fun/coins-v2/GA8BnK3FE6755J2j1GyUUXksaC6VZoJP4dQKtXVKpump")
+    return f"sol-price ${d['solPrice']:.2f}; coins-v2 complete={c.get('complete')} creator={str(c.get('creator'))[:8]} in {dt + dt2:.2f}s"
+
+
+def pumpfun_agents_api():
+    st, d, dt = http("https://fun-block.pump.fun/agents/swap", "POST",
+                     {"inputMint": WSOL, "outputMint": "GA8BnK3FE6755J2j1GyUUXksaC6VZoJP4dQKtXVKpump",
+                      "amount": "1000000", "user": WALLET, "slippagePct": 2, "encoding": "base64"})
+    return f"unsigned tx built ({len(d.get('transaction', ''))} b64 chars), hasGraduated={d.get('pumpMintInfo', {}).get('hasGraduated')} in {dt:.2f}s"
+
+
 def pylibs():
     import duckdb, pandas, websockets  # noqa: F401
     return f"duckdb {duckdb.__version__} pandas {pandas.__version__} websockets {websockets.__version__}"
@@ -138,7 +151,8 @@ def pylibs():
 for name, fn in [("python libs", pylibs), ("gmgn-cli config", gmgn_cli), ("gmgn portfolio stats", gmgn_stats),
                  ("gmgn portfolio holdings (needs PEM)", gmgn_holdings), ("helius rpc", helius_rpc),
                  ("helius parseTransactions", helius_parse), ("helius token accounts", helius_token_accounts),
-                 ("dexscreener", dexscreener), ("jupiter lite price", jupiter), ("pump.fun IDLs", idls)]:
+                 ("dexscreener", dexscreener), ("jupiter lite price", jupiter), ("pump.fun IDLs", idls),
+                 ("pump.fun coins-v2 / sol-price", pumpfun_http), ("pump.fun agents API (fun-block)", pumpfun_agents_api)]:
     check(name, fn)
 
 width = max(len(n) for n, _, _ in results)
