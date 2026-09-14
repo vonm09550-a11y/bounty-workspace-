@@ -160,13 +160,23 @@ Hygiene rules now applied to every list (`hygiene_ok` in `dev_scores`):
 ### 7.2 Effect on the first cut
 
 - The top-3 craftsmen (GrokBot, TOAD, BABYTROLL) are unchanged and remain 1–3 in list A.
-- 27 of the first cut's 30-dev shortlist survive; the drop-outs are the two-hit devs with thin books and
-  the sprayers that fell to the hit-rate floor.
+- The first cut's shortlist had 27 distinct devs; 21 survive, 6 drop out (see `data/devs/rank.out` and the
+  drop-out table below), 7 enter. The materialised shortlist has 28 devs.
 - New entrants from the watcher sample after hygiene: `HLez…ajhU` (S&P 500, 9 launches, 3 hits, 1,295
   holders on hits), `CzwW…quh4` ("1B", 184 launches, 82 graduations, 10 hits), `BFmg…j4h4` (biketyson, 7
   hits in the last 30 d). None of the wallet-farm devs survive.
 
-### 7.3 D4 shortlist (materialised as `d4_shortlist`, `data/devs/d4_shortlist.parquet`)
+
+| Dropped | Why |
+|---|---|
+| `4q4GKBpV…` (FINNBAGS) | 26 median holders on hits |
+| `CyaE1Vxv…` (Frohorse) | factory hit rate 0.92% < 2% |
+| `AxqXBbPa…` (FURRY) | 3 median holders on hits; factory hit rate 0.47% < 2% |
+| `ARW9Nzhp…` (Tate) | 11 median holders on hits |
+| `5a1kLJrD…` (BTCX) | fell below the list cut-off in rank |
+| `H6zpaY14…` (KIRK) | 24 median holders on hits; factory hit rate 1.71% < 2% |
+
+### 7.3 D4 shortlist, 28 devs (materialised as `d4_shortlist`, `data/devs/d4_shortlist.parquet`)
 
 | # | Creator | Lists | Launches | Grads | Hits ≥ $100K | ≥ $1M | Best | Hit rate | Holders on hits | Days since launch |
 |---|---|---|---|---|---|---|---|---|---|---|
