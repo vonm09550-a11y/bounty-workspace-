@@ -12,3 +12,6 @@ ens-contracts/
 # bulk pulls (rebuild with scripts/pull_activity.py)
 research/notdecu-wallet/data/activity/*.jsonl
 research/notdecu-wallet/data/helius/*.jsonl
+research/notdecu-wallet/data/activity/*.state
+research/notdecu-wallet/data/activity/pull.log
+research/notdecu-wallet/data/activity/pull.out
