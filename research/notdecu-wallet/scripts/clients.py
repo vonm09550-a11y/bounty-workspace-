@@ -13,7 +13,8 @@ import urllib.error
 import urllib.request
 
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
-GMGN_GAP_S = 0.35         # weight 3 per call against a 20/s bucket: ~8.6 weight/s, under half
+GMGN_GAP_S = 0.5          # weight 3 per call; measured 2.1: 0.35 s tripped 429s every few minutes,
+                          # consistent with the rate=10/capacity=10 bucket in docs/cli-usage.md
 HELIUS_ENH_GAP_S = 0.55   # free plan: 2 enhanced-API req/s
 HELIUS_RPC_GAP_S = 0.12   # free plan: 10 RPC req/s
 
@@ -54,7 +55,8 @@ class GmgnActivity:
         os.makedirs(os.path.dirname(self.out), exist_ok=True)
         self.state = self.out + ".state"
 
-    def _http(self, cursor, token=None, retries=5):
+    def _url(self, cursor, token=None):
+        """Auth query is valid for ±5 s (AUTH_TIMESTAMP_EXPIRED otherwise), so it is rebuilt per attempt."""
         import uuid
         import urllib.parse
         q = [("chain", self.chain), ("wallet_address", self.wallet), ("limit", "100"),
@@ -64,10 +66,13 @@ class GmgnActivity:
             q.append(("cursor", cursor))
         if token:
             q.append(("token_address", token))
-        url = f"{GMGN_HOST}/v1/user/wallet_activity?{urllib.parse.urlencode(q)}"
+        return f"{GMGN_HOST}/v1/user/wallet_activity?{urllib.parse.urlencode(q)}"
+
+    def _http(self, cursor, token=None, retries=6):
         for i in range(retries):
-            req = urllib.request.Request(url, headers={"X-APIKEY": self.key, "Content-Type": "application/json",
-                                                       "User-Agent": "gmgn-cli/1.6.2"})
+            req = urllib.request.Request(self._url(cursor, token),
+                                         headers={"X-APIKEY": self.key, "Content-Type": "application/json",
+                                                  "User-Agent": "gmgn-cli/1.6.2"})
             try:
                 with urllib.request.urlopen(req, timeout=60) as r:
                     d = json.loads(r.read().decode())
@@ -77,12 +82,16 @@ class GmgnActivity:
                 if e.code == 429:
                     reset = None
                     try:
-                        reset = json.loads(body).get("reset_at")
+                        reset = float(e.headers.get("x-ratelimit-reset") or json.loads(body).get("reset_at"))
                     except Exception:  # noqa: BLE001
                         pass
-                    wait = max(2.0, (reset - time.time() + 1.5) if reset else 3.0 * (i + 1))
+                    # never land exactly on the reset instant: that extends a ban by 5 s
+                    wait = max(3.0, (reset - time.time() + 2.0) if reset else 5.0 * (i + 1))
+                    self.last_429 = {"at": time.time(), "wait": wait, "body": body}
                     time.sleep(min(wait, 330))
                     continue
+                if e.code == 401 and "TIMESTAMP" in body:
+                    continue  # clock skew on one attempt; rebuilt on the next loop
                 raise RuntimeError(f"HTTP {e.code}: {body}")
         raise RuntimeError("rate-limited repeatedly; stop and resume later")
 
