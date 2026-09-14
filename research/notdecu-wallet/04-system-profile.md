@@ -165,6 +165,39 @@ $10.8K, DOGE $3.3K, SPYx $1.9K, NVDAx $1.4K; ARB, LINK, PYTH near zero. They are
 legs of stock-quoted curves, not a second strategy. 89% of positions show two quote symbols
 only because GMGN labels the buy side `SOL` and the sell side `WSOL`.
 
+## 2.3a — the companion wallets: a bag-parking loop, not a hidden exit
+
+GMGN activity for `4hQZ1GtLTvAzetszCcWrb8zxiuVvEt85Bb7y6VNzA2ve` (12 months): **197 trade
+legs** and 9,687 transfer legs. It barely trades; it holds. `scripts/companion.py`, output
+`data/companion.out`. Note: the GMGN transfer endpoint ignores the slot cursor, so one chunk
+already holds everything (the 13-chunk pull was stopped after confirming identical rows).
+
+The loop, measured on 3,674 tokens (Feb–Sep 2026):
+
+| Step | Timing / size |
+|------|---------------|
+| Main wallet buys the clip | t = 0 |
+| Main sends **47% of the bag** to the companion | median **8 s** after the first buy |
+| Main keeps bumping ($2.28 median buys, 10,348 legs while parked) | |
+| Companion sends **100% of it back** | median **47 s** after it left (p90 4.6 min); 3,673 of 3,674 came back |
+| Main sells everything | median **2 s** after it returns |
+| Companion sells the token itself | 3 tokens, $305, i.e. never |
+
+Why park half the bag for a minute: he buys a median **4.8% of supply** (p90 6.7%), which
+would put the wallet at the top of every holders panel his buyers look at (his own thread tells
+followers to inspect holders). Parking 2.3% of supply in a second wallet keeps each address
+near 2.3–2.5% during the bump phase, and the bag is reunited only for the single dump
+transaction. Whatever the intent, the effect on the public numbers is nil: nothing is sold
+elsewhere, so the wallet's P&L is complete and GMGN's `wash_trader` tag is not explained by
+this loop. Round-trip tokens are his committed trades: 77.6% win rate and +22.6% median ROI
+versus 62.4% and +7.2% for the rest, held 62 s vs 24 s, 4 buys vs 2.
+
+A third wallet, `9k4kV6mHCcnTbqLrudMH8kQyKeMYJye62WaraHaGAqr5`, receives 1,222 transfers from
+the companion ($119K, 1,186 tokens, since March 2026) and 124 from the main wallet, and sends
+1,370 back to the main wallet; `6yCLZ7XW…` sees 56–59 transfers each way. Their role (a second
+parking slot when the bag is larger, or a dust sink) is left to 2.6, which will parse their
+transactions; at $126K total moved it cannot change the P&L picture.
+
 ## 9. What 2.3 leaves to the next mini-phases
 
 - **Causality of the bumps** (2.6, slot-level): do other wallets buy in the seconds after his
