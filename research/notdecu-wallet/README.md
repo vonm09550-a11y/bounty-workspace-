@@ -58,6 +58,15 @@ cli-usage. Digest with exact commands, fields, thresholds and formulas: `knowled
 | `track follow-wallet` | key + private key | 3 | blocked for the same reason (not needed) |
 | everything under `token *`, `market *`, `track kol/smartmoney` | key only | 1–5 | available |
 
+Where the per-token quality signals actually live (verified live on a pump.fun token, sol):
+
+| Signal | Source |
+|--------|--------|
+| creator address, `creator_token_status`, `creator_open_count`, `cto_flag`, launchpad + status, `open_timestamp`, `migration_market_cap`, `total_fee` (= the "Global Fees Paid" number from the thread), `stat.top_bundler_trader_percentage`, `stat.top_rat_trader_percentage`, `stat.bot_degen_rate`, `stat.fresh_wallet_rate`, `stat.top70_sniper_hold_rate`, `stat.creator_created_count` | `token info` (weight 1) |
+| `renounced_mint`, `renounced_freeze_account`, `top_10_holder_rate`, `burn_status` | `token security` (weight 1). **`rug_ratio`, `is_wash_trading`, `sniper_count` are null here on sol** despite the skill docs |
+| `rug_ratio`, `is_wash_trading`, `sniper_count`, `smart_degen_count`, `renowned_count`, `bundler_rate` | only on `market trending` / `trenches` / `hot-searches` rank rows (listed tokens only) |
+| `total_fee`, `progress`, `launchpad_status`, `creator`, `is_honeypot`, `kol_count`, `hot_level` | `market search -q <CA>` (weight 1, no chain needed) |
+
 Rate limit: leaky bucket `rate=20 / capacity=20` weight units. A full activity history for this
 wallet is large (see below), so phase 2 must pace calls (~0.35 s gap, sequential, never parallel)
 and persist every page to disk so nothing is re-fetched.
