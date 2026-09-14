@@ -22,7 +22,7 @@ WALLET = "4vw54BmAogeRV3vPKWyFet5yf8DTLcREzdSzx4rw9Ud9"
 
 
 def main():
-    files = sorted(glob.glob(os.path.join(DATA, "activity", "*.jsonl")))
+    files = sorted(glob.glob(os.path.join(DATA, "activity", "buy-sell_*.jsonl")))
     if not files:
         sys.exit("no chunks in data/activity")
     con = duckdb.connect(DB)
