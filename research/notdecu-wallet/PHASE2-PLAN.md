@@ -23,12 +23,28 @@ the token universe is larger than expected. Ring C is fixed-size, so depth cost 
 | 2.2 ✅ | Transaction enrichment | Done — see `03-enrichment.md`: 176,482 signatures parsed (100%), router `FLASHX8…` on 97% of trades since Dec 2025, its fee = 1.2% per side ≈ $184K/yr, priority fees cut 70–90× in March 2026, no Jito, 80% of trades on the bonding curve, companion wallet `4hQZ…` sized | 1,765 calls, 63 min | done | `tx`, `tx_programs`, `tx_native_out` tables, `03-enrichment.md` | passed |
 | 2.3a ✅ | Companion wallet pull | Done — `4hQZ…` is a parking wallet: 47% of each committed bag leaves 8 s after the buy and returns 47 s later, 2 s before the dump; it sells nothing (3 tokens). P&L on the public wallet is complete. Third wallet `9k4kV6…` noted for 2.6 | 13 GMGN chunks (transfer cursor ignores slot; one chunk was enough) | done | `activity_companion`, `transfers_companion`, section 2.3a in `04-system-profile.md` | passed |
 | 2.3 ✅ | System profile (offline) | Done — see `04-system-profile.md`: rebuilt P&L $2.04M (GMGN $1.91M), fixed SOL clip 1.4→2.9, $1 "bump" buys every 25 s, median exit 27 s, 83% single-transaction full exits, 65% win rate, daily 06–13 UTC pause, three regimes across the year | 0 API | done | `positions` table, `data/positions.parquet`, `04-system-profile.md` | for review: bot confirmed; exit rule = time-and-momentum |
-| 2.4 | Token universe | `token info` (+ `market search` when info is empty) for every ring-B token: launchpad, status, creator, open/migration time and mcap, total_fee, bundler/rat/sniper/fresh stats, holders. Derive age-at-entry, mcap-at-entry band, curve vs post-migration, creator repeat count | 1 call per token (w1), 20K–40K calls at 0.1 s | 1–1.5 h, resumable | `tokens` table, `03-selection-profile.md` | coverage ≥ 95% of P&L-weighted tokens |
+| 2.4 🔄 | Token universe | **Running** (started 17:02 UTC; 15.7K/27.9K tokens at 18:52, 0 errors, ETA ~20:25 UTC). `token info` for every ring-B token ordered by |realized| desc; then `enrich_tokens.py --load` and `selection.py` → launchpad, age-at-entry bands, status today, creator repeats, dev launch counts, socials, bundler/sniper/rat, holders. **Last decu run**: after 2.4 the decu track is context only | 27.9K calls (w1) at 0.05 s gap ≈ 0.44 s/token measured | 3.4 h | `tokens` table, `data/tokens.parquet`, `05-selection-profile.md` | coverage ≥ 95% of P&L-weighted tokens |
 | 2.5 | Dev-wallet hypothesis | Aggregate creators; `created-tokens` for the top 100 recurring creators; `dev_score.py` for the top 30; P&L on his positions split by creator history (graduated before / high ATH / first launch) | ~100 × w2 + 30 dev-score runs (~20 calls each) | 1–2 h | `04-dev-filter.md` | rule candidates stated with hit rates |
 | 2.6 | Micro-structure deep dive | For the 300 ring-C positions: `market kline` 1m (30s where available) around entry and exit; seconds from token open to his first buy; drawdown from ATH at exit; `holder-analysis` on 30; Helius `getBlock` for 100 buys: his index in the slot, other buyers in the same slot, and the swarm of transactions referencing him in the next 5 slots | ~600 kline (w2) + 30 holder (w5) + ~120 Helius RPC | 2 h | `05-entry-exit-model.md` | entry/exit timing distributions with sample sizes |
 | 2.7 | Timeline and regimes | Month-by-month over 12 months: P&L, ROI, win rate, cadence, router changes, quote-mint changes, sizing changes; overlay SOL price and pump.fun launch volume; identify the $250K → $1M window from the thread | 0 API beyond a few kline calls for SOL | half a day | `06-timeline.md` | drift explained or flagged |
 | 2.8 | Official verdicts and copyability | Run the shipped `gmgn-wallet-analysis` and `gmgn-wallet-score` scripts; compare their gates/scores with ring-A numbers; estimate follower slippage from the swarm data in 2.6 | ~30 GMGN calls | 1 h | `07-copyability.md` | agreement/disagreement documented |
 | 2.9 | Synthesis | `REPORT.md`: the strategy as rules with evidence tables; what is replicable (selection filters, sizing, exit rules) vs what is not (router, latency); a screener spec expressed as GMGN `trenches`/`trending` filters that would have surfaced his winners; open questions | 0 API | 1 day | `REPORT.md` + optional dashboard | final review |
+
+## Pivot (2026-09-14): strategy 2, dev farming
+
+Decided after 2.3: decu's tokens are not high-runners, and copying his latency/router is not open to us.
+The edge that fits is **dev farming**: gather top devs → per-dev history at scale → pick devs to track →
+position entries/exits in the style their token runs reward → repeat and scale. Rows 2.5–2.9 above are
+**subordinate** to this and will be re-cut; nothing in strategy 2 runs until the user gives the call.
+
+| Item | State | Output |
+|---|---|---|
+| 2.4 (last decu run) | running, see row above | `05-selection-profile.md` |
+| Where top tokens launch | done: SOL + pump.fun (95% of graduations) | `knowledge/pumpfun-docs-digest.md` §launchpads |
+| pump.fun tooling research | **closed** 2026-09-14 (list endpoints probed, tools ranked) | `knowledge/pumpfun-stack.md` §6 |
+| SOL chain volume + metadata, this month | **done** 2026-09-14 (measured + cited) | `knowledge/solana-chain-sep2026.md` |
+| Dev-farming tactics + tooling plan | next, on the user's call | `PHASE3-DEVFARM-PLAN.md` (to write) |
+| Dev audit → top-10 dev list | after the plan is approved | — |
 
 ## Budget summary
 
