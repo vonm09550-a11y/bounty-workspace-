@@ -80,13 +80,15 @@ def pull_chunk(g, tag, upper, lower):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--types", nargs="+", default=["buy", "sell"])
+    ap.add_argument("--wallet", default=WALLET)
+    ap.add_argument("--prefix", default="", help="file-name prefix, e.g. companion_")
     ap.add_argument("--from-slot", type=int, default=368_000_000)   # oldest GMGN data ≈ 2025-09-13
     ap.add_argument("--to-slot", type=int, default=447_500_000)     # a little above the current slot
     ap.add_argument("--step", type=int, default=6_500_000)          # ≈ one month
     args = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
-    g = GmgnActivity(WALLET, types=tuple(args.types), out=os.path.join(OUT, "unused.jsonl"), direct=True)
-    tag = "-".join(args.types)
+    g = GmgnActivity(args.wallet, types=tuple(args.types), out=os.path.join(OUT, "unused.jsonl"), direct=True)
+    tag = args.prefix + "-".join(args.types)
     bounds = list(range(args.from_slot, args.to_slot, args.step)) + [args.to_slot]
     chunks = [(bounds[i + 1], bounds[i]) for i in range(len(bounds) - 1)][::-1]   # newest first
     log(f"=== pull {tag}: {len(chunks)} chunks {args.from_slot}->{args.to_slot} ===")

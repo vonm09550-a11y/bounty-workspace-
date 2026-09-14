@@ -18,3 +18,4 @@ research/notdecu-wallet/data/activity/pull.out
 research/notdecu-wallet/data/notdecu.duckdb
 research/notdecu-wallet/data/activity/*.out
 research/notdecu-wallet/data/helius/*.out
+research/notdecu-wallet/data/profile.out
