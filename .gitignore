@@ -20,3 +20,5 @@ research/notdecu-wallet/data/activity/*.out
 research/notdecu-wallet/data/helius/*.out
 research/notdecu-wallet/data/profile.out
 research/notdecu-wallet/data/companion.out
+research/notdecu-wallet/data/tokens/*.jsonl
+research/notdecu-wallet/data/tokens/pull.*

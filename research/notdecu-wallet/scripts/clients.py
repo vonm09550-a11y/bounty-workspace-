@@ -134,6 +134,42 @@ class GmgnActivity:
                 time.sleep(GMGN_GAP_S)
 
 
+class GmgnToken:
+    """Direct `GET /v1/token/info` (exist auth, weight 1). Returns the data object or None on 404-style empties."""
+
+    def __init__(self, chain="sol"):
+        self.chain = chain
+        self.key = load_env().get("GMGN_API_KEY")
+
+    def info(self, address, retries=6):
+        import uuid
+        import urllib.parse
+        for i in range(retries):
+            q = [("chain", self.chain), ("address", address), ("timestamp", str(int(time.time()))), ("client_id", str(uuid.uuid4()))]
+            req = urllib.request.Request(f"{GMGN_HOST}/v1/token/info?{urllib.parse.urlencode(q)}",
+                                         headers={"X-APIKEY": self.key, "Content-Type": "application/json", "User-Agent": "gmgn-cli/1.6.2"})
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    d = json.loads(r.read().decode())
+                    return d.get("data", d)
+            except urllib.error.HTTPError as e:
+                body = e.read().decode()[:300]
+                if e.code == 429:
+                    reset = None
+                    try:
+                        reset = float(e.headers.get("x-ratelimit-reset") or json.loads(body).get("reset_at"))
+                    except Exception:  # noqa: BLE001
+                        pass
+                    time.sleep(min(max(3.0, (reset - time.time() + 2.0) if reset else 5.0 * (i + 1)), 330))
+                    continue
+                if e.code == 401 and "TIMESTAMP" in body:
+                    continue
+                if e.code in (400, 404):
+                    return {"_error": e.code, "_body": body}
+                raise RuntimeError(f"HTTP {e.code}: {body}")
+        raise RuntimeError("rate-limited repeatedly")
+
+
 class Helius:
     def __init__(self, key=None):
         self.key = key or load_env().get("HELIUS_API_KEY")
