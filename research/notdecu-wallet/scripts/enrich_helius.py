@@ -28,7 +28,8 @@ SKIP = ("ComputeBudget111111111111111111111111111111", "111111111111111111111111
 
 def pull():
     con = duckdb.connect(DB, read_only=True)
-    sigs = [r[0] for r in con.execute("SELECT DISTINCT tx_hash FROM activity ORDER BY 1").fetchall()]
+    sigs = [r[0] for r in con.execute("""SELECT DISTINCT tx_hash FROM activity
+                                         UNION SELECT DISTINCT tx_hash FROM transfers ORDER BY 1""").fetchall()]
     con.close()
     have = set()
     if os.path.exists(CACHE):
