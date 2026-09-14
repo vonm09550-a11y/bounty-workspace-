@@ -24,7 +24,7 @@ def show(t, q):
 
 
 con.execute("DROP TABLE IF EXISTS dev_scores")
-con.execute("""
+con.execute(f"""
 CREATE TABLE dev_scores AS
 WITH t AS (
   SELECT creator, count(*) listed, sum(is_open::INT) listed_open,
@@ -33,6 +33,7 @@ WITH t AS (
          median(CASE WHEN is_open THEN ath_mc END) med_ath_open,
          median(CASE WHEN is_open THEN bundler_rate END) med_bundler_open,
          median(CASE WHEN is_open THEN holders END) med_holders_open,
+         median(CASE WHEN ath_mc >= 1e5 AND ath_mc < 5e9 THEN holders END) med_holders_hits,
          sum((is_open AND liq_lt_4k)::INT) open_but_dry,
          sum((create_ts >= extract(epoch FROM now()) - 30*86400)::INT) listed_last_30d,
          sum((create_ts >= extract(epoch FROM now()) - 30*86400 AND ath_mc >= 1e5)::INT) hits_100k_last_30d,
@@ -42,23 +43,30 @@ WITH t AS (
   FROM dev_tokens GROUP BY 1),
 d AS (
   SELECT p.token, tk.creator, p.realized_avg, p.buy_usd FROM positions p JOIN tokens tk USING(token) WHERE p.first_buy_t >= '2026-02-01'),
-dd AS (SELECT creator, count(*) decu_picks, round(sum(realized_avg)) decu_realized, round(100.0*sum((realized_avg>0)::INT)/count(*),1) decu_win FROM d GROUP BY 1)
+dd AS (SELECT creator, count(*) decu_picks, round(sum(realized_avg)) decu_realized, round(100.0*sum((realized_avg>0)::INT)/count(*),1) decu_win FROM d GROUP BY 1),
+w AS (SELECT creator, any_value(fund_from_address) fund_from_address, any_value(fund_from) fund_from_label,
+             bool_or(launch_creator IS NOT NULL AND launch_creator<>'' AND launch_creator<>creator) proxy_launch,
+             any_value(launch_creator) launch_creator, count(DISTINCT address) grads_seen_live
+      FROM read_json_auto('{os.path.join(DATA, 'devs', 'trenches_completed.jsonl')}', union_by_name=true, maximum_object_size=8000000) GROUP BY 1),
+fc AS (SELECT fund_from_address, count(*) funder_shared_n FROM w WHERE fund_from_address IS NOT NULL AND fund_from_address<>'' GROUP BY 1)
 SELECT b.creator, b.inner_count + b.open_count launches, b.inner_count >= 999 launches_capped, b.open_count opens, b.open_ratio, t.implausible_peaks,
        t.listed, t.listed >= 101 AND t.listed_min_ath >= 1e5 AS hits_incomplete,
        t.hits_100k, t.hits_1m, t.hits_10m, round(t.best_ath) best_ath, b.creator_ath_symbol best_symbol,
-       round(t.med_ath_open) med_ath_open, t.med_bundler_open, t.med_holders_open, t.open_but_dry,
+       round(t.med_ath_open) med_ath_open, t.med_bundler_open, t.med_holders_open, t.med_holders_hits, t.open_but_dry,
        round(100.0 * t.hits_100k / greatest(b.inner_count + b.open_count, 1), 2) hit_rate_100k_pct,
        round(100.0 * t.hits_1m / greatest(b.inner_count + b.open_count, 1), 2) hit_rate_1m_pct,
        t.listed_last_30d, t.hits_100k_last_30d, t.hits_100k_last_90d,
        round((extract(epoch FROM now()) - b.last_create_ts) / 86400.0, 1) days_since_launch,
        round((extract(epoch FROM now()) - t.last_hit_ts) / 86400.0, 1) days_since_hit,
        t.n_platforms, t.main_platform,
-       dd.decu_picks, dd.decu_realized, dd.decu_win
-FROM dev_books b JOIN t USING(creator) LEFT JOIN dd USING(creator)
+       dd.decu_picks, dd.decu_realized, dd.decu_win,
+       w.fund_from_address, w.fund_from_label, w.proxy_launch, w.launch_creator, w.grads_seen_live, fc.funder_shared_n,
+       t.main_platform NOT IN ('meteora_virtual_curve') AND coalesce(t.med_holders_hits, 0) >= 30 AND coalesce(w.proxy_launch, false) = false AS hygiene_ok
+FROM dev_books b JOIN t USING(creator) LEFT JOIN dd USING(creator) LEFT JOIN w USING(creator) LEFT JOIN fc ON fc.fund_from_address = w.fund_from_address
 """)
 con.execute(f"COPY dev_scores TO '{os.path.join(DATA, 'devs', 'dev_scores.parquet')}' (FORMAT PARQUET)")
 
-show("universe", """SELECT count(*) devs, sum(launches_capped::INT) capped, sum((implausible_peaks>0)::INT) implausible, sum(hits_incomplete::INT) hits_incomplete, sum((hits_100k>=1)::INT) any_100k, sum((hits_1m>=1)::INT) any_1m,
+show("universe", """SELECT count(*) devs, sum(hygiene_ok::INT) hygiene_ok, sum((proxy_launch)::INT) proxy, sum((main_platform='meteora_virtual_curve')::INT) meteora, sum(launches_capped::INT) capped, sum((implausible_peaks>0)::INT) implausible, sum(hits_incomplete::INT) hits_incomplete, sum((hits_100k>=1)::INT) any_100k, sum((hits_1m>=1)::INT) any_1m,
  sum((hits_1m>=3)::INT) ge3_1m, sum((hits_100k>=5)::INT) ge5_100k, sum((days_since_launch<=7)::INT) active_7d, sum((days_since_launch<=30)::INT) active_30d FROM dev_scores""")
 show("hit rate by launch-count band (median dev)", """SELECT CASE WHEN launches<=5 THEN 'a <=5' WHEN launches<=20 THEN 'b 6-20' WHEN launches<=100 THEN 'c 21-100' WHEN launches<999 THEN 'd 101-998' ELSE 'e 999+' END band,
  count(*) devs, round(median(open_ratio),3) med_open_ratio, round(median(hit_rate_100k_pct),2) med_hit100k_pct, round(avg(hits_1m),2) avg_hits_1m, round(median(days_since_launch),1) med_days_since_launch,
@@ -66,9 +74,18 @@ show("hit rate by launch-count band (median dev)", """SELECT CASE WHEN launches<
 show("does decu overlap tell anything? (devs with >=20 decu picks)", """SELECT CASE WHEN hits_1m>=3 THEN 'a >=3 hits 1M' WHEN hits_1m>=1 THEN 'b 1-2 hits 1M' WHEN hits_100k>=3 THEN 'c >=3 hits 100K' ELSE 'd weaker' END power,
  count(*) devs, sum(decu_picks) picks, sum(decu_realized) realized, round(avg(decu_win),1) avg_win FROM dev_scores WHERE decu_picks>=20 GROUP BY 1 ORDER BY 1""")
 show("A. craftsman list: <=100 launches, >=2 hits >=100K, launched in last 30 d, ranked by hits_1m, hits_100k, hit rate", """SELECT creator, launches, opens, hits_100k, hits_1m, best_ath, best_symbol, hit_rate_100k_pct hr100k, med_bundler_open bund, days_since_launch dsl, days_since_hit dsh, main_platform, decu_picks
- FROM dev_scores WHERE launches<=100 AND hits_100k>=2 AND days_since_launch<=30 ORDER BY hits_1m DESC, hits_100k DESC, hit_rate_100k_pct DESC LIMIT 25""")
+ FROM dev_scores WHERE hygiene_ok AND launches BETWEEN 5 AND 100 AND hits_100k>=2 AND days_since_launch<=30 ORDER BY hits_1m DESC, hits_100k DESC, hit_rate_100k_pct DESC LIMIT 25""")
 show("B. factory list: >100 launches, ranked by hits_1m then hits_100k in last 90 d", """SELECT creator, launches, opens, hits_100k, hits_1m, hits_10m, best_ath, best_symbol, hit_rate_100k_pct hr100k, hits_100k_last_90d h90, med_bundler_open bund, days_since_launch dsl, decu_picks
- FROM dev_scores WHERE launches>100 ORDER BY hits_1m DESC, hits_100k_last_90d DESC LIMIT 25""")
+ FROM dev_scores WHERE hygiene_ok AND launches>100 AND hit_rate_100k_pct>=2 ORDER BY hits_1m DESC, hits_100k_last_90d DESC LIMIT 25""")
 show("C. hot now: >=1 hit >=100K in last 30 d, ranked by hits_100k_last_30d, best_ath", """SELECT creator, launches, hits_100k_last_30d h30, listed_last_30d l30, hits_100k, hits_1m, best_ath, best_symbol, med_bundler_open bund, days_since_launch dsl, main_platform
- FROM dev_scores WHERE hits_100k_last_30d>=1 ORDER BY hits_100k_last_30d DESC, best_ath DESC LIMIT 25""")
+ FROM dev_scores WHERE hygiene_ok AND hits_100k_last_30d>=1 AND hit_rate_100k_pct>=1 ORDER BY hits_100k_last_30d DESC, best_ath DESC LIMIT 25""")
+con.execute("DROP TABLE IF EXISTS d4_shortlist")
+con.execute("""CREATE TABLE d4_shortlist AS
+WITH a AS (SELECT creator, 'A' lst, row_number() OVER (ORDER BY hits_1m DESC, hits_100k DESC, hit_rate_100k_pct DESC) rk FROM dev_scores WHERE hygiene_ok AND launches BETWEEN 5 AND 100 AND hits_100k>=2 AND days_since_launch<=30),
+     b AS (SELECT creator, 'B' lst, row_number() OVER (ORDER BY hits_1m DESC, hits_100k_last_90d DESC) rk FROM dev_scores WHERE hygiene_ok AND launches>100 AND hit_rate_100k_pct>=2),
+     c AS (SELECT creator, 'C' lst, row_number() OVER (ORDER BY hits_100k_last_30d DESC, best_ath DESC) rk FROM dev_scores WHERE hygiene_ok AND hits_100k_last_30d>=1 AND hit_rate_100k_pct>=1),
+     u AS (SELECT * FROM a WHERE rk<=15 UNION ALL SELECT * FROM b WHERE rk<=10 UNION ALL SELECT * FROM c WHERE rk<=10)
+SELECT creator, string_agg(lst||rk, ',' ORDER BY lst) lists, min(rk) best_rank FROM u GROUP BY 1 ORDER BY best_rank, lists""")
+show("D4 shortlist", "SELECT s.creator, s.lists, d.launches, d.opens, d.hits_100k, d.hits_1m, d.best_symbol, d.hit_rate_100k_pct hr, d.med_holders_hits holders_on_hits, d.days_since_launch dsl, d.fund_from_label funder FROM d4_shortlist s JOIN dev_scores d USING(creator) ORDER BY best_rank, lists")
+con.execute(f"COPY d4_shortlist TO '{os.path.join(DATA, 'devs', 'd4_shortlist.parquet')}' (FORMAT PARQUET)")
 con.close()

@@ -119,3 +119,93 @@ not just one face of a factory.
 
 - Merge the 617 watcher-sourced devs (running) and re-rank; report how many of the top 30 survive.
 - Add the watcher's second and third day so recency is measured on live graduations, not on books.
+
+---
+
+## 7. Merged cut (2026-09-14 20:55 UTC) — 2,692 devs, 170,648 launches
+
+The 617 watcher-sourced devs (creators of live graduations and of the week's top-ATH tokens) are merged.
+Same script, same definitions, plus the hygiene rules in §7.1 that the merge forced.
+
+| Devs | Hygiene OK | Proxy-launched | Meteora-native | Any hit ≥ $100K | Any ≥ $1M | ≥ 3 big hits | Launched in last 7 d |
+|---|---|---|---|---|---|---|---|
+| 2,692 | 1,728 | 94 | 133 | 2,046 | 671 | 32 | 1,133 |
+
+### 7.1 What the watcher devs exposed: a wallet farm, and why hygiene rules are needed
+
+Eleven watcher-sourced devs entered the craftsman list with near-identical books: 15 launches, 11
+graduated, 8 "hits", 2 above $1M, all launched today. Checking their trenches rows:
+
+- all eleven share the same `launch_creator` wallet (`Asi5DTGE…`, which has signed 115 graduations for
+  53 different `creator` addresses), i.e. the token's recorded creator is not the wallet that launched it;
+- they fund each other in a chain (`BW29…` funded by `9UdF…`, `8eFB…` funded by `BW29…`, `EzG3…` funded
+  by `DhW6…`, and so on);
+- every one of their graduations is on `meteora_virtual_curve`, and their "$8M–$14M ATH" tokens have a
+  **median of 3 holders**. The ATH is a thin-curve print, not a run. One of them (`EWDx…`, "FINE") shows
+  80 launches, 80 graduations and a $137M ATH, all today.
+
+Across all graduations the watcher has seen so far (325 distinct): Meteora DBC tokens graduate with a
+median of 120 holders and $0.01 of fees; Pump.fun tokens with 353 holders and $0.76; pump_mayhem with 14
+holders. Meteora is 70% of graduation *count* and almost none of the graduation *quality*.
+
+Hygiene rules now applied to every list (`hygiene_ok` in `dev_scores`):
+
+1. main launchpad is not `meteora_virtual_curve`;
+2. median holders **on the dev's hit tokens** ≥ 30 (holders today on all graduated tokens was tried first
+   and wrongly excluded high-cadence Pump.fun devs whose old tokens have died: SAPIJIJU 22, ANSEM 32);
+3. no proxy launch seen (`launch_creator` ≠ `creator` in any trenches row);
+4. list A also requires 5–100 launches (a 2-launch, 2-hit book is not a record); list B requires a
+   ≥ 2% hit rate; list C a ≥ 1% hit rate (removes 2,000+ launch sprayers).
+
+### 7.2 Effect on the first cut
+
+- The top-3 craftsmen (GrokBot, TOAD, BABYTROLL) are unchanged and remain 1–3 in list A.
+- 27 of the first cut's 30-dev shortlist survive; the drop-outs are the two-hit devs with thin books and
+  the sprayers that fell to the hit-rate floor.
+- New entrants from the watcher sample after hygiene: `HLez…ajhU` (S&P 500, 9 launches, 3 hits, 1,295
+  holders on hits), `CzwW…quh4` ("1B", 184 launches, 82 graduations, 10 hits), `BFmg…j4h4` (biketyson, 7
+  hits in the last 30 d). None of the wallet-farm devs survive.
+
+### 7.3 D4 shortlist (materialised as `d4_shortlist`, `data/devs/d4_shortlist.parquet`)
+
+| # | Creator | Lists | Launches | Grads | Hits ≥ $100K | ≥ $1M | Best | Hit rate | Holders on hits | Days since launch |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | `EgJoaEBSZA3wjgpPq8am9YjkxJPLa2LpXwxaQyUzB2XY` | A1,C3 | 32 | 21 | 11 | 5 | GrokBot | 34.4% | 430 | 0.7 |
+| 2 | `HyYNVYmnFmi87NsQqWzLJhUTPBKQUfgfhdbBa554nMFF` | B1 | 497 | 263 | 65 | 14 | Fartcoin | 13.1% | 128 | 14.8 |
+| 3 | `yHCxHBEaJW5tbndqC8JciSThr7U1cqLpdcsvHcx6PRe` | B5,C1 | 868 | 310 | 75 | 3 | ANSEM | 8.6% | 38 | 3.0 |
+| 4 | `5YRgrP3mjGzrzirYYN5HAQH19cTYREYwGxW6XRJQUzij` | A2,C7 | 28 | 22 | 14 | 4 | TOAD | 50.0% | 228 | 2.2 |
+| 5 | `GeBJSHK4WsGrz2HRvTbqvWGx4JRMpHfJG2ikzrYBDuwR` | B2,C2 | 376 | 139 | 71 | 8 | SAPIJIJU | 18.9% | 31 | 0.2 |
+| 6 | `G4krkerMkeYw7ffTUgdf7qXEXnuMGHpWUESBQpYqvtwU` | A3 | 42 | 29 | 19 | 2 | BABYTROLL | 45.2% | 652 | 0.7 |
+| 7 | `BY4hmLWBGWQ1Z6bn6s1sy4a4wHqnDKR2AjPY5wjvGtqC` | B3,C4 | 174 | 25 | 10 | 6 | ICEMAN | 5.8% | 97 | 0.2 |
+| 8 | `9VXuNqqqzniYYW3fRDeaCtUUtqWsEeWWn5umh3aF9h17` | A4 | 69 | 17 | 7 | 2 | CANCER | 10.1% | 216 | 14.1 |
+| 9 | `96hq1rUo5qQk26NAP7wK6VtcnZXPKbkHpdVsdGwe3Cda` | B4 | 294 | 35 | 6 | 4 | Dancedoge | 2.0% | 162 | 4.0 |
+| 10 | `8gxNUi3uDnqPdpVciCAf8EDD6Bc1e5spQijXBzwGjRsW` | A5 | 99 | 17 | 6 | 2 | FRANK | 6.1% | 185 | 6.3 |
+| 11 | `gVDXhoGbePACvSqN7CZBtQXFW9eyJwsgudPEwSydAkx` | B6,C5 | 340 | 104 | 10 | 3 | MACRODUCK | 2.9% | 146 | 0.7 |
+| 12 | `7d3mQnXjc76v9ZKZQ5T7LU2d3JyaKXfBvnhtfUAiR2hw` | A6 | 43 | 15 | 5 | 2 | RAMEN | 11.6% | 473 | 4.7 |
+| 13 | `D8n8Dy6DWC9691mR4NroSA9TdxXBxDV6Rr639RapanS4` | B7,C6 | 540 | 84 | 12 | 2 | Stock | 2.2% | 215 | 0.2 |
+| 14 | `4DrtsW86GarGJJeYrBwYCjoyMgDPG95QWSGhFHvCkU2s` | A7 | 79 | 14 | 4 | 2 | MASK | 5.1% | 929 | 0.2 |
+| 15 | `HLezAzVrYvqUdrFX1bCXCxFMJ9oBH4jUHZ4NZi83ajhU` | A8 | 9 | 3 | 3 | 2 | S&P | 500.0% | 33 | 1295.0 |
+| 16 | `CzwWvTVn39dSd4LiVc6W9gZxgu36737M2fcX4EWhquh4` | B8 | 184 | 82 | 10 | 2 | 1B | 5.4% | 108 | 5.0 |
+| 17 | `4QwJ4AXMtSjnCwgM9kiDpsGtXmjEd3hAVRkDg3o3bDQs` | C8 | 626 | 71 | 8 | 2 | BUTT | 1.3% | 249 | 0.1 |
+| 18 | `FzaKKXhhU7ba76NJ9fffoa5Gt4LhSnME1rcMxrrwT4Dw` | A9 | 76 | 9 | 3 | 2 | Bepe | 4.0% | 530 | 2.6 |
+| 19 | `BmtSmrwNsWax7rLn1mmL5ovduzVqh3KYNycXPt99PiUU` | B9 | 115 | 6 | 3 | 2 | Morty | 2.6% | 1001 | 2.3 |
+| 20 | `BFmgjdgepMxNnEyndQZC68Db3ajPdD3V8is1bQbdj4h4` | C9 | 141 | 9 | 7 | 1 | biketyson | 5.0% | 329 | 0.3 |
+| 21 | `9VHB7HHU7msVHzd6BjMhHPbL2E92XPRiV2R7fg1Xx6T9` | A10 | 14 | 3 | 2 | 2 | IGW | 14.3% | 2043 | 2.7 |
+| 22 | `49nSpmxwnTTyXujNm3zHqoin1mg1y1rKd1THXwJjYdLa` | B10 | 116 | 30 | 7 | 2 | popedoll | 6.0% | 327 | 30.2 |
+| 23 | `7ufmve7ZSFCzuNcKRunYrGtyb2Ka1MXzkWwf7jZhVsmL` | C10 | 353 | 150 | 7 | 1 | maxxing | 2.0% | 266 | 1.2 |
+| 24 | `4LTJU2qfJdmDuEQAmWXcf5hvkpomYrLebuTBz2svwRd4` | A11 | 18 | 2 | 2 | 2 | LAYOFF | 11.1% | 2009 | 0.0 |
+| 25 | `Hr5eg6WFy1TNLrDUYasMgu1Y94AL2fNCUg9sWC7Qtq1N` | A12 | 26 | 2 | 2 | 2 | LeMonke | 7.7% | 858 | 13.9 |
+| 26 | `AbVkRUfynaEo6PMWyBCihRcirKbu3GkiyEoH5vny8aT9` | A13 | 99 | 34 | 10 | 1 | Pappy | 10.1% | 117 | 0.8 |
+| 27 | `FAX4qRQdiSj2iWDYvkJ21VieVCXGREtwMhEyAHSJ1aqp` | A14 | 90 | 22 | 8 | 1 | PETAH | 8.9% | 224 | 4.8 |
+| 28 | `9ChWUUbP2NgvmzCS419FAhV6XiUG7ggU6U5QtS32bH9q` | A15 | 50 | 14 | 7 | 1 | sami | 14.0% | 238 | 7.1 |
+
+Lists: A = craftsman rank, B = factory rank, C = hot-now rank. "Holders on hits" is the median holder
+count today on the dev's tokens that reached $100K; it is the thin-curve detector.
+
+### 7.4 Still open before D4
+
+- Conduct is unmeasured (does the dev sell into his own open, how fast, how much). D4 runs
+  `dev_score.py` on all 30.
+- `funder` is null for all 30 because none was seen in the trenches sample yet; D4 pulls `token info` on
+  each dev's launches to get `fund_from` and to cluster wallets.
+- Recency for capped books (ICEMAN, MACRODUCK, biketyson list 100–101 tokens) is a floor.
