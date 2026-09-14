@@ -98,6 +98,22 @@ def main():
                                        FROM activity WHERE ts > {last} - {days}*86400""").fetchone()
             print(f"reconcile {win}: GMGN buys {s['buy']} sells {s['sell']} realized ${float(s['realized_profit']):,.0f} | ours (tx,token) buys {b} sells {sl} realized ${u:,.0f}  (windows differ by pull time)")
     con.execute(f"COPY activity TO '{os.path.join(DATA, 'activity.parquet')}' (FORMAT PARQUET)")
+    # transfer / liquidity legs (separate pull; mostly inbound dust drops)
+    tfiles = sorted(glob.glob(os.path.join(DATA, "activity", "transferIn-transferOut-add-remove_*.jsonl")))
+    if tfiles:
+        con.execute("DROP TABLE IF EXISTS transfers")
+        con.execute(f"""
+            CREATE TABLE transfers AS
+            SELECT DISTINCT tx_hash, CAST(timestamp AS BIGINT) AS ts, to_timestamp(CAST(timestamp AS BIGINT)) AS t,
+                   event_type, token.address AS token, token.symbol AS symbol,
+                   TRY_CAST(token_amount AS DOUBLE) AS token_amount, TRY_CAST(cost_usd AS DOUBLE) AS cost_usd,
+                   from_address, to_address
+            FROM read_json_auto({tfiles!r}, union_by_name=true, maximum_object_size=4000000)
+        """)
+        n = con.execute("SELECT count(*) FROM transfers").fetchone()[0]
+        print(f"\ntransfers table: {n:,} legs")
+        print(con.execute("SELECT event_type, count(*) c, count(DISTINCT token) tokens, count(DISTINCT tx_hash) txs FROM transfers GROUP BY 1").df().to_string(index=False))
+        con.execute(f"COPY transfers TO '{os.path.join(DATA, 'transfers.parquet')}' (FORMAT PARQUET)")
     con.close()
 
 

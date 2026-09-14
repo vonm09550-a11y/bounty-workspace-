@@ -70,11 +70,34 @@ So 2.3 reconstructs cost basis itself from the buy legs (per token, per quote, F
 average) and then re-checks against GMGN's 7d/30d/all-time realized figures. `buy_cost_usd`
 is kept only as a cross-check where present.
 
-## Still running
+## Transfer and liquidity legs (pulled 12:39–13:22 UTC, 2,808 pages)
 
-Transfer / liquidity legs (`transferIn`, `transferOut`, `add`, `remove`) are being pulled
-with the same chunking into `data/activity/transferIn-transferOut-add-remove_*.jsonl`; they are
-a small fraction of the volume and will be appended to this file when done.
+GMGN returned 279,828 rows for `transferIn/transferOut/add/remove`, but only **21,529 are
+distinct**: the transfer cursor repeats pages ~13×, so the loader dedupes on the full row. No
+`add`/`remove` (liquidity) legs exist: he never adds or pulls liquidity. `transfers` table in
+DuckDB, `data/transfers.parquet`.
+
+| Type | Distinct legs | Tokens | Counterparties |
+|------|---------------|--------|----------------|
+| transfer_in | 17,391 | 13,844 | 5,503 senders |
+| transfer_out | 4,138 | 3,692 | 13 recipients |
+
+Monthly: inbound drops explode in Aug–Sep 2026 (7,119 and 5,783 legs, most of them unsolicited
+dust from thousands of senders; only 3,825 of the 13,844 inbound tokens were ever traded).
+Outbound starts in earnest in March 2026.
+
+**Two counterparties dominate and look like companion wallets of the same operator** (lead
+for 2.3 and 2.6, not a conclusion):
+
+| Address | Out legs / tokens / USD | In legs / tokens | Active |
+|---------|-------------------------|------------------|--------|
+| `4hQZ1GtLTvAzetszCcWrb8zxiuVvEt85Bb7y6VNzA2ve` | 3,934 / 3,674 / $646K | 4,041 / 3,696 | 2026-02-21 → today |
+| `9k4kV6mHCcnTbqLrudMH8kQyKeMYJye62WaraHaGAqr5` | 124 / 114 / $15K | 1,370 / 1,295 | 2025-12-13 → today |
+
+3,689 of the tokens he bought have an outbound transfer: bags move to `4hQZ…` and (mostly)
+come back. Whether that wallet sells, sweeps dust, or stages positions decides how his public
+P&L should be read, so 2.3 reconciles positions with these legs included and 2.2 parses the
+transfer transactions too.
 
 Gate: **passed** (row counts within 2% on the 30-day window). Next: 2.2 Helius enrichment of
 156,468 signatures (~1,565 parse calls, ~15 min).
