@@ -13,7 +13,7 @@ import urllib.error
 import urllib.request
 
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
-GMGN_GAP_S = 0.4          # ~weight 3 per call against a 20/s bucket, with headroom
+GMGN_GAP_S = 0.35         # weight 3 per call against a 20/s bucket: ~8.6 weight/s, under half
 HELIUS_ENH_GAP_S = 0.55   # free plan: 2 enhanced-API req/s
 HELIUS_RPC_GAP_S = 0.12   # free plan: 10 RPC req/s
 
@@ -29,14 +29,62 @@ def load_env():
     return env
 
 
-class GmgnActivity:
-    """Resumable walk of a wallet's trade rows, newest first."""
+GMGN_HOST = "https://openapi.gmgn.ai"
 
-    def __init__(self, wallet, chain="sol", types=("buy", "sell"), out=None):
-        self.wallet, self.chain, self.types = wallet, chain, types
+
+def slot_cursor(slot):
+    """GMGN activity cursors decode to '<slot><8-digit index>:0::'. Build one to start a walk
+    just below a given slot (measured 2.0: slot 368_000_000 -> Sept 2025)."""
+    import base64
+    return base64.b64encode(f"{slot}00000000:0::".encode()).decode()
+
+
+class GmgnActivity:
+    """Resumable walk of a wallet's trade rows, newest first.
+
+    Uses the OpenAPI directly (exist auth: X-APIKEY header + timestamp/client_id query) instead of
+    spawning gmgn-cli per page: measured 1.25 s/page via the CLI vs the network round trip alone.
+    Server caps a page at 20 rows regardless of `limit`.
+    """
+
+    def __init__(self, wallet, chain="sol", types=("buy", "sell"), out=None, direct=True):
+        self.wallet, self.chain, self.types, self.direct = wallet, chain, types, direct
+        self.key = load_env().get("GMGN_API_KEY")
         self.out = out or os.path.join(DATA, "activity", f"{wallet[:8]}_{'-'.join(types)}.jsonl")
         os.makedirs(os.path.dirname(self.out), exist_ok=True)
         self.state = self.out + ".state"
+
+    def _http(self, cursor, token=None, retries=5):
+        import uuid
+        import urllib.parse
+        q = [("chain", self.chain), ("wallet_address", self.wallet), ("limit", "100"),
+             ("timestamp", str(int(time.time()))), ("client_id", str(uuid.uuid4()))]
+        q += [("type", t) for t in self.types]
+        if cursor:
+            q.append(("cursor", cursor))
+        if token:
+            q.append(("token_address", token))
+        url = f"{GMGN_HOST}/v1/user/wallet_activity?{urllib.parse.urlencode(q)}"
+        for i in range(retries):
+            req = urllib.request.Request(url, headers={"X-APIKEY": self.key, "Content-Type": "application/json",
+                                                       "User-Agent": "gmgn-cli/1.6.2"})
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    d = json.loads(r.read().decode())
+                    return d.get("data", d)
+            except urllib.error.HTTPError as e:
+                body = e.read().decode()[:300]
+                if e.code == 429:
+                    reset = None
+                    try:
+                        reset = json.loads(body).get("reset_at")
+                    except Exception:  # noqa: BLE001
+                        pass
+                    wait = max(2.0, (reset - time.time() + 1.5) if reset else 3.0 * (i + 1))
+                    time.sleep(min(wait, 330))
+                    continue
+                raise RuntimeError(f"HTTP {e.code}: {body}")
+        raise RuntimeError("rate-limited repeatedly; stop and resume later")
 
     def _cli(self, cursor):
         args = ["gmgn-cli", "portfolio", "activity", "--chain", self.chain, "--wallet", self.wallet, "--limit", "100"]
@@ -52,13 +100,15 @@ class GmgnActivity:
         d = json.loads(r.stdout)
         return d.get("data", d)
 
-    def walk(self, stop_before_ts=None, max_pages=None):
-        """Yield rows; stop when rows are older than stop_before_ts (unix) or max_pages reached."""
-        cursor = json.load(open(self.state))["cursor"] if os.path.exists(self.state) else None
+    def walk(self, stop_before_ts=None, max_pages=None, start_cursor=None):
+        """Yield rows; stop when rows are older than stop_before_ts (unix) or max_pages reached.
+        Resumes from the saved cursor; `start_cursor` (e.g. slot_cursor(slot)) is used only when
+        no state file exists yet."""
+        cursor = json.load(open(self.state))["cursor"] if os.path.exists(self.state) else start_cursor
         pages = 0
         with open(self.out, "a") as f:
             while True:
-                d = self._cli(cursor)
+                d = self._http(cursor) if self.direct else self._cli(cursor)
                 rows = d.get("activities") or []
                 for a in rows:
                     f.write(json.dumps(a) + "\n")
