@@ -41,12 +41,20 @@ def scan(h, meta_p, logp, max_sigs=30000):
     found = []
     slot, t0, blocks, empties = slot0, time.time(), 0, 0
     while True:
+        b = None
         try:
-            b = h.rpc("getBlock", [slot, {"transactionDetails": "accounts", "maxSupportedTransactionVersion": 0, "rewards": False, "encoding": "json"}])
+            h._pace("rpc", 0.12)
+            resp = h._post(f"https://mainnet.helius-rpc.com/?api-key={h.key}",
+                           {"jsonrpc": "2.0", "id": 1, "method": "getBlock",
+                            "params": [slot, {"transactionDetails": "accounts", "maxSupportedTransactionVersion": 0, "rewards": False, "encoding": "json"}]})
+            if "error" in resp:
+                code = (resp["error"] or {}).get("code")
+                if code not in (-32007, -32009):   # skipped slot / missing in long-term storage: normal, no wait
+                    log(logp, f"  getBlock {slot} rpc error {json.dumps(resp['error'])[:120]}"); time.sleep(2)
+            else:
+                b = resp.get("result")
         except Exception as e:  # noqa: BLE001
-            b = None
-            if "skipped" not in str(e) and "not available" not in str(e):
-                log(logp, f"  getBlock {slot} error {str(e)[:80]}"); time.sleep(2)
+            log(logp, f"  getBlock {slot} error {str(e)[:80]}"); time.sleep(2)
         slot += 1
         blocks += 1
         if not b:
