@@ -1,0 +1,52 @@
+dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,how,on_curve,gross_x,fee_in_pct,fee_out_pct,impact_in_pct,impact_out_pct,prio_in_sol,prio_out_sol,fixed_sol,net_sol,max_x_after
+retardmode,CARDAMOM,False,0.03,False,self-buy < floor; dev sold at 97 s,,,,,,,,,,,,,,
+retardmode,NIGGERMAS,False,0.03,False,self-buy < floor; dev sold at 48 s,,,,,,,,,,,,,,
+retardmode,HANUKKAH,False,0.03,False,self-buy < floor; dev sold at 7 s,,,,,,,,,,,,,,
+retardmode,clappy,False,0.03,False,self-buy < floor,,,,,,,,,,,,,,
+retardmode,Chazerei,False,0.07,False,self-buy < floor,,,,,,,,,,,,,,
+retardmode,PEACE,True,0.12,False,self-buy < floor,,,,,,,,,,,,,,
+retardmode,YGIG,False,0.03,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,MARVIN,True,0.25,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,FibFrog,False,0.39,False,dev sold at 14 s,,,,,,,,,,,,,,
+slingoor,78,False,0.58,False,dev sold at 38 s,,,,,,,,,,,,,,
+slingoor,💀,False,0.39,False,dev sold at 11 s,,,,,,,,,,,,,,
+slingoor,BEGFI,False,0.41,False,dev sold at 10 s,,,,,,,,,,,,,,
+slingoor,catcall,True,0.06,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,dontbuy,False,0.03,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,OFFICIAL,True,0.34,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,Chairman,True,0.61,True,,60.0,350.0,trailing stop,False,1.515,1.2,1.2,0.13,0.18,0.00037,0.00031,0.00254,0.2271,5.14
+slingoor,TOAD,True,0.2,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,sling,True,0.72,True,,60.0,870.0,end of data,False,0.808,0.95,1.0,0.05,0.04,0.00042,4e-05,0.00231,-0.1106,1.19
+slingoor,WINNIE,True,0.53,False,dev sold at 13 s,,,,,,,,,,,,,,
+slingoor,HOODWARTS,True,0.67,False,dev sold at 15 s,,,,,,,,,,,,,,
+slingoor,LIZARD,True,0.71,True,,60.0,510.0,trailing stop,False,1.165,1.05,1.05,0.07,0.08,0.00011,0.0003,0.00226,0.0616,2.29
+slingoor,DIDDY,True,0.61,True,,60.0,1630.0,trailing stop,True,2.171,1.25,1.15,0.18,0.2,4e-05,0.00011,0.002,0.5431,4.15
+retardmode,yoohoo,False,0.15,False,self-buy < floor; dev sold at 8 s,,,,,,,,,,,,,,
+retardmode,GOOSE,False,0.1,False,self-buy < floor; dev sold at 7 s,,,,,,,,,,,,,,
+retardmode,BIRD,False,0.1,False,self-buy < floor; dev sold at 6 s,,,,,,,,,,,,,,
+slingoor,🐺,True,0.73,True,,60.0,130.0,hard stop,False,0.458,1.1,1.2,0.08,0.05,0.00011,0.00013,0.00209,-0.2807,1.59
+slingoor,INSANE,False,0.2,False,self-buy < floor; dev sold at 17 s,,,,,,,,,,,,,,
+slingoor,nothing,True,0.54,True,,60.0,1350.0,trailing stop,False,2.35,1.2,1.15,0.12,0.25,3e-05,2e-05,0.0019,0.6301,3.94
+retardmode,MRHATE,True,0.35,True,,120.0,1730.0,end of data,True,1.474,1.25,1.25,0.45,0.54,0.00032,2e-05,0.00219,0.2023,1.52
+slingoor,Graped,True,0.47,False,no buys after the mark,,,,,,,,,,,,,,
+slingoor,donotbuy,False,0.38,False,dev sold at 12 s,,,,,,,,,,,,,,
+retardmode,RETARDIO,True,0.48,True,,130.0,860.0,trailing stop,True,4.061,1.25,1.2,0.32,0.53,3e-05,2e-05,0.0019,1.4425,7.22
+slingoor,link,False,0.48,False,dev sold at 5 s,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,SEXY,False,0.57,True,,60.0,810.0,hard stop,False,0.492,1.2,1.25,0.12,0.08,9e-05,0.0001,0.00204,-0.2648,52.89
+slingoor,MPN,False,,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,ETH,True,0.64,False,window ends before the mark,,,,,,,,,,,,,,
+slingoor,GRND,False,0.61,False,window ends before the mark,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,LMAO!,False,0.03,False,self-buy < floor; window ends before the mark,,,,,,,,,,,,,,
+slingoor,USDC,False,0.25,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,GREEN,False,0.22,False,self-buy < floor,,,,,,,,,,,,,,
+slingoor,DAMN,False,0.25,False,self-buy < floor,,,,,,,,,,,,,,
+retardmode,GIGAY,False,0.2,False,self-buy < floor; dev sold at 96 s,,,,,,,,,,,,,,
+retardmode,GMONAD,False,0.2,False,self-buy < floor,,,,,,,,,,,,,,
+retardmode,PQ,True,0.57,True,,120.0,1800.0,end of data,True,19.419,1.25,1.0,0.27,1.23,2e-05,2e-05,0.00189,8.7532,29.09
+retardmode,WOJAK,False,0.39,False,dev sold at 73 s,,,,,,,,,,,,,,
+retardmode,MERCURY,False,0.15,False,self-buy < floor; dev sold at 6 s,,,,,,,,,,,,,,
+retardmode,LEMON,False,0.35,False,dev sold at 5 s,,,,,,,,,,,,,,
+retardmode,SPOON,False,0.42,False,dev sold at 5 s,,,,,,,,,,,,,,

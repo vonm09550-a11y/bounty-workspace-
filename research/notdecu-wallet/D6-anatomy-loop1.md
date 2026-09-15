@@ -115,3 +115,37 @@ know. Either way their entry comes after it, at 40–235 s, and they hold throug
    from the create tx → watch the dev's wallet for a sell for 120 s → decide. All read-only inputs
    exist already (pump.fun feed for creates, Helius parse for the create tx, the activity feed or
    program logs for the dev's sell).
+
+---
+
+## 8. Backtest v2 on loop 1 (in-sample), explicit cost model — 2026-09-15 16:40 UTC
+
+`scripts/backtest_v2.py`. Costs charged per trade: pump.fun fee by venue and market-cap tier (curve
+1.25%; pool 1.25% below 420 SOL mcap, stepping down to 1.00% at 4,420 SOL and 0.30% above 98,240 SOL),
+base fee 5,000 lamports per signature, **empirical priority fee** (median paid by buyers in the 10 s
+after the mark on that launch, floor 20,000 lamports), rent for the volume accumulator and ATA, price
+impact from constant-product liquidity (curve: 30 SOL virtual + raised; pool: 85 SOL + net inflow),
+and a 0.5% sandwich allowance per side. $50 per trigger at $100/SOL. Measured on the 51 launches:
+priority fees at the mark were 0.0001–0.0004 SOL, impact 0.05–0.5%, so the fee that matters is the
+1.0–1.25% pump.fun fee per side.
+
+Base rule (self-buy ≥ 35%, hold at 60/120 s, trail 40%, hard stop 50%, 30-min window): 10 triggers,
+7 wins, **+$1,120** (+$245 without PQ), worst −$28.
+
+Grid (324 configs; `backtest_v2_grid.csv`): what moved the result, in order of robustness:
+
+| Change | Effect on loop 1 |
+|---|---|
+| Enter at **180 s** instead of 60/120 s | fewer misses entered (the dev has dumped by then), peaks still 12–22 min away; ex-best P&L +$326 to +$761 vs +$245 |
+| Self-buy floor **20%** instead of 35% | catches TOAD and OFFICIAL (12 of 18 hits vs 9) at the cost of 2–4 misses |
+| Take-profit at **5×** | banks the big runners (PQ, RETARDIO) instead of riding them down |
+| Trailing 50% vs 40% | slightly better; the runs are noisy |
+| Hard stop 40% vs 50% | no difference |
+| Time stop 15 min | cuts the worst loss to −$17 with 8 of 10 wins |
+
+Best by P&L excluding the single best trade: mark 180 s, floor 20%, trail 50%, TP 5×, 14 triggers,
+10 wins, +$4,049 (+$761 ex-best). Best by win rate: mark 180 s, floor 35%, trail 50%, TP 5×, time stop
+15 min, 10 triggers, 8 wins, +$526 (+$326 ex-best), worst −$17.
+
+**These are 324 configurations fitted to 18 hits.** Loop 2 (113 launches, five other launchers,
+pulling now) is the out-of-sample test and nothing above is a rule until it survives that.
