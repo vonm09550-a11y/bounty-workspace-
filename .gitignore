@@ -45,3 +45,4 @@ research/notdecu-wallet/data/anatomy/bitquery_probe_*.json
 !research/notdecu-wallet/data/anatomy/live/paper_trades.jsonl
 !research/notdecu-wallet/data/anatomy/live/paper_signals.jsonl
 research/notdecu-wallet/data/anatomy/live/paper_state.json
+research/notdecu-wallet/data/anatomy/live/*.out
