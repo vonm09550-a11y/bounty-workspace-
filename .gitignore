@@ -32,5 +32,9 @@ research/notdecu-wallet/data/devs/audit/*.json
 research/notdecu-wallet/data/devs/audit/*.stderr
 research/notdecu-wallet/data/devs/audit/*.log
 research/notdecu-wallet/data/devs/audit/*.out
-research/notdecu-wallet/data/anatomy/loop*/
+research/notdecu-wallet/data/anatomy/loop*/*/
+research/notdecu-wallet/data/anatomy/loop*/*.log
 research/notdecu-wallet/data/anatomy/*.out
+!research/notdecu-wallet/data/anatomy/loop*/*.md
+!research/notdecu-wallet/data/anatomy/loop*/*.parquet
+!research/notdecu-wallet/data/anatomy/loop*/*.csv
