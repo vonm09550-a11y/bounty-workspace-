@@ -81,6 +81,30 @@ def pull_one(h, L, out_dir, window, max_sigs, logp):
         before = r[-1]["signature"]
         if len(r) < 1000 or oldest_bt < cts or pages >= 400:
             break
+    curve_last = max((s["blockTime"] for s in sigs), default=cts)
+    pool_pages = 0
+    if pool and curve_last < cts + window - 60:
+        # graduated inside the window: the rest of the trading is on the AMM pool account
+        before = None
+        while True:
+            params = [pool, {"limit": 1000}]
+            if before:
+                params[1]["before"] = before
+            r = h.rpc("getSignaturesForAddress", params)
+            pool_pages += 1
+            if not r:
+                break
+            for s_ in r:
+                bt = s_.get("blockTime") or 0
+                if cts <= bt <= cts + window and not s_.get("err"):
+                    sigs.append({"signature": s_["signature"], "slot": s_["slot"], "blockTime": bt, "src": "pool"})
+            ob = r[-1].get("blockTime") or 0
+            before = r[-1]["signature"]
+            if len(r) < 1000 or ob < cts or pool_pages >= 4000:
+                break
+        pages += pool_pages
+    seen = set()
+    sigs = [s for s in sigs if not (s["signature"] in seen or seen.add(s["signature"]))]
     sigs.sort(key=lambda s: (s["blockTime"], s["slot"]))
     truncated = len(sigs) > max_sigs
     sigs = sigs[:max_sigs]
@@ -105,6 +129,7 @@ def pull_one(h, L, out_dir, window, max_sigs, logp):
                 n += 1
     meta = {"dev": dev, "creator": L["creator"], "token": mint, "symbol": L.get("symbol"), "create_ts": cts, "window_s": window, "hit": L.get("hit"),
             "sig_source": "bonding_curve" if curve else "mint", "bonding_curve": curve, "pool": pool, "complete": complete,
+            "curve_last_s": curve_last - cts, "pool_pages": pool_pages,
             "ath_mc": L.get("ath_mc"), "sig_pages": pages, "sigs_in_window": len(sigs), "parsed": n, "truncated": truncated,
             "oldest_bt_reached": oldest_bt, "seconds": round(time.time() - t0, 1), "done": True}
     json.dump(meta, open(meta_p, "w"))
