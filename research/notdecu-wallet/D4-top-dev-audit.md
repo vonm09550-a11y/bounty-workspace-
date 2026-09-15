@@ -121,3 +121,100 @@ Observations:
   sign of a spray rather than a build.
 - **S&P 500 dev** launched 12 tokens in one batch (median gap 6 minutes) on a `SPYx` stock quote; 3 of 12
   ran, all 5 days ago. Too young to be a record.
+
+## 4. Run shapes — what a hit looked like, minute by minute (394 hits, klines)
+
+Definitions: price reference is the **open of the first 1-minute candle** (median 0.3–0.7 min after the
+create transaction, i.e. after the dev's own creation-block buy). `open mcap` = that price × supply.
+`x15m` / `x60m` = close at 15 / 60 min over the reference; `peak` = highest 1-minute high in the first
+100 min or 15-minute high in 24 h, with the minute it occurred; `24h close` = close of the 24th hour over
+the reference; `still 2×` = share of hits still ≥ 2× at 24 h; `halved` = share that traded ≤ 0.5× at some
+point in the first 100 min. **These are hits only** (launches that reached $100K); the non-hit launches
+are not in this sample, so nothing here is an expected value. Devs with < 5 runs are shown but not read.
+
+| Dev | Runs | Open mcap | x15m | x60m | Peak 100 min (min) | Peak 24 h (min) | 24h close | Retrace | Peak after 1 h | Still 2× | Halved |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| GrokBot | 11 | $80K | 1.94 | 0.76 | 2.36× (10) | 2.19× (15) | 0.07 | 98% | 36% | 18% | 45% |
+| Fartcoin dev | 65 | $56K | 0.92 | 0.97 | 2.28× (9) | 2.34× (30) | 0.20 | 90% | 37% | 18% | 57% |
+| ANSEM | 75 | $91K | 0.55 | 0.28 | 1.79× (2) | 1.24× (9) | 0.17 | 85% | 15% | 1% | 83% |
+| SAPIJIJU | 71 | $98K | 0.88 | 0.39 | 2.08× (3) | 1.72× (11) | 0.19 | 87% | 23% | 4% | 70% |
+| TOAD | 14 | $38K | 2.73 | 2.10 | 5.44× (33) | 6.68× (101) | 0.56 | 89% | 57% | 36% | 29% |
+| BABYTROLL | 19 | $41K | 1.41 | 1.66 | 2.77× (65) | 4.25× (97) | 0.19 | 96% | 68% | 26% | 21% |
+| ICEMAN | 10 | $9K | 0.62 | 0.43 | 1.42× (1) | 178× (381) | 0.53 | 95% | 50% | 20% | 60% |
+| CANCER | 7 | $9K | 1.79 | 1.76 | 7.49× (53) | 12.5× (811) | **5.20** | 59% | 100% | **86%** | 14% |
+| Dancedoge | 6 | $7K | 1.05 | 1.20 | 2.47× (26) | 87.9× (648) | 4.23 | 74% | 67% | 50% | 17% |
+| FRANK | 6 | $9K | 2.73 | 9.20 | 14.4× (57) | 18.0× (65) | 2.90 | 84% | 50% | 50% | 33% |
+| MACRODUCK | 10 | $17K | 2.34 | 0.77 | 5.35× (9) | 8.14× (7) | 0.89 | 88% | 20% | 30% | 40% |
+| RAMEN | 5 | $7K | 1.46 | 4.36 | 7.58× (31) | 14.6× (42) | 2.34 | 69% | 40% | 60% | 20% |
+| Stock | 12 | $11K | 3.93 | 1.21 | 11.7× (12) | 11.7× (12) | 0.40 | 98% | 17% | 25% | 33% |
+| 1B | 10 | $23K | 1.40 | 1.86 | 5.84× (35) | 8.25× (50) | 0.37 | 92% | 50% | 20% | 50% |
+| BUTT | 8 | $15K | 2.14 | 0.50 | 7.83× (24) | 8.63× (22) | 0.21 | 98% | 25% | 13% | 63% |
+| biketyson | 7 | $6K | 3.79 | 3.18 | 7.17× (19) | 17.3× (629) | 2.52 | 62% | 86% | **71%** | **0%** |
+| popedoll | 7 | $13K | 3.20 | 3.00 | 7.71× (52) | 22.9× (106) | 1.64 | 79% | 71% | 43% | 0% |
+| maxxing | 7 | $10K | 2.01 | 1.09 | 12.7× (11) | 12.7× (12) | 0.39 | 95% | 14% | 29% | 43% |
+| Pappy | 10 | $17K | 2.35 | 1.24 | 9.09× (19) | 11.1× (64) | 0.28 | 97% | 50% | 30% | 40% |
+| PETAH | 8 | $8K | 1.56 | 3.93 | 8.60× (95) | 23.3× (126) | 0.98 | 96% | 88% | 38% | 0% |
+| sami | 7 | $13K | 4.36 | 3.08 | 16.6× (25) | 22.1× (37) | 1.25 | 93% | 29% | 29% | 43% |
+| MASK, LAYOFF, LeMonke, IGW, Bepe, Morty, S&P 500 | 2–4 | — | — | — | — | — | — | — | — | — | not read |
+
+Two shapes, and the dev's conduct predicts which one:
+
+**Shape 1 — bundled spike (GrokBot, ANSEM, SAPIJIJU, Fartcoin dev, Stock, BUTT, maxxing, Pappy).**
+The first minute already prints at $50K–$100K (10–25× the curve floor), because the dev's creation-block
+buy and the crowd that follows him are in before the first candle closes. The peak comes at minute 2–15,
+the 24-hour close is 0.07–0.4× of the first minute, and 45–83% of the hits halve within 100 minutes.
+ANSEM and SAPIJIJU peak in 2–3 minutes; only GrokBot (peak at 10–15 min, +94% at 15 min) leaves a window
+a human can act in. These are the *top_dev*-tagged accounts with the biggest followings: the run is the
+following arriving, and it is over before an outsider without a router is filled.
+
+**Shape 2 — post-exit build (CANCER, biketyson, PETAH, popedoll, TOAD, BABYTROLL, FRANK, Dancedoge,
+RAMEN).** The first minute prints at $6K–$40K, the dev sells his creation-block bag within seconds (§1),
+and the hit forms *afterwards*: peak after 1 hour in 57–100% of cases, median peak at 1.5–13 hours,
+24-hour close 2–5× the first minute, and 0–29% of hits ever halve in the first 100 minutes. CANCER's hits
+were still 5.2× at 24 h and 86% of them were ≥ 2×; biketyson's 71% with none halving. For these devs the
+dev's "dump" is toxic flow leaving, not the end of the trade.
+
+Everything above conditions on the launch having become a hit. The hit rates from D3 (CANCER 10%,
+biketyson 5%, PETAH 9%, TOAD 50%, BABYTROLL 45%, FRANK 6%, GrokBot 34%) are the other half of the
+expectancy and need the non-hit klines (D5/D7) before any sizing.
+
+## 5. Verdict — top 10 to track, with the style each one implies
+
+Ordering weighs conduct (§1) first, then per-launch hit rate and recency (D3), then run shape (§4).
+
+| # | Dev | Why | Style implied |
+|---|---|---|---|
+| 1 | `9VXuNqqqzniYYW3fRDeaCtUUtqWsEeWWn5umh3aF9h17` CANCER | buyable (79), 10% hit rate over 69 launches, hits peak at 13 h and hold (5.2× at 24 h, 86% still ≥ 2×), 24-day quiet spell is the risk | post-exit build: enter after minute 5, hold hours, exit on retrace from a multi-hour high |
+| 2 | `EgJoaEBSZA3wjgpPq8am9YjkxJPLa2LpXwxaQyUzB2XY` GrokBot | buyable (91), GMGN top_dev, 34% hit rate, 5 hits ≥ $1M, launches every 2 h, but spike shape: peak at 10–15 min, dead by 24 h | scalp: in within 60 s, out at 10–15 min or +80%, never hold |
+| 3 | `5YRgrP3mjGzrzirYYN5HAQH19cTYREYwGxW6XRJQUzij` TOAD | top_dev, 50% hit rate, 4 hits ≥ $1M, peak at 100 min, 36% still 2× at 24 h; dev's median first sell 59 min (the "sys" label comes from a few fast exits) | post-exit build with a 2-hour horizon |
+| 4 | `BFmgjdgepMxNnEyndQZC68Db3ajPdD3V8is1bQbdj4h4` biketyson | best hold profile on the list (peak at 10 h, 71% still 2×, none halved), 100 launches in 30 d, 7 hits in 30 d; 5% hit rate and holding his own bag on 6 coins | post-exit build, hours |
+| 5 | `G4krkerMkeYw7ffTUgdf7qXEXnuMGHpWUESBQpYqvtwU` BABYTROLL | top_dev, 45% hit rate, peak at 97 min; dev dumps at 12 s below open, so entries after his exit are clean; still holds 16 coins | post-exit build, 1–2 h |
+| 6 | `GeBJSHK4WsGrz2HRvTbqvWGx4JRMpHfJG2ikzrYBDuwR` SAPIJIJU | top_dev, 19% hit rate, 8 hits ≥ $1M, 71 hits in 90 d, launches every 3 h, rare dumping; spike shape peaks at 3 min | watch only until we have a sub-minute feed; not tradeable by hand |
+| 7 | `FAX4qRQdiSj2iWDYvkJ21VieVCXGREtwMhEyAHSJ1aqp` PETAH | mixed (72), 9% hit rate, peak at 2 h, none halved, 61/90 CTO (community carries) | post-exit build |
+| 8 | `4LTJU2qfJdmDuEQAmWXcf5hvkpomYrLebuTBz2svwRd4` LAYOFF | best conduct on the list (98.5), both graduations went ≥ $1M with multi-day runs; only 18 launches, 2 graduated, batch launcher | small size, hold |
+| 9 | `CzwWvTVn39dSd4LiVc6W9gZxgu36737M2fcX4EWhquh4` 1B | buyable (80), 44% graduation, peak at 50 min; sells below open (0.37×) and both records truncated | post-exit build, 1 h; verify with a full walk |
+| 10 | `yHCxHBEaJW5tbndqC8JciSThr7U1cqLpdcsvHcx6PRe` ANSEM | most power on the list ($449M flagship, 310 graduations), rare dumping, but hits peak at 2 min and 83% halve | watch only; a feed-and-router problem, not a selection problem |
+
+Dropped from the D3 shortlist after the audit, with the reason:
+
+- **Systematic dumpers at open** (sell 75–97% of the time within 1–4 s): ICEMAN, FRANK, MACRODUCK,
+  Dancedoge, RAMEN, BUTT, Pappy, Stock, popedoll, sami, LeMonke, IGW. Some (FRANK, Dancedoge, RAMEN,
+  popedoll) have a good post-exit shape and could re-enter via a "buy only after the dev's sell prints"
+  rule in D5, but not as tracked devs.
+- **Fartcoin dev**: conduct 0, dumps at 3 s, 15 days quiet.
+- **MASK**: often-dumper (0.60), 4 runs.
+- **S&P 500, Bepe, Morty**: 3 or fewer runs; S&P 500 is 5 days old.
+- **maxxing**: unscored (implausible peak in the data).
+
+## 6. What D4 did not settle, and what D5 needs
+
+1. **Base rates**: every run shape above is conditional on a hit. D5 pulls the same klines on a random
+   sample of each top-10 dev's *non-hit* launches (~300 calls) to get the loss side and a first
+   expectancy per style.
+2. **Sub-minute entry cost**: for shape-1 devs the first candle is already 10–25× the floor; the question
+   is whether minute-1 entry with a 1.25% curve fee and $50 size has positive expectancy at all. D5.
+3. **Dev sell detection in real time**: shape-2 entries key off the dev's own sell. The activity feed
+   lags; the Pump program logs decoded with `TradeEventBc` (creator == dev) do not. D6 spec item.
+4. **Coverage**: 1B, ANSEM, SAPIJIJU, TOAD, BABYTROLL, PETAH have truncated trade walks (25 pages); a
+   full walk for the top 5 is ~200 weight each.
+5. The watcher continues; a dev not seen in the first cut can enter through the weekly re-rank.

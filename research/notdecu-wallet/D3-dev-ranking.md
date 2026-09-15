@@ -7,8 +7,9 @@ Read-only research; no actions.
 
 ## 0. Definitions and caveats
 
-- **launches** = `inner_count` (still on curve) + `open_count` (graduated). `inner_count` caps at 999
-  (452 devs), so their hit rates are upper bounds.
+- **launches** = `inner_count` (still on curve) + `open_count` (graduated). 452 devs have `inner_count` ≥ 999
+  (it is not a cap: one dev shows 55,318); for those the hit rate over launches is small and only a
+  rough figure, because the book lists at most 101 tokens.
 - **hit** = a launch whose all-time-high market cap (GMGN `token_ath_mc`) reached ≥ $100K; **big hit** ≥ $1M.
   Books list the dev's top-101 tokens by ATH, so hit counts are complete for every dev in this cut
   (`hits_incomplete` = 0). 10 devs carry an implausible ATH ≥ $5B; those rows are excluded from hits.
