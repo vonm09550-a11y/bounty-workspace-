@@ -65,7 +65,7 @@ for p in glob.glob(os.path.join(AUDIT, "score_*.json")):
     except Exception:  # noqa: BLE001
         continue
     dev = os.path.basename(p)[6:-5]
-    sc, dg, ht, la, cw, bu, cv, fl = (j.get(k) or {} for k in ("score", "dump_gate", "his_trades", "launches", "cross_wallet", "bundler", "coverage", "flagship"))
+    sc, dg, ht, la, cw, bu, cv, fl = ((j.get(k) if isinstance(j.get(k), dict) else {}) for k in ("score", "dump_gate", "his_trades", "launches", "cross_wallet", "bundler", "coverage", "flagship"))
     rows.append({"creator": dev, "scored": bool(j.get("scored")), "not_scored_reason": j.get("reason"),
                  "score_total": sc.get("total"), "score_conduct": sc.get("conduct"), "score_power": sc.get("power"), "band": sc.get("band"),
                  "dump_tier": dg.get("tier"), "dump_rate": dg.get("dump_rate"), "dumps": dg.get("dumps"), "coins_with_trades": dg.get("coins_with_trades"),
@@ -128,7 +128,12 @@ if os.path.exists(kl_p) and os.path.getsize(kl_p) > 0:
 con.execute("DROP TABLE IF EXISTS dev_runs")
 if runs:
     import pandas as pd
-    rf = pd.DataFrame(runs)
+    RUN_COLS = ["creator", "token", "ath_mc_book", "n_1m", "n_15m", "first_candle_delay_min", "open_price", "max_mult_100m", "min_to_max_100m",
+                "mult_5m", "mult_15m", "mult_30m", "mult_60m", "mins_ge_2x_100m", "mins_le_half_100m", "vol_usd_100m", "max_mult_24h",
+                "min_to_max_24h", "close_24h_mult", "retrace_from_high_24h", "candles_ge_2x_24h", "vol_usd_24h"]
+    rf = pd.DataFrame(runs).reindex(columns=RUN_COLS)
+    for c in RUN_COLS[2:]:
+        rf[c] = pd.to_numeric(rf[c], errors="coerce")
     con.execute("CREATE TABLE dev_runs AS SELECT r.*, l.symbol, l.total_supply, r.open_price * l.total_supply open_mcap FROM rf r LEFT JOIN dev_launches l USING(token)")
 else:
     con.execute("CREATE TABLE dev_runs AS SELECT creator, token, symbol, NULL::DOUBLE open_mcap, NULL::DOUBLE max_mult_100m, NULL::DOUBLE min_to_max_100m, NULL::DOUBLE mult_5m, NULL::DOUBLE mult_15m, NULL::DOUBLE mult_30m, NULL::DOUBLE mult_60m, NULL::INT mins_ge_2x_100m, NULL::INT mins_le_half_100m, NULL::DOUBLE max_mult_24h, NULL::DOUBLE min_to_max_24h, NULL::DOUBLE close_24h_mult, NULL::DOUBLE retrace_from_high_24h, NULL::INT candles_ge_2x_24h, NULL::DOUBLE vol_usd_24h, NULL::DOUBLE first_candle_delay_min FROM dev_launches WHERE false")
