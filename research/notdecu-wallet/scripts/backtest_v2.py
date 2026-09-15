@@ -68,7 +68,7 @@ def simulate(L, tr, cfg, stake_sol):
     why = []
     if cfg.get("rule", "hold") == "flow":
         base = cfg["_baseline"].get(L.token)
-        col = "sol_in_1m" if mark <= 60 else "sol_in_5m"
+        col = "sol_in_1m" if mark < 300 else "sol_in_5m"   # no look-ahead: the 5-min inflow exists only from 300 s
         if base is None:
             why.append("no prior launches for baseline")
         elif pd.isna(getattr(L, col)) or getattr(L, col) < cfg["flow_mult"] * base:
@@ -94,6 +94,12 @@ def simulate(L, tr, cfg, stake_sol):
         out.update(triggered=False, reason="no buys after the mark"); return out
     t0 = after.index[0]
     entry_raw = after.p.iloc[0]
+    dev_px = (L.dev_first_buy_sol / L.dev_first_buy_tokens) if (pd.notna(L.dev_first_buy_sol) and pd.notna(L.dev_first_buy_tokens) and L.dev_first_buy_tokens > 0) else None
+    entry_mult_vs_dev = (entry_raw / dev_px) if dev_px else None
+    if cfg.get("max_entry_mult") and entry_mult_vs_dev is not None and entry_mult_vs_dev > cfg["max_entry_mult"]:
+        out.update(triggered=False, reason=f"price at mark {entry_mult_vs_dev:.1f}x dev > max {cfg['max_entry_mult']}"); return out
+    if cfg.get("min_entry_mult") and entry_mult_vs_dev is not None and entry_mult_vs_dev < cfg["min_entry_mult"]:
+        out.update(triggered=False, reason=f"price at mark {entry_mult_vs_dev:.1f}x dev < min {cfg['min_entry_mult']}"); return out
     on_curve = pd.isna(L.curve_last_s) or t0 <= L.curve_last_s
     # liquidity for impact
     sol_in = tr[(tr.side == "buy") & (tr.s <= t0)].sol.sum(); sol_out = tr[(tr.side == "sell") & (tr.s <= t0)].sol.sum()
@@ -130,11 +136,11 @@ def simulate(L, tr, cfg, stake_sol):
     out.update(triggered=True, entry_s=int(t0), exit_s=int(exit_t), how=how, on_curve=bool(on_curve), gross_x=round(exit_p / entry_raw, 3),
                fee_in_pct=round(100 * fee_in, 2), fee_out_pct=round(100 * fee_out, 2), impact_in_pct=round(100 * impact_in, 2), impact_out_pct=round(100 * impact_out, 2),
                prio_in_sol=round(prio_in, 5), prio_out_sol=round(prio_out, 5), fixed_sol=round(fixed, 5), net_sol=round(net_sol, 4),
-               max_x_after=round(after.p.max() / entry_raw, 2))
+               max_x_after=round(after.p.max() / entry_raw, 2), entry_mult_vs_dev=round(entry_mult_vs_dev, 2) if entry_mult_vs_dev else None)
     return out
 
 
-BASE = {"rule": "hold", "flow_mult": 1.5, "min_prior": 3, "mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
+BASE = {"max_entry_mult": 0, "min_entry_mult": 0, "rule": "hold", "flow_mult": 1.5, "min_prior": 3, "mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
         "hard_stop_pct": 0.50, "time_stop_s": 1800, "prio_floor_lamports": 20000, "mev_pct": 0.005, "jito_tip_sol": 0.0001, "charge_rent": True,
         "rent_first_trade_sol": 0.0018444, "rent_ata_refund": True}
 
@@ -144,7 +150,7 @@ def baselines(L, cfg):
     out = {}
     for dev, g in L.sort_values("create_ts").groupby("dev"):
         mark = cfg.get("mark") or DEFAULT_MARK.get(dev, 120)
-        col = "sol_in_1m" if mark <= 60 else "sol_in_5m"
+        col = "sol_in_1m" if mark < 300 else "sol_in_5m"
         prior = []
         for _, r in g.iterrows():
             if len(prior) >= cfg["min_prior"]:
@@ -171,12 +177,40 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--loop", default="loop1")
     ap.add_argument("--grid", action="store_true")
+    ap.add_argument("--joint", action="store_true", help="grid over loop1 and loop2 together; keep configs positive on both")
     ap.add_argument("--config", nargs="*", default=[])
     ap.add_argument("--stake-usd", type=float, default=50)
     ap.add_argument("--sol-usd", type=float, default=100)
     a = ap.parse_args()
-    L, T = load(a.loop)
     stake_sol = a.stake_usd / a.sol_usd
+    if a.joint:
+        sets = {lp: load(lp) for lp in ("loop1", "loop2")}
+        grid = {"rule": ["hold", "flow"], "mark": [60, 120, 300], "self_buy_floor": [0.2, 0.35], "flow_mult": [1.5, 2.0], "max_entry_mult": [0, 3, 5],
+                "trail_pct": [0.4, 0.5], "tp_mult": [0, 5], "hard_stop_pct": [0.3, 0.5], "time_stop_s": [900, 1800]}
+        res = []
+        for vals in itertools.product(*grid.values()):
+            c = dict(BASE); c.update(dict(zip(grid.keys(), vals)))
+            if c["rule"] == "hold" and c["flow_mult"] != 1.5: continue
+            if c["rule"] == "flow" and c["self_buy_floor"] != 0.2: continue
+            row = dict(zip(grid.keys(), vals))
+            for lp, (L_, T_) in sets.items():
+                _, s_ = run_cfg(L_, T_, c, stake_sol, a.sol_usd)
+                for k in ("triggers", "wins", "pnl_usd", "pnl_ex_best_usd", "hits_caught", "misses_entered", "worst_usd", "median_usd"):
+                    row[f"{lp}_{k}"] = s_[k]
+            row["min_ex_best"] = min(row["loop1_pnl_ex_best_usd"], row["loop2_pnl_ex_best_usd"])
+            row["total_pnl"] = row["loop1_pnl_usd"] + row["loop2_pnl_usd"]
+            row["wr"] = (row["loop1_wins"] + row["loop2_wins"]) / max(1, row["loop1_triggers"] + row["loop2_triggers"])
+            res.append(row)
+        R = pd.DataFrame(res)
+        R.to_csv(os.path.join(ANAT, "backtest_v2_joint.csv"), index=False)
+        ok = R[(R.loop1_triggers >= 6) & (R.loop2_triggers >= 6)]
+        print(f"{len(R)} configs; {len(ok)} with >=6 triggers on both; {(ok.min_ex_best > 0).sum()} positive ex-best on BOTH loops")
+        pd.set_option("display.width", 300)
+        cols = list(grid.keys()) + ["loop1_triggers", "loop1_wins", "loop1_pnl_usd", "loop1_pnl_ex_best_usd", "loop2_triggers", "loop2_wins", "loop2_pnl_usd", "loop2_pnl_ex_best_usd", "loop2_median_usd", "loop2_worst_usd", "wr"]
+        print("\ntop by min(ex-best P&L over the two loops):"); print(ok.sort_values("min_ex_best", ascending=False).head(15)[cols].to_string(index=False))
+        print("\ntop by combined win rate (min 6 triggers each):"); print(ok.sort_values(["wr", "total_pnl"], ascending=False).head(8)[cols].to_string(index=False))
+        raise SystemExit
+    L, T = load(a.loop)
     cfg = dict(BASE)
     for kv in a.config:
         k, v = kv.split("=")
