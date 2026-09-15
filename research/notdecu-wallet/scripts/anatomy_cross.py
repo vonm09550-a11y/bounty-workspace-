@@ -335,9 +335,9 @@ def member_graph(ml, members):
         g = ml[(ml.wallet == w) & ml.bought] if len(ml) else ml
         so = ml[(ml.wallet == w) & (~ml.bought)] if len(ml) else ml
         rec = {"username": v["username"], "wallet": w, "role": v.get("role") or "", "tags": ",".join(v.get("tags") or []),
-               "n_launches_bought": int(len(g)), "n_slingoor": int((g.dev == "slingoor").sum()), "n_retardmode": int((g.dev == "retardmode").sum()),
+               "n_launches_bought": int(len(g)), **{f"n_{d}": int((g.dev == d).sum()) for d in DEVS},
                "n_hits": int(g.hit.sum()) if len(g) else 0, "n_nonhits": int((~g.hit).sum()) if len(g) else 0,
-               "n_hits_slingoor": int(g[g.dev == "slingoor"].hit.sum()) if len(g) else 0, "n_hits_retardmode": int(g[g.dev == "retardmode"].hit.sum()) if len(g) else 0,
+               **{f"n_hits_{d}": (int(g[g.dev == d].hit.sum()) if len(g) else 0) for d in DEVS},
                "hit_share_of_bought": float(g.hit.mean()) if len(g) else None,
                "med_entry_s": float(g.first_buy_s.median()) if len(g) else None, "min_entry_s": int(g.first_buy_s.min()) if len(g) else None,
                "p75_entry_s": q(g.first_buy_s, 75) if len(g) else None,
@@ -525,7 +525,7 @@ def summary(members_df, ml, lf, fp, sep, thr, ent, infos, notes_path):
             "inside the observed window, median hold (first sell − first buy), realized net SOL (sells − buys, unrealized remainder counted at 0) and marked net SOL "
             "(remainder valued at the window's last 10-s buy VWAP), over launches where SOL is computable. `*` marks hits in the launch list; the 3 truncated slingoor hits "
             "and the LaunchLab launches shorten the observable window (n_trunc).", ""]
-    cols = ["username", "n_launches_bought", "n_slingoor", "n_retardmode", "n_hits", "n_nonhits", "med_entry_s", "min_entry_s", "med_entry_mult_vs_dev",
+    cols = ["username", "n_launches_bought"] + [f"n_{d}" for d in DEVS] + ["n_hits", "n_nonhits", "med_entry_s", "min_entry_s", "med_entry_mult_vs_dev",
             "med_first_buy_sol", "med_buy_sol_per_launch", "total_buy_sol", "share_sold_in_window", "med_hold_s", "n_closed_in_window",
             "net_sol_realized", "net_sol_marked", "n_sol_computable", "n_truncated_after_buy", "n_sell_only", "tags"]
     out += [md_table(members_df, cols), ""]
@@ -652,18 +652,25 @@ def main():
     ap.add_argument("--db", default="data/notdecu.duckdb")
     ap.add_argument("--notes", default="data/anatomy/loop1/notes_cross.md")
     ap.add_argument("--rebuild-trades", action="store_true")
+    ap.add_argument("--launches", default=None, help="launch list jsonl; sets the launcher set (default: slingoor + retardmode)")
     a = ap.parse_args()
+    if a.launches:
+        global CREATORS, DEVS
+        CREATORS = {}
+        for line in open(a.launches):
+            L = json.loads(line); CREATORS[L["dev"]] = L["creator"]
+        DEVS = list(CREATORS)
     members = json.load(open(a.members))
     book, runs = {}, None
     if a.db and os.path.exists(a.db):
         import duckdb
         con = duckdb.connect(a.db, read_only=True)
-        for tok, ath, hold, cts, plat, br in con.execute("select token, ath_mc, holders, create_ts, launchpad_platform, bundler_rate from dev_tokens where creator in (?, ?)",
+        for tok, ath, hold, cts, plat, br in con.execute("select token, ath_mc, holders, create_ts, launchpad_platform, bundler_rate from dev_tokens where creator in (%s)" % ",".join("?" * len(CREATORS)),
                                                         list(CREATORS.values())).fetchall():
             book[tok] = {"ath_mc": ath, "holders": hold, "create_ts": cts, "launchpad_platform": plat, "bundler_rate": br}
         try:
             runs = con.execute("select creator, token, mult_5m as kl_mult_5m, mult_30m as kl_mult_30m, max_mult_100m as kl_max_mult_100m, min_to_max_100m as kl_min_to_max_100m "
-                               "from dev_runs where creator in (?, ?)", list(CREATORS.values())).df()
+                               "from dev_runs where creator in (%s)" % ",".join("?" * len(CREATORS)), list(CREATORS.values())).df()
         except Exception as e:  # noqa: BLE001
             print("dev_runs not read:", e)
         con.close()

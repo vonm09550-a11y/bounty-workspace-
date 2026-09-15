@@ -1,0 +1,538 @@
+dev,group,metric,n,median,p25,p75,min,max,note
+0xkgc,all,dev_supply_share,47,0.034271956398007994,0.034271956398007994,0.066012229410647,0.034194029850745995,0.113675096836372,
+0xkgc,all,dev_first_buy_sol,47,0.991515998,0.991515998,1.980528808,0.9891912800000001,5.5945671265404275,
+0xkgc,all,dev_same_slot_buyers,47,2.0,1.0,3.5,0.0,13.0,
+0xkgc,all,dev_fee_lamports_med,47,452500.0,398353.25,505000.0,3370.0,1000000.0,
+0xkgc,all,dev_fee_first_tx,47,505000.0,35000.0,505000.0,5000.0,605000.0,
+0xkgc,all,dev_first_sell_s,25,738.0,387.0,818.0,36.0,1611.0,
+0xkgc,all,dev_sold_share_30m,46,0.15022831036605577,0.0,1.0,0.0,1.0,
+0xkgc,all,dev_sell_sol_30m,46,0.8965530085,0.0,1.31174123,0.0,6.215133423,
+0xkgc,all,dev_sold_share_60s,47,0.0,0.0,0.0,0.0,1.0,
+0xkgc,all,dev_sold_share_300s,47,0.0,0.0,0.0,0.0,1.0,
+0xkgc,all,grad_s,47,1765.0,1536.0,1794.0,125.0,1800.0,
+0xkgc,all,peak10_mult,47,3.289263927269056,2.437285783466148,7.06642168671015,1.1451027366711495,16.955558122120532,
+0xkgc,all,peak10_ts_s,47,620.0,435.0,955.0,0.0,1780.0,
+0xkgc,all,sol_in_1m,47,17.170719325999997,10.148242403000001,24.552902254296736,4.730949655491055,95.610620323,
+0xkgc,all,sol_in_5m,47,27.21291371,15.7956726795,63.74539989400001,4.730949655491055,187.05789324021066,
+0xkgc,all,n_wallets_1m,47,40.0,25.5,58.5,2.0,198.0,
+0xkgc,all,n_wallets_5m,47,57.0,48.0,149.0,7.0,517.0,
+0xkgc,all,n_launches,47,,,,,,measurable launches (with trades)
+0xkgc,all,n_dev_sold_in_window,25,,,,,,launches with a dev sell in the window
+0xkgc,all,n_dev_sold_by_60s,1,,,,,,
+0xkgc,all,n_dev_sold_by_300s,4,,,,,,
+0xkgc,all,n_non_sol_quote,11,,,,,,launches quoted in a token other than SOL
+0xkgc,all,n_graduated_in_window,47,,,,,,curve completed inside the 30-min window
+0xkgc,all,n_graduated_by_60s,0,,,,,,
+0xkgc,all,n_dev_buy_in_create_slot,47,,,,,,dev_first_buy_s == 0
+0xkgc,all,launchpad:Pump.fun,40,,,,,,dev_tokens.launchpad_platform
+0xkgc,all,launchpad:stonkfun,7,,,,,,dev_tokens.launchpad_platform
+0xkgc,hits,dev_supply_share,7,0.066401601740007,0.0503367790690075,0.0807827181781925,0.034271956398007994,0.113675096836372,
+0xkgc,hits,dev_first_buy_sol,7,1.980528808,1.486022403,2.885953927919317,0.991363637,4.368711724858733,
+0xkgc,hits,dev_same_slot_buyers,7,2.0,0.5,2.0,0.0,5.0,
+0xkgc,hits,dev_fee_lamports_med,7,400000.0,27714.5,452500.0,11000.0,505000.0,
+0xkgc,hits,dev_fee_first_tx,7,505000.0,35000.0,505000.0,11000.0,505000.0,
+0xkgc,hits,dev_first_sell_s,4,673.0,503.0,900.0,428.0,1146.0,
+0xkgc,hits,dev_sold_share_30m,6,0.07229042811791658,0.0,0.1530520374311671,0.0,0.7187499999999952,
+0xkgc,hits,dev_sell_sol_30m,6,1.7305435905,0.0,3.7229928405000003,0.0,6.215133423,
+0xkgc,hits,dev_sold_share_60s,7,0.0,0.0,0.0,0.0,0.0,
+0xkgc,hits,dev_sold_share_300s,7,0.0,0.0,0.0,0.0,0.0,
+0xkgc,hits,grad_s,7,1798.0,1430.0,1799.0,845.0,1800.0,
+0xkgc,hits,peak10_mult,7,9.939940823579649,5.871295828997197,13.466886487108496,3.0314674789172886,16.955558122120532,
+0xkgc,hits,peak10_ts_s,7,950.0,780.0,1205.0,390.0,1780.0,
+0xkgc,hits,sol_in_1m,7,22.09736371253417,19.6482344563847,24.552902254296736,13.71289143,43.75412362000001,
+0xkgc,hits,sol_in_5m,7,58.961061887672486,35.926461291931574,86.77865922487774,19.224024917999998,178.256140491,
+0xkgc,hits,n_wallets_1m,7,38.0,35.5,51.5,26.0,63.0,
+0xkgc,hits,n_wallets_5m,7,101.0,67.5,173.5,50.0,517.0,
+0xkgc,hits,n_launches,7,,,,,,measurable launches (with trades)
+0xkgc,hits,n_dev_sold_in_window,4,,,,,,launches with a dev sell in the window
+0xkgc,hits,n_dev_sold_by_60s,0,,,,,,
+0xkgc,hits,n_dev_sold_by_300s,0,,,,,,
+0xkgc,hits,n_non_sol_quote,3,,,,,,launches quoted in a token other than SOL
+0xkgc,hits,n_graduated_in_window,7,,,,,,curve completed inside the 30-min window
+0xkgc,hits,n_graduated_by_60s,0,,,,,,
+0xkgc,hits,n_dev_buy_in_create_slot,7,,,,,,dev_first_buy_s == 0
+0xkgc,hits,launchpad:Pump.fun,5,,,,,,dev_tokens.launchpad_platform
+0xkgc,hits,launchpad:stonkfun,2,,,,,,dev_tokens.launchpad_platform
+0xkgc,misses,dev_supply_share,40,0.034271956398007994,0.034271956398007994,0.0572316958087405,0.034194029850745995,0.096583719241621,
+0xkgc,misses,dev_first_buy_sol,40,0.991515998,0.991515998,1.8227179202500001,0.9891912800000001,5.5945671265404275,
+0xkgc,misses,dev_same_slot_buyers,40,2.0,1.0,4.0,0.0,13.0,
+0xkgc,misses,dev_fee_lamports_med,40,452500.0,400000.0,505000.0,3370.0,1000000.0,
+0xkgc,misses,dev_fee_first_tx,40,505000.0,180479.0,505000.0,5000.0,605000.0,
+0xkgc,misses,dev_first_sell_s,21,738.0,343.0,802.0,36.0,1611.0,
+0xkgc,misses,dev_sold_share_30m,40,0.23004187208367194,0.0,1.0,0.0,1.0,
+0xkgc,misses,dev_sell_sol_30m,40,0.8965530085,0.0,1.2415247225,0.0,3.913328742,
+0xkgc,misses,dev_sold_share_60s,40,0.0,0.0,0.0,0.0,1.0,
+0xkgc,misses,dev_sold_share_300s,40,0.0,0.0,0.0,0.0,1.0,
+0xkgc,misses,grad_s,40,1762.0,1541.0,1792.25,125.0,1800.0,
+0xkgc,misses,peak10_mult,40,3.159767140143873,2.2834956210066286,6.38737729831338,1.1451027366711495,15.10255258844559,
+0xkgc,misses,peak10_ts_s,40,550.0,397.5,907.5,0.0,1710.0,
+0xkgc,misses,sol_in_1m,40,15.470644399231116,9.56077500825,25.466167554789802,4.730949655491055,95.610620323,
+0xkgc,misses,sol_in_5m,40,24.472380903050748,14.11721986525,57.465396154000004,4.730949655491055,187.05789324021066,
+0xkgc,misses,n_wallets_1m,40,40.0,23.0,60.0,2.0,198.0,
+0xkgc,misses,n_wallets_5m,40,56.0,44.75,146.5,7.0,416.0,
+0xkgc,misses,n_launches,40,,,,,,measurable launches (with trades)
+0xkgc,misses,n_dev_sold_in_window,21,,,,,,launches with a dev sell in the window
+0xkgc,misses,n_dev_sold_by_60s,1,,,,,,
+0xkgc,misses,n_dev_sold_by_300s,4,,,,,,
+0xkgc,misses,n_non_sol_quote,8,,,,,,launches quoted in a token other than SOL
+0xkgc,misses,n_graduated_in_window,40,,,,,,curve completed inside the 30-min window
+0xkgc,misses,n_graduated_by_60s,0,,,,,,
+0xkgc,misses,n_dev_buy_in_create_slot,40,,,,,,dev_first_buy_s == 0
+0xkgc,misses,launchpad:Pump.fun,35,,,,,,dev_tokens.launchpad_platform
+0xkgc,misses,launchpad:stonkfun,5,,,,,,dev_tokens.launchpad_platform
+0xkgc,all,launch_hour_utc:00,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:01,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:02,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:03,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:04,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:05,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:06,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:07,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:08,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:10,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:11,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:12,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:13,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:14,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:15,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:16,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:17,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:18,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:19,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:20,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,all,launch_hour_utc:21,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+0xkgc,hits,launch_hour_utc:01,1,,,,,,
+0xkgc,hits,launch_hour_utc:02,1,,,,,,
+0xkgc,hits,launch_hour_utc:05,1,,,,,,
+0xkgc,hits,launch_hour_utc:11,1,,,,,,
+0xkgc,hits,launch_hour_utc:17,1,,,,,,
+0xkgc,hits,launch_hour_utc:19,2,,,,,,
+0xkgc,all,launch_weekday:Fri,2,,,,,,
+0xkgc,all,launch_weekday:Mon,4,,,,,,
+0xkgc,all,launch_weekday:Sat,6,,,,,,
+0xkgc,all,launch_weekday:Sun,2,,,,,,
+0xkgc,all,launch_weekday:Thu,15,,,,,,
+0xkgc,all,launch_weekday:Tue,1,,,,,,
+0xkgc,all,launch_weekday:Wed,17,,,,,,
+0xkgc,all,gap_between_launches_h,46,2.6466666666666665,1.1339583333333332,7.194513888888888,0.3947222222222222,48.5825,hours between consecutive launches
+0xkgc,all,n_gaps_lt_1h,10,,,,,,launch followed by another within 1 h
+0xkgc,all,n_gaps_lt_24h,44,,,,,,
+0xkgc,all,span_days,47,12.476597222222223,,,,,median = days from first to last launch
+0xkgc,all,hour_utc,47,14.0,6.0,18.5,0.0,21.0,distribution of the UTC hour of creation
+0xkgc,all,book_bundler_rate,47,0.0,0.0,0.0,0.0,0.2027,dev_tokens.bundler_rate
+gampsito,all,dev_supply_share,16,0.16432523400382998,0.15166077733404498,0.176989690673615,0.08641313125668301,0.20096321065713502,
+gampsito,all,dev_first_buy_sol,16,5.433953138,4.940213444,5.927867765,3.744006310239238,6.915522086,
+gampsito,all,dev_same_slot_buyers,16,6.5,4.75,8.25,2.0,18.0,
+gampsito,all,dev_fee_lamports_med,16,63718.25,50663.0,95968.75,14925.0,1000000.0,
+gampsito,all,dev_fee_first_tx,16,5000.0,5000.0,5000.0,5000.0,5000.0,
+gampsito,all,dev_first_sell_s,16,2.0,1.0,4.0,1.0,5.0,
+gampsito,all,dev_sold_share_30m,15,1.0,0.9999999999999998,1.0,0.9719759438573625,1.0,
+gampsito,all,dev_sell_sol_30m,15,9.202852113,7.358395668,13.8734614915,4.790601358283463,14.754983693,
+gampsito,all,dev_sold_share_60s,16,1.0,0.9999999999999998,1.0,0.9999999999999998,1.0,
+gampsito,all,dev_sold_share_300s,16,1.0,0.9999999999999998,1.0,0.9990752397198458,1.0,
+gampsito,all,grad_s,16,790.0,545.25,1655.5,148.0,1800.0,
+gampsito,all,peak10_mult,16,1.94882562286127,1.3802229797015768,6.370179969263119,1.192324194358626,27.529539433258357,
+gampsito,all,peak10_ts_s,16,10.0,0.0,512.5,0.0,1710.0,
+gampsito,all,sol_in_1m,16,100.99852928050001,36.51109011074999,120.01016940050002,17.729150694,173.61336025699998,
+gampsito,all,sol_in_5m,16,113.83833100000001,36.51109011074999,197.27143132775,17.729150694,332.717664483,
+gampsito,all,n_wallets_1m,16,142.5,51.0,177.0,25.0,291.0,
+gampsito,all,n_wallets_5m,16,173.5,51.0,272.5,25.0,479.0,
+gampsito,all,n_launches,16,,,,,,measurable launches (with trades)
+gampsito,all,n_dev_sold_in_window,16,,,,,,launches with a dev sell in the window
+gampsito,all,n_dev_sold_by_60s,16,,,,,,
+gampsito,all,n_dev_sold_by_300s,16,,,,,,
+gampsito,all,n_non_sol_quote,1,,,,,,launches quoted in a token other than SOL
+gampsito,all,n_graduated_in_window,16,,,,,,curve completed inside the 30-min window
+gampsito,all,n_graduated_by_60s,0,,,,,,
+gampsito,all,n_dev_buy_in_create_slot,16,,,,,,dev_first_buy_s == 0
+gampsito,all,launchpad:Pump.fun,16,,,,,,dev_tokens.launchpad_platform
+gampsito,hits,dev_supply_share,6,0.15166077733404498,0.15166077733404498,0.1706574623387225,0.124858181763706,0.20096321065713502,
+gampsito,hits,dev_first_buy_sol,6,4.940213444,4.940213444,5.68095418475,3.952559123,6.915522086,
+gampsito,hits,dev_same_slot_buyers,6,7.0,6.25,7.75,6.0,9.0,
+gampsito,hits,dev_fee_lamports_med,6,90480.5,59671.5,774775.0,51429.0,1000000.0,
+gampsito,hits,dev_fee_first_tx,6,5000.0,5000.0,5000.0,5000.0,5000.0,
+gampsito,hits,dev_first_sell_s,6,3.0,1.25,4.0,1.0,5.0,
+gampsito,hits,dev_sold_share_30m,5,1.0,0.9891121982234108,1.0,0.9719759438573625,1.0,
+gampsito,hits,dev_sell_sol_30m,5,10.836121336,9.202852113,14.581704038999998,5.862773077,14.754983693,
+gampsito,hits,dev_sold_share_60s,6,1.0,1.0,1.0,1.0,1.0,
+gampsito,hits,dev_sold_share_300s,6,1.0,1.0,1.0,1.0,1.0,
+gampsito,hits,grad_s,6,711.5,604.25,1550.75,225.0,1798.0,
+gampsito,hits,peak10_mult,6,5.494650296944098,2.0167710773230287,16.118280523975976,1.192324194358626,27.529539433258357,
+gampsito,hits,peak10_ts_s,6,415.0,97.5,912.5,0.0,1710.0,
+gampsito,hits,sol_in_1m,6,109.50988504899999,49.634531248,122.487271693,17.729150694,142.562155342,
+gampsito,hits,sol_in_5m,6,181.607410723,68.789982098,224.23549627124999,17.729150694,332.717664483,
+gampsito,hits,n_wallets_1m,6,154.0,57.0,170.75,25.0,180.0,
+gampsito,hits,n_wallets_5m,6,240.0,75.75,313.5,25.0,424.0,
+gampsito,hits,n_launches,6,,,,,,measurable launches (with trades)
+gampsito,hits,n_dev_sold_in_window,6,,,,,,launches with a dev sell in the window
+gampsito,hits,n_dev_sold_by_60s,6,,,,,,
+gampsito,hits,n_dev_sold_by_300s,6,,,,,,
+gampsito,hits,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+gampsito,hits,n_graduated_in_window,6,,,,,,curve completed inside the 30-min window
+gampsito,hits,n_graduated_by_60s,0,,,,,,
+gampsito,hits,n_dev_buy_in_create_slot,6,,,,,,dev_first_buy_s == 0
+gampsito,hits,launchpad:Pump.fun,6,,,,,,dev_tokens.launchpad_platform
+gampsito,misses,dev_supply_share,10,0.176989690673615,0.15166077733404498,0.176989690673615,0.08641313125668301,0.20096321065713502,
+gampsito,misses,dev_first_buy_sol,10,5.9277802985,4.940213444,5.927867765,3.744006310239238,6.915522086,
+gampsito,misses,dev_same_slot_buyers,10,5.5,3.25,11.0,2.0,18.0,
+gampsito,misses,dev_fee_lamports_med,10,55087.25,47147.75,69049.75,14925.0,115630.0,
+gampsito,misses,dev_fee_first_tx,10,5000.0,5000.0,5000.0,5000.0,5000.0,
+gampsito,misses,dev_first_sell_s,10,2.0,1.0,3.75,1.0,5.0,
+gampsito,misses,dev_sold_share_30m,10,0.9999999999999999,0.9999999999999998,1.0,0.9999999999999998,1.0,
+gampsito,misses,dev_sell_sol_30m,10,8.1780721845,7.3479314774999995,13.081518528500002,4.790601358283463,14.431274995999999,
+gampsito,misses,dev_sold_share_60s,10,0.9999999999999999,0.9999999999999998,1.0,0.9999999999999998,1.0,
+gampsito,misses,dev_sold_share_300s,10,0.9999999999999999,0.9999999999999998,1.0,0.9990752397198458,1.0,
+gampsito,misses,grad_s,10,900.0,451.5,1498.75,148.0,1800.0,
+gampsito,misses,peak10_mult,10,1.6872977597489718,1.4001237141052156,2.37416809788035,1.3024394538902035,7.699730260821586,
+gampsito,misses,peak10_ts_s,10,5.0,0.0,130.0,0.0,850.0,
+gampsito,misses,sol_in_1m,10,70.44848122,37.93119292625,114.89763581100001,32.060455297,173.61336025699998,
+gampsito,misses,sol_in_5m,10,75.7298417395,37.958081814749995,124.86001402625,32.060455297,259.05208674057354,
+gampsito,misses,n_wallets_1m,10,109.5,58.25,172.5,40.0,291.0,
+gampsito,misses,n_wallets_5m,10,121.5,58.75,209.0,40.0,479.0,
+gampsito,misses,n_launches,10,,,,,,measurable launches (with trades)
+gampsito,misses,n_dev_sold_in_window,10,,,,,,launches with a dev sell in the window
+gampsito,misses,n_dev_sold_by_60s,10,,,,,,
+gampsito,misses,n_dev_sold_by_300s,10,,,,,,
+gampsito,misses,n_non_sol_quote,1,,,,,,launches quoted in a token other than SOL
+gampsito,misses,n_graduated_in_window,10,,,,,,curve completed inside the 30-min window
+gampsito,misses,n_graduated_by_60s,0,,,,,,
+gampsito,misses,n_dev_buy_in_create_slot,10,,,,,,dev_first_buy_s == 0
+gampsito,misses,launchpad:Pump.fun,10,,,,,,dev_tokens.launchpad_platform
+gampsito,all,launch_hour_utc:08,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:10,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:11,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:13,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:15,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:19,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:20,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,all,launch_hour_utc:23,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+gampsito,hits,launch_hour_utc:08,1,,,,,,
+gampsito,hits,launch_hour_utc:10,1,,,,,,
+gampsito,hits,launch_hour_utc:11,1,,,,,,
+gampsito,hits,launch_hour_utc:19,2,,,,,,
+gampsito,hits,launch_hour_utc:20,1,,,,,,
+gampsito,all,launch_weekday:Sat,1,,,,,,
+gampsito,all,launch_weekday:Sun,1,,,,,,
+gampsito,all,launch_weekday:Thu,9,,,,,,
+gampsito,all,launch_weekday:Tue,2,,,,,,
+gampsito,all,launch_weekday:Wed,3,,,,,,
+gampsito,all,gap_between_launches_h,15,11.780833333333334,3.081111111111111,105.61277777777778,0.04027777777777778,609.9152777777778,hours between consecutive launches
+gampsito,all,n_gaps_lt_1h,3,,,,,,launch followed by another within 1 h
+gampsito,all,n_gaps_lt_24h,9,,,,,,
+gampsito,all,span_days,16,49.35528935185185,,,,,median = days from first to last launch
+gampsito,all,hour_utc,16,14.0,10.0,19.25,8.0,23.0,distribution of the UTC hour of creation
+gampsito,all,book_bundler_rate,16,0.0,0.0,0.00025,0.0,0.0175,dev_tokens.bundler_rate
+hashbergers,all,dev_supply_share,12,0.034199203154141,0.034199203154141,0.040656395358431255,0.000706037126454,0.500408865023513,
+hashbergers,all,dev_first_buy_sol,12,0.9891228799999999,0.9891228799999999,1.186653744,0.021694925,26.21981628,
+hashbergers,all,dev_same_slot_buyers,12,1.0,0.0,3.0,0.0,11.0,
+hashbergers,all,dev_fee_lamports_med,12,193981.25,71887.75,209324.25,34398.0,434464.0,
+hashbergers,all,dev_fee_first_tx,12,200596.0,110025.5,388804.75,5000.0,744577.0,
+hashbergers,all,dev_first_sell_s,10,10.0,9.0,12.75,8.0,24.0,
+hashbergers,all,dev_sold_share_30m,12,1.0,1.0,1.0,0.0,1.0,
+hashbergers,all,dev_sell_sol_30m,12,1.0973925135,0.779521273,1.4528871129999998,0.0,10.864197528,
+hashbergers,all,dev_sold_share_60s,12,1.0,0.8876804406253936,1.0,0.0,1.0,
+hashbergers,all,dev_sold_share_300s,12,1.0,0.8876804406253936,1.0,0.0,1.0,
+hashbergers,all,grad_s,12,712.5,528.0,826.0,234.0,1757.0,
+hashbergers,all,peak10_mult,12,1.2822114719968285,1.030565320526202,2.821355025198846,1.0,54.72296099835913,
+hashbergers,all,peak10_ts_s,12,40.0,0.0,305.0,0.0,1770.0,
+hashbergers,all,sol_in_1m,12,6.477111636,3.6778356197500006,13.93075169275,1.9551792129999996,220.80158181,
+hashbergers,all,sol_in_5m,12,11.2508926565,5.230948654,25.04648325625,1.9551792129999996,593.749687987,
+hashbergers,all,n_wallets_1m,12,10.0,4.75,31.75,3.0,133.0,
+hashbergers,all,n_wallets_5m,12,26.5,4.75,58.0,3.0,503.0,
+hashbergers,all,n_launches,12,,,,,,measurable launches (with trades)
+hashbergers,all,n_dev_sold_in_window,10,,,,,,launches with a dev sell in the window
+hashbergers,all,n_dev_sold_by_60s,10,,,,,,
+hashbergers,all,n_dev_sold_by_300s,10,,,,,,
+hashbergers,all,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+hashbergers,all,n_graduated_in_window,12,,,,,,curve completed inside the 30-min window
+hashbergers,all,n_graduated_by_60s,0,,,,,,
+hashbergers,all,n_dev_buy_in_create_slot,12,,,,,,dev_first_buy_s == 0
+hashbergers,all,launchpad:Pump.fun,12,,,,,,dev_tokens.launchpad_platform
+hashbergers,hits,dev_supply_share,2,0.2505574510749835,0.12563174410071876,0.37548315804924826,0.000706037126454,0.500408865023513,
+hashbergers,hits,dev_first_buy_sol,2,13.1207556025,6.571225263750001,19.67028594125,0.021694925,26.21981628,
+hashbergers,hits,dev_same_slot_buyers,2,5.5,2.75,8.25,0.0,11.0,
+hashbergers,hits,dev_fee_lamports_med,2,313194.0,252559.0,373829.0,191924.0,434464.0,
+hashbergers,hits,dev_fee_first_tx,2,98462.0,51731.0,145193.0,5000.0,191924.0,
+hashbergers,hits,dev_first_sell_s,0,,,,,,
+hashbergers,hits,dev_sold_share_30m,2,0.0,0.0,0.0,0.0,0.0,
+hashbergers,hits,dev_sell_sol_30m,2,0.0,0.0,0.0,0.0,0.0,
+hashbergers,hits,dev_sold_share_60s,2,0.0,0.0,0.0,0.0,0.0,
+hashbergers,hits,dev_sold_share_300s,2,0.0,0.0,0.0,0.0,0.0,
+hashbergers,hits,grad_s,2,655.0,594.5,715.5,534.0,776.0,
+hashbergers,hits,peak10_mult,2,38.399274673985815,30.237431511799166,46.56111783617247,22.07558834961251,54.72296099835913,
+hashbergers,hits,peak10_ts_s,2,1335.0,1117.5,1552.5,900.0,1770.0,
+hashbergers,hits,sol_in_1m,2,120.49641856999999,70.34383695,170.64900018999998,20.19125533,220.80158181,
+hashbergers,hits,sol_in_5m,2,310.8062038225,169.33446174025002,452.27794590475,27.862719657999996,593.749687987,
+hashbergers,hits,n_wallets_1m,2,94.0,74.5,113.5,55.0,133.0,
+hashbergers,hits,n_wallets_5m,2,288.0,180.5,395.5,73.0,503.0,
+hashbergers,hits,n_launches,2,,,,,,measurable launches (with trades)
+hashbergers,hits,n_dev_sold_in_window,0,,,,,,launches with a dev sell in the window
+hashbergers,hits,n_dev_sold_by_60s,0,,,,,,
+hashbergers,hits,n_dev_sold_by_300s,0,,,,,,
+hashbergers,hits,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+hashbergers,hits,n_graduated_in_window,2,,,,,,curve completed inside the 30-min window
+hashbergers,hits,n_graduated_by_60s,0,,,,,,
+hashbergers,hits,n_dev_buy_in_create_slot,2,,,,,,dev_first_buy_s == 0
+hashbergers,hits,launchpad:Pump.fun,2,,,,,,dev_tokens.launchpad_platform
+hashbergers,misses,dev_supply_share,10,0.034199203154141,0.034199203154141,0.034199203154141,0.002818584737504,0.28526888213928997,
+hashbergers,misses,dev_first_buy_sol,10,0.9891228799999999,0.9891228799999999,0.9891228799999999,0.080480904,10.865666089,
+hashbergers,misses,dev_same_slot_buyers,10,1.0,0.0,2.5,0.0,3.0,
+hashbergers,misses,dev_fee_lamports_med,10,146860.0,65663.25,205256.75,34398.0,372788.5,
+hashbergers,misses,dev_fee_first_tx,10,293953.0,141917.25,396912.25,57840.0,744577.0,
+hashbergers,misses,dev_first_sell_s,10,10.0,9.0,12.75,8.0,24.0,
+hashbergers,misses,dev_sold_share_30m,10,1.0,1.0,1.0,1.0,1.0,
+hashbergers,misses,dev_sell_sol_30m,10,1.177154406,1.0162428777499999,1.9530178249999999,0.081077695,10.864197528,
+hashbergers,misses,dev_sold_share_60s,10,1.0,1.0,1.0,0.5507217625015746,1.0,
+hashbergers,misses,dev_sold_share_300s,10,1.0,1.0,1.0,0.5507217625015746,1.0,
+hashbergers,misses,grad_s,10,712.5,525.25,920.0,234.0,1757.0,
+hashbergers,misses,peak10_mult,10,1.1385343057175714,1.0243993802846623,1.7375815744581478,1.0,5.682320446020461,
+hashbergers,misses,peak10_ts_s,10,0.0,0.0,87.5,0.0,650.0,
+hashbergers,misses,sol_in_1m,10,6.0526872,2.74065540325,7.0313186309999995,1.9551792129999996,31.928765278000004,
+hashbergers,misses,sol_in_5m,10,10.198793894999998,3.258359748,15.923324220999998,1.9551792129999996,97.828585852,
+hashbergers,misses,n_wallets_1m,10,7.5,4.25,13.75,3.0,52.0,
+hashbergers,misses,n_wallets_5m,10,14.5,4.25,35.5,3.0,132.0,
+hashbergers,misses,n_launches,10,,,,,,measurable launches (with trades)
+hashbergers,misses,n_dev_sold_in_window,10,,,,,,launches with a dev sell in the window
+hashbergers,misses,n_dev_sold_by_60s,10,,,,,,
+hashbergers,misses,n_dev_sold_by_300s,10,,,,,,
+hashbergers,misses,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+hashbergers,misses,n_graduated_in_window,10,,,,,,curve completed inside the 30-min window
+hashbergers,misses,n_graduated_by_60s,0,,,,,,
+hashbergers,misses,n_dev_buy_in_create_slot,10,,,,,,dev_first_buy_s == 0
+hashbergers,misses,launchpad:Pump.fun,10,,,,,,dev_tokens.launchpad_platform
+hashbergers,all,launch_hour_utc:00,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:01,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:02,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:03,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:06,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:09,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:20,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:22,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,all,launch_hour_utc:23,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+hashbergers,hits,launch_hour_utc:20,1,,,,,,
+hashbergers,hits,launch_hour_utc:22,1,,,,,,
+hashbergers,all,launch_weekday:Fri,3,,,,,,
+hashbergers,all,launch_weekday:Mon,1,,,,,,
+hashbergers,all,launch_weekday:Sat,1,,,,,,
+hashbergers,all,launch_weekday:Sun,3,,,,,,
+hashbergers,all,launch_weekday:Thu,2,,,,,,
+hashbergers,all,launch_weekday:Tue,1,,,,,,
+hashbergers,all,launch_weekday:Wed,1,,,,,,
+hashbergers,all,gap_between_launches_h,11,46.346666666666664,20.913333333333334,428.05055555555555,0.15055555555555555,3251.400833333333,hours between consecutive launches
+hashbergers,all,n_gaps_lt_1h,1,,,,,,launch followed by another within 1 h
+hashbergers,all,n_gaps_lt_24h,4,,,,,,
+hashbergers,all,span_days,12,214.9199189814815,,,,,median = days from first to last launch
+hashbergers,all,hour_utc,12,14.5,2.75,20.0,0.0,23.0,distribution of the UTC hour of creation
+hashbergers,all,book_bundler_rate,12,0.0,0.0,0.0161,0.0,0.5168,dev_tokens.bundler_rate
+jester,all,dev_supply_share,27,0.10049244715929,0.050317159206947,0.2,0.000353079611294,0.790509209095922,
+jester,all,dev_first_buy_sol,27,3.101691281,1.7364942464322404,6.874391153,0.01156628,149.96782434209186,
+jester,all,dev_same_slot_buyers,27,2.0,0.0,3.0,0.0,9.0,
+jester,all,dev_fee_lamports_med,27,502500.0,258630.75,881390.0,572.0,10000000.0,
+jester,all,dev_fee_first_tx,27,35000.0,6877.5,430000.0,5000.0,5000000.0,
+jester,all,dev_first_sell_s,21,26.0,16.0,44.0,8.0,512.0,
+jester,all,dev_sold_share_30m,27,1.0,0.40000000000000135,1.0,0.0,1.0,
+jester,all,dev_sell_sol_30m,27,3.3679693879999997,0.0125681005,8.494912177,0.0,19.660675571376938,
+jester,all,dev_sold_share_60s,26,0.7770663833870173,0.0,1.0,0.0,1.0,
+jester,all,dev_sold_share_300s,26,0.925,0.45669831287988355,1.0,0.0,1.0,
+jester,all,grad_s,27,1561.0,962.0,1781.5,13.0,1800.0,
+jester,all,peak10_mult,27,3.311848195009617,1.9225970950192153,5.6889847462306005,0.9803837040882247,54.850348476692155,
+jester,all,peak10_ts_s,27,430.0,80.0,1025.0,0.0,1790.0,
+jester,all,sol_in_1m,27,36.223268899169874,28.079331322,68.34268297150001,6.795753389,158.729536630858,
+jester,all,sol_in_5m,27,54.757124432999994,39.378818732499994,106.12237688159792,6.795753389,268.76543927,
+jester,all,n_wallets_1m,27,46.0,27.0,80.5,1.0,120.0,
+jester,all,n_wallets_5m,27,69.0,38.5,134.5,8.0,402.0,
+jester,all,n_launches,27,,,,,,measurable launches (with trades)
+jester,all,n_dev_sold_in_window,21,,,,,,launches with a dev sell in the window
+jester,all,n_dev_sold_by_60s,18,,,,,,
+jester,all,n_dev_sold_by_300s,20,,,,,,
+jester,all,n_non_sol_quote,6,,,,,,launches quoted in a token other than SOL
+jester,all,n_graduated_in_window,27,,,,,,curve completed inside the 30-min window
+jester,all,n_graduated_by_60s,1,,,,,,
+jester,all,n_dev_buy_in_create_slot,26,,,,,,dev_first_buy_s == 0
+jester,all,launchpad:Pump.fun,25,,,,,,dev_tokens.launchpad_platform
+jester,all,launchpad:,1,,,,,,dev_tokens.launchpad_platform
+jester,all,launchpad:stonkfun,1,,,,,,dev_tokens.launchpad_platform
+jester,hits,dev_supply_share,7,0.099948051904475,0.0759373540125,0.205077301925138,0.034199203154141,0.7658366048534271,
+jester,hits,dev_first_buy_sol,7,3.08295004,2.2893260365,9.130916791718278,0.98959616,149.96782434209186,
+jester,hits,dev_same_slot_buyers,7,0.0,0.0,3.0,0.0,3.0,
+jester,hits,dev_fee_lamports_med,7,356222.5,164094.75,505000.0,572.0,762780.0,
+jester,hits,dev_fee_first_tx,7,8500.0,8500.0,505000.0,8500.0,941775.0,
+jester,hits,dev_first_sell_s,5,23.0,16.0,58.0,15.0,63.0,
+jester,hits,dev_sold_share_30m,7,1.0,0.38361046329598364,1.0,0.0,1.0,
+jester,hits,dev_sell_sol_30m,7,2.914892165,0.516548906,7.5154856145,0.0,11.959792096580504,
+jester,hits,dev_sold_share_60s,7,0.292093631314177,0.0,0.8836104632959836,0.0,1.0,
+jester,hits,dev_sold_share_300s,7,0.7672209265919673,0.20446554191992386,1.0,0.0,1.0,
+jester,hits,grad_s,7,1752.0,1382.0,1789.5,354.0,1800.0,
+jester,hits,peak10_mult,7,8.902147497995557,4.732469174091383,11.668608926255128,2.8721310847314827,54.850348476692155,
+jester,hits,peak10_ts_s,7,1300.0,840.0,1670.0,300.0,1790.0,
+jester,hits,sol_in_1m,7,48.097555879,33.445805345,91.29602847921282,11.626480224000002,158.729536630858,
+jester,hits,sol_in_5m,7,98.244138459,47.36952257649999,172.23669993679016,19.935594550000005,268.76543927,
+jester,hits,n_wallets_1m,7,50.0,25.5,83.0,17.0,120.0,
+jester,hits,n_wallets_5m,7,69.0,42.0,157.5,23.0,402.0,
+jester,hits,n_launches,7,,,,,,measurable launches (with trades)
+jester,hits,n_dev_sold_in_window,5,,,,,,launches with a dev sell in the window
+jester,hits,n_dev_sold_by_60s,4,,,,,,
+jester,hits,n_dev_sold_by_300s,5,,,,,,
+jester,hits,n_non_sol_quote,2,,,,,,launches quoted in a token other than SOL
+jester,hits,n_graduated_in_window,7,,,,,,curve completed inside the 30-min window
+jester,hits,n_graduated_by_60s,0,,,,,,
+jester,hits,n_dev_buy_in_create_slot,7,,,,,,dev_first_buy_s == 0
+jester,hits,launchpad:Pump.fun,7,,,,,,dev_tokens.launchpad_platform
+jester,misses,dev_supply_share,20,0.121834857595336,0.03431724861869,0.2,0.000353079611294,0.790509209095922,
+jester,misses,dev_first_buy_sol,20,3.9412642210265947,1.4925932796483607,6.874391153,0.01156628,83.952308562,
+jester,misses,dev_same_slot_buyers,20,2.0,0.0,2.5,0.0,9.0,
+jester,misses,dev_fee_lamports_med,20,502500.0,314580.5,1000000.0,5000.0,10000000.0,
+jester,misses,dev_fee_first_tx,20,35000.0,5000.0,355000.0,5000.0,5000000.0,
+jester,misses,dev_first_sell_s,16,27.0,16.5,38.0,8.0,512.0,
+jester,misses,dev_sold_share_30m,20,0.9760514055048972,0.49999999999999617,1.0,0.0,1.0,
+jester,misses,dev_sell_sol_30m,20,4.526376234,0.013299594250000001,8.371928522000001,0.0,19.660675571376938,
+jester,misses,dev_sold_share_60s,19,0.7926399999999906,0.25,1.0,0.0,1.0,
+jester,misses,dev_sold_share_300s,19,1.0,0.6749999999999955,1.0,0.0,1.0,
+jester,misses,grad_s,20,1443.0,836.5,1781.25,13.0,1795.0,
+jester,misses,peak10_mult,20,2.1456079143899163,1.6675357200847138,4.063665764087823,0.9803837040882247,13.262279418609946,
+jester,misses,peak10_ts_s,20,225.0,20.0,610.0,0.0,1670.0,
+jester,misses,sol_in_1m,20,34.74378694725634,28.0879702835,60.89627784675,6.795753389,101.40528629899998,
+jester,misses,sol_in_5m,20,52.413800269999996,37.608647690249995,95.6812146217356,6.795753389,173.23112217099998,
+jester,misses,n_wallets_1m,20,44.0,28.5,80.25,1.0,105.0,
+jester,misses,n_wallets_5m,20,70.5,38.75,113.25,8.0,262.0,
+jester,misses,n_launches,20,,,,,,measurable launches (with trades)
+jester,misses,n_dev_sold_in_window,16,,,,,,launches with a dev sell in the window
+jester,misses,n_dev_sold_by_60s,14,,,,,,
+jester,misses,n_dev_sold_by_300s,15,,,,,,
+jester,misses,n_non_sol_quote,4,,,,,,launches quoted in a token other than SOL
+jester,misses,n_graduated_in_window,20,,,,,,curve completed inside the 30-min window
+jester,misses,n_graduated_by_60s,1,,,,,,
+jester,misses,n_dev_buy_in_create_slot,19,,,,,,dev_first_buy_s == 0
+jester,misses,launchpad:Pump.fun,18,,,,,,dev_tokens.launchpad_platform
+jester,misses,launchpad:,1,,,,,,dev_tokens.launchpad_platform
+jester,misses,launchpad:stonkfun,1,,,,,,dev_tokens.launchpad_platform
+jester,all,launch_hour_utc:00,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:01,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:02,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:03,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:04,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:14,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:16,4,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:17,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:18,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:19,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:20,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:21,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:22,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,all,launch_hour_utc:23,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+jester,hits,launch_hour_utc:01,1,,,,,,
+jester,hits,launch_hour_utc:04,1,,,,,,
+jester,hits,launch_hour_utc:16,1,,,,,,
+jester,hits,launch_hour_utc:21,1,,,,,,
+jester,hits,launch_hour_utc:22,2,,,,,,
+jester,hits,launch_hour_utc:23,1,,,,,,
+jester,all,launch_weekday:Fri,3,,,,,,
+jester,all,launch_weekday:Mon,3,,,,,,
+jester,all,launch_weekday:Sun,5,,,,,,
+jester,all,launch_weekday:Thu,4,,,,,,
+jester,all,launch_weekday:Tue,9,,,,,,
+jester,all,launch_weekday:Wed,3,,,,,,
+jester,all,gap_between_launches_h,26,70.48041666666667,23.162777777777777,192.33118055555556,0.36027777777777775,3176.9352777777776,hours between consecutive launches
+jester,all,n_gaps_lt_1h,1,,,,,,launch followed by another within 1 h
+jester,all,n_gaps_lt_24h,8,,,,,,
+jester,all,span_days,27,295.1491550925926,,,,,median = days from first to last launch
+jester,all,hour_utc,27,16.0,3.5,19.5,0.0,23.0,distribution of the UTC hour of creation
+jester,all,book_bundler_rate,27,0.0,0.0,0.0,0.0,0.0233,dev_tokens.bundler_rate
+mitch,all,dev_supply_share,5,0.553806451612903,0.441823529411764,0.730553191489361,0.09754545454545399,0.7923069,
+mitch,all,dev_first_buy_sol,5,32.00123192,21.00123192,64.00123192,3.0012319200000004,84.682345621,
+mitch,all,dev_same_slot_buyers,5,0.0,0.0,0.0,0.0,1.0,
+mitch,all,dev_fee_lamports_med,8,114471.0,52500.0,500000.0,30000.0,838334.0,
+mitch,all,dev_fee_first_tx,5,85000.0,30000.0,143942.0,30000.0,838334.0,
+mitch,all,dev_first_sell_s,1,39.0,39.0,39.0,39.0,39.0,
+mitch,all,dev_sold_share_30m,5,0.0,0.0,0.0,0.0,0.0,
+mitch,all,dev_sell_sol_30m,11,0.0,0.0,0.0,0.0,59.275439449,
+mitch,all,dev_sold_share_60s,5,0.0,0.0,0.0,0.0,0.0,
+mitch,all,dev_sold_share_300s,5,0.0,0.0,0.0,0.0,0.0,
+mitch,all,grad_s,11,219.0,65.5,498.0,1.0,1533.0,
+mitch,all,peak10_mult,5,4.689746028621334,2.455197867966141,7.110123250981154,1.590676274590961,8.643504956483376,
+mitch,all,peak10_ts_s,5,410.0,150.0,410.0,0.0,570.0,
+mitch,all,sol_in_1m,11,77.408713327,63.762963488000004,124.11181172050001,12.255322977999999,200.11629827000002,
+mitch,all,sol_in_5m,11,155.52922388700003,91.118198245,164.3121165495,22.722348739000005,200.11936067,
+mitch,all,n_wallets_1m,11,29.0,15.0,41.5,4.0,60.0,
+mitch,all,n_wallets_5m,11,33.0,23.0,50.0,4.0,92.0,
+mitch,all,n_launches,11,,,,,,measurable launches (with trades)
+mitch,all,n_dev_sold_in_window,1,,,,,,launches with a dev sell in the window
+mitch,all,n_dev_sold_by_60s,0,,,,,,
+mitch,all,n_dev_sold_by_300s,0,,,,,,
+mitch,all,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+mitch,all,n_graduated_in_window,11,,,,,,curve completed inside the 30-min window
+mitch,all,n_graduated_by_60s,3,,,,,,
+mitch,all,n_dev_buy_in_create_slot,5,,,,,,dev_first_buy_s == 0
+mitch,all,launchpad:Pump.fun,11,,,,,,dev_tokens.launchpad_platform
+mitch,hits,dev_supply_share,1,0.7923069,0.7923069,0.7923069,0.7923069,0.7923069,
+mitch,hits,dev_first_buy_sol,1,84.682345621,84.682345621,84.682345621,84.682345621,84.682345621,
+mitch,hits,dev_same_slot_buyers,1,1.0,1.0,1.0,1.0,1.0,
+mitch,hits,dev_fee_lamports_med,2,45000.0,37500.0,52500.0,30000.0,60000.0,
+mitch,hits,dev_fee_first_tx,1,30000.0,30000.0,30000.0,30000.0,30000.0,
+mitch,hits,dev_first_sell_s,1,39.0,39.0,39.0,39.0,39.0,
+mitch,hits,dev_sold_share_30m,1,0.0,0.0,0.0,0.0,0.0,
+mitch,hits,dev_sell_sol_30m,2,29.6377197245,14.81885986225,44.456579586749996,0.0,59.275439449,
+mitch,hits,dev_sold_share_60s,1,0.0,0.0,0.0,0.0,0.0,
+mitch,hits,dev_sold_share_300s,1,0.0,0.0,0.0,0.0,0.0,
+mitch,hits,grad_s,2,546.5,273.75,819.25,1.0,1092.0,
+mitch,hits,peak10_mult,1,1.590676274590961,1.590676274590961,1.590676274590961,1.590676274590961,1.590676274590961,
+mitch,hits,peak10_ts_s,1,0.0,0.0,0.0,0.0,0.0,
+mitch,hits,sol_in_1m,2,112.613814706,83.914395561,141.313233851,55.21497641600001,170.01265299599999,
+mitch,hits,sol_in_5m,2,116.2850266925,89.42121354074999,143.14883984425,62.557400389,170.01265299599999,
+mitch,hits,n_wallets_1m,2,22.0,13.0,31.0,4.0,40.0,
+mitch,hits,n_wallets_5m,2,26.0,15.0,37.0,4.0,48.0,
+mitch,hits,n_launches,2,,,,,,measurable launches (with trades)
+mitch,hits,n_dev_sold_in_window,1,,,,,,launches with a dev sell in the window
+mitch,hits,n_dev_sold_by_60s,0,,,,,,
+mitch,hits,n_dev_sold_by_300s,0,,,,,,
+mitch,hits,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+mitch,hits,n_graduated_in_window,2,,,,,,curve completed inside the 30-min window
+mitch,hits,n_graduated_by_60s,1,,,,,,
+mitch,hits,n_dev_buy_in_create_slot,1,,,,,,dev_first_buy_s == 0
+mitch,hits,launchpad:Pump.fun,2,,,,,,dev_tokens.launchpad_platform
+mitch,misses,dev_supply_share,4,0.49781499051233347,0.35575401069518653,0.5979931365820175,0.09754545454545399,0.730553191489361,
+mitch,misses,dev_first_buy_sol,4,26.501231920000002,16.50123192,40.00123192,3.0012319200000004,64.00123192,
+mitch,misses,dev_same_slot_buyers,4,0.0,0.0,0.0,0.0,0.0,
+mitch,misses,dev_fee_lamports_med,6,321971.0,99735.5,500000.0,30000.0,838334.0,
+mitch,misses,dev_fee_first_tx,4,114471.0,71250.0,317540.0,30000.0,838334.0,
+mitch,misses,dev_first_sell_s,0,,,,,,
+mitch,misses,dev_sold_share_30m,4,0.0,0.0,0.0,0.0,0.0,
+mitch,misses,dev_sell_sol_30m,9,0.0,0.0,0.0,0.0,0.0,
+mitch,misses,dev_sold_share_60s,4,0.0,0.0,0.0,0.0,0.0,
+mitch,misses,dev_sold_share_300s,4,0.0,0.0,0.0,0.0,0.0,
+mitch,misses,grad_s,9,219.0,78.0,418.0,36.0,1533.0,
+mitch,misses,peak10_mult,4,5.899934639801244,4.131108988457536,7.493468677356709,2.455197867966141,8.643504956483376,
+mitch,misses,peak10_ts_s,4,410.0,345.0,450.0,150.0,570.0,
+mitch,misses,sol_in_1m,9,77.408713327,72.31095056,92.697461954,12.255322977999999,200.11629827000002,
+mitch,misses,sol_in_5m,9,155.52922388700003,92.697461954,158.611580103,22.722348739000005,200.11936067,
+mitch,misses,n_wallets_1m,9,29.0,20.0,43.0,7.0,60.0,
+mitch,misses,n_wallets_5m,9,33.0,24.0,52.0,10.0,92.0,
+mitch,misses,n_launches,9,,,,,,measurable launches (with trades)
+mitch,misses,n_dev_sold_in_window,0,,,,,,launches with a dev sell in the window
+mitch,misses,n_dev_sold_by_60s,0,,,,,,
+mitch,misses,n_dev_sold_by_300s,0,,,,,,
+mitch,misses,n_non_sol_quote,0,,,,,,launches quoted in a token other than SOL
+mitch,misses,n_graduated_in_window,9,,,,,,curve completed inside the 30-min window
+mitch,misses,n_graduated_by_60s,2,,,,,,
+mitch,misses,n_dev_buy_in_create_slot,4,,,,,,dev_first_buy_s == 0
+mitch,misses,launchpad:Pump.fun,9,,,,,,dev_tokens.launchpad_platform
+mitch,all,launch_hour_utc:02,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:11,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:16,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:18,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:19,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:20,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,all,launch_hour_utc:21,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+mitch,hits,launch_hour_utc:20,1,,,,,,
+mitch,hits,launch_hour_utc:21,1,,,,,,
+mitch,all,launch_weekday:Fri,1,,,,,,
+mitch,all,launch_weekday:Mon,2,,,,,,
+mitch,all,launch_weekday:Sat,3,,,,,,
+mitch,all,launch_weekday:Thu,2,,,,,,
+mitch,all,launch_weekday:Tue,3,,,,,,
+mitch,all,gap_between_launches_h,10,103.71083333333333,27.67722222222222,264.52465277777776,0.9433333333333334,10555.287222222221,hours between consecutive launches
+mitch,all,n_gaps_lt_1h,1,,,,,,launch followed by another within 1 h
+mitch,all,n_gaps_lt_24h,3,,,,,,
+mitch,all,span_days,11,484.81340277777775,,,,,median = days from first to last launch
+mitch,all,hour_utc,11,18.0,6.5,19.0,2.0,21.0,distribution of the UTC hour of creation
+mitch,all,book_bundler_rate,11,0.0,0.0,0.0,0.0,0.813,dev_tokens.bundler_rate

@@ -66,12 +66,19 @@ def simulate(L, tr, cfg, stake_sol):
     tr = tr.sort_values(["s", "slot"])
     out = {"dev": L.dev, "symbol": L.symbol, "hit": bool(L.hit), "self_buy": None if pd.isna(L.dev_supply_share) else round(float(L.dev_supply_share), 2)}
     why = []
-    if pd.isna(L.dev_supply_share) or L.dev_supply_share < cfg["self_buy_floor"]:
+    if cfg.get("rule", "hold") == "flow":
+        base = cfg["_baseline"].get(L.token)
+        col = "sol_in_1m" if mark <= 60 else "sol_in_5m"
+        if base is None:
+            why.append("no prior launches for baseline")
+        elif pd.isna(getattr(L, col)) or getattr(L, col) < cfg["flow_mult"] * base:
+            why.append(f"flow {getattr(L, col):.0f} < {cfg['flow_mult']}x baseline {base:.0f}")
+    elif pd.isna(L.dev_supply_share) or L.dev_supply_share < cfg["self_buy_floor"]:
         why.append("self-buy < floor")
     if cfg["sol_only"] and not bool(L.sol_ok):
         why.append("non-SOL quote")
     ds = tr[(tr.wallet == L.creator) & (tr.side == "sell") & (tr.s <= mark)]
-    if len(ds):
+    if len(ds) and cfg.get("rule", "hold") == "hold":
         why.append(f"dev sold at {int(ds.s.min())} s")
     if cfg.get("min_wallets_1m") and (pd.isna(L.n_wallets_1m) or L.n_wallets_1m < cfg["min_wallets_1m"]):
         why.append("too few wallets in minute 1")
@@ -127,12 +134,28 @@ def simulate(L, tr, cfg, stake_sol):
     return out
 
 
-BASE = {"mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
+BASE = {"rule": "hold", "flow_mult": 1.5, "min_prior": 3, "mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
         "hard_stop_pct": 0.50, "time_stop_s": 1800, "prio_floor_lamports": 20000, "mev_pct": 0.005, "jito_tip_sol": 0.0001, "charge_rent": True,
         "rent_first_trade_sol": 0.0018444, "rent_ata_refund": True}
 
 
+def baselines(L, cfg):
+    """walk-forward: for each launch, median inflow (sol_in_1m if mark<=60 else sol_in_5m) of the same dev's earlier launches."""
+    out = {}
+    for dev, g in L.sort_values("create_ts").groupby("dev"):
+        mark = cfg.get("mark") or DEFAULT_MARK.get(dev, 120)
+        col = "sol_in_1m" if mark <= 60 else "sol_in_5m"
+        prior = []
+        for _, r in g.iterrows():
+            if len(prior) >= cfg["min_prior"]:
+                out[r.token] = float(np.nanmedian(prior))
+            if pd.notna(getattr(r, col)):
+                prior.append(float(getattr(r, col)))
+    return out
+
+
 def run_cfg(L, T, cfg, stake_sol, sol_usd):
+    cfg = dict(cfg); cfg["_baseline"] = baselines(L, cfg) if cfg.get("rule") == "flow" else {}
     rows = [simulate(Lr, T[T.token == Lr.token], cfg, stake_sol) for _, Lr in L.iterrows()]
     df = pd.DataFrame(rows)
     t = df[df.triggered == True] if "triggered" in df else df.iloc[0:0]  # noqa: E712
@@ -156,7 +179,11 @@ if __name__ == "__main__":
     stake_sol = a.stake_usd / a.sol_usd
     cfg = dict(BASE)
     for kv in a.config:
-        k, v = kv.split("="); cfg[k] = type(BASE[k])(float(v)) if isinstance(BASE[k], (int, float)) and not isinstance(BASE[k], bool) else (v.lower() == "true" if isinstance(BASE[k], bool) else v)
+        k, v = kv.split("=")
+        if isinstance(BASE[k], bool): cfg[k] = v.lower() == "true"
+        elif isinstance(BASE[k], (int, float)): cfg[k] = type(BASE[k])(float(v))
+        elif BASE[k] is None: cfg[k] = int(v)
+        else: cfg[k] = v
     pd.set_option("display.width", 260)
     if a.grid:
         grid = {"mark": [None, 90, 180], "self_buy_floor": [0.20, 0.35, 0.50], "trail_pct": [0.30, 0.40, 0.50], "tp_mult": [0, 3, 5], "hard_stop_pct": [0.40, 0.50], "time_stop_s": [900, 1800]}
@@ -174,7 +201,7 @@ if __name__ == "__main__":
         print(R[R.triggers >= 6].sort_values(["wr", "pnl_usd"], ascending=False).head(8).to_string(index=False))
     else:
         df, s = run_cfg(L, T, cfg, stake_sol, a.sol_usd)
-        print("config:", json.dumps({k: v for k, v in cfg.items()}))
+        print("config:", json.dumps({k: v for k, v in cfg.items() if not k.startswith("_")}))
         cols = ["dev", "symbol", "hit", "self_buy", "triggered", "reason", "entry_s", "exit_s", "how", "on_curve", "gross_x", "fee_in_pct", "fee_out_pct", "impact_in_pct", "impact_out_pct", "prio_in_sol", "prio_out_sol", "fixed_sol", "net_sol", "max_x_after"]
         print(df[[c for c in cols if c in df.columns]].to_string(index=False))
         print("\nsummary:", json.dumps(s))
