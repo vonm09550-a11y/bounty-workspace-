@@ -1,0 +1,226 @@
+dev,group,metric,n,median,p25,p75,min,max,note
+slingoor,all,dev_supply_share,28,0.44253112599218003,0.24845143868181874,0.609875666064564,0.02585542162745,0.7268521802021559,
+slingoor,all,dev_first_buy_sol,28,22.3683199539159,15.7424320195,40.443618437855804,0.742432019,62.996643607,
+slingoor,all,dev_same_slot_buyers,28,3.5,0.0,7.0,0.0,22.0,
+slingoor,all,dev_fee_lamports_med,28,35000.0,10797.5,150551.375,3010.0,918459.0,
+slingoor,all,dev_fee_first_tx,28,35000.0,27161.0,92290.5,5255.0,610885.0,
+slingoor,all,dev_first_sell_s,13,15.0,12.0,155.0,5.0,658.0,
+slingoor,all,dev_sold_share_30m,22,0.9999999999999999,0.0,1.0,0.0,1.0,
+slingoor,all,dev_sell_sol_30m,22,11.279554847981181,0.0,36.38069372075,0.0,149.83018829,
+slingoor,all,dev_sold_share_60s,25,0.0,0.0,1.0,0.0,1.0,
+slingoor,all,dev_sold_share_300s,25,0.0,0.0,1.0,0.0,1.0,
+slingoor,all,grad_s,20,4.0,2.0,22.75,0.0,996.0,
+slingoor,all,peak10_mult,28,6.841109945706982,2.753482767813664,50.39907015615811,1.6014535014411144,146.05722167188597,
+slingoor,all,peak10_ts_s,28,125.0,0.0,867.5,0.0,1740.0,
+slingoor,all,sol_in_1m,25,274.91285182400003,175.35140089459938,394.915597976,83.085509268,3224.030492516,
+slingoor,all,sol_in_5m,25,512.2063822205353,212.43292841800002,659.46847123,90.147818198,5438.314493652,
+slingoor,all,n_wallets_1m,25,242.0,123.0,401.0,9.0,1474.0,
+slingoor,all,n_wallets_5m,25,499.0,151.0,691.0,9.0,2373.0,
+slingoor,all,n_launches,28,,,,,,measurable launches (with trades)
+slingoor,all,n_dev_sold_in_window,13,,,,,,launches with a dev sell in the window
+slingoor,all,n_dev_sold_by_60s,9,,,,,,
+slingoor,all,n_dev_sold_by_300s,12,,,,,,
+slingoor,all,n_non_sol_quote,8,,,,,,launches quoted in a token other than SOL
+slingoor,all,n_graduated_in_window,20,,,,,,curve completed inside the 30-min window
+slingoor,all,n_graduated_by_60s,18,,,,,,
+slingoor,all,n_dev_buy_in_create_slot,28,,,,,,dev_first_buy_s == 0
+slingoor,all,launchpad:pump_agent,1,,,,,,dev_tokens.launchpad_platform
+slingoor,all,launchpad:Pump.fun,21,,,,,,dev_tokens.launchpad_platform
+slingoor,all,launchpad:stonkfun,6,,,,,,dev_tokens.launchpad_platform
+slingoor,hits,dev_supply_share,14,0.5759195030862976,0.37501923812965776,0.660456591579435,0.06486671033715,0.7268521802021559,
+slingoor,hits,dev_first_buy_sol,14,35.0634196735,18.663608469619646,49.05842128153586,1.931992888,62.996643607,
+slingoor,hits,dev_same_slot_buyers,14,5.0,2.0,7.75,0.0,21.0,
+slingoor,hits,dev_fee_lamports_med,14,76434.5,22200.5,154888.125,5255.0,918459.0,
+slingoor,hits,dev_fee_first_tx,14,72120.0,27185.0,110090.25,5255.0,305445.0,
+slingoor,hits,dev_first_sell_s,2,14.0,13.5,14.5,13.0,15.0,
+slingoor,hits,dev_sold_share_30m,10,0.0,0.0,0.0,0.0,1.0,
+slingoor,hits,dev_sell_sol_30m,10,0.0,0.0,0.0,0.0,149.83018829,
+slingoor,hits,dev_sold_share_60s,13,0.0,0.0,0.0,0.0,1.0,
+slingoor,hits,dev_sold_share_300s,13,0.0,0.0,0.0,0.0,1.0,
+slingoor,hits,grad_s,12,4.0,2.0,22.75,0.0,996.0,
+slingoor,hits,peak10_mult,14,50.48151222516647,14.920029928029745,64.78120753566137,2.2171665749834584,146.05722167188597,
+slingoor,hits,peak10_ts_s,14,895.0,237.5,1295.0,0.0,1740.0,
+slingoor,hits,sol_in_1m,13,385.134999076,279.2998042896707,680.0863805,90.632812139,3224.030492516,
+slingoor,hits,sol_in_5m,13,659.46847123,591.017369366,1593.6336157140001,90.632812139,5438.314493652,
+slingoor,hits,n_wallets_1m,13,374.0,242.0,460.0,9.0,1474.0,
+slingoor,hits,n_wallets_5m,13,659.0,569.0,1074.0,9.0,2373.0,
+slingoor,hits,n_launches,14,,,,,,measurable launches (with trades)
+slingoor,hits,n_dev_sold_in_window,2,,,,,,launches with a dev sell in the window
+slingoor,hits,n_dev_sold_by_60s,2,,,,,,
+slingoor,hits,n_dev_sold_by_300s,2,,,,,,
+slingoor,hits,n_non_sol_quote,2,,,,,,launches quoted in a token other than SOL
+slingoor,hits,n_graduated_in_window,12,,,,,,curve completed inside the 30-min window
+slingoor,hits,n_graduated_by_60s,11,,,,,,
+slingoor,hits,n_dev_buy_in_create_slot,14,,,,,,dev_first_buy_s == 0
+slingoor,hits,launchpad:pump_agent,1,,,,,,dev_tokens.launchpad_platform
+slingoor,hits,launchpad:Pump.fun,12,,,,,,dev_tokens.launchpad_platform
+slingoor,hits,launchpad:stonkfun,1,,,,,,dev_tokens.launchpad_platform
+slingoor,misses,dev_supply_share,14,0.38136515037288354,0.2291445150610685,0.4653936830604455,0.02585542162745,0.6133762786944961,
+slingoor,misses,dev_first_buy_sol,14,17.9769999205,11.49525522732414,23.70317887995795,0.742432019,48.182708101665824,
+slingoor,misses,dev_same_slot_buyers,14,1.0,0.0,4.0,0.0,22.0,
+slingoor,misses,dev_fee_lamports_med,14,27908.75,8000.0,75582.75,3010.0,805442.5,
+slingoor,misses,dev_fee_first_tx,14,35000.0,27218.25,42551.0,10000.0,610885.0,
+slingoor,misses,dev_first_sell_s,11,17.0,11.5,167.0,5.0,658.0,
+slingoor,misses,dev_sold_share_30m,12,1.0,0.9999999999999999,1.0,0.0,1.0,
+slingoor,misses,dev_sell_sol_30m,12,25.91081565004281,11.458835537063045,38.531253593,0.0,74.386994842,
+slingoor,misses,dev_sold_share_60s,12,1.0,0.0,1.0,0.0,1.0,
+slingoor,misses,dev_sold_share_300s,12,1.0,0.98660043850112,1.0,0.0,1.0,
+slingoor,misses,grad_s,8,4.5,2.25,12.5,0.0,961.0,
+slingoor,misses,peak10_mult,14,3.0173295779720144,2.543897573527971,6.305662158648909,1.6014535014411144,10.412436020144112,
+slingoor,misses,peak10_ts_s,14,15.0,0.0,80.0,0.0,650.0,
+slingoor,misses,sol_in_1m,12,179.9303714372997,116.35288733975,242.219278931939,83.085509268,399.378815903,
+slingoor,misses,sol_in_5m,12,216.05902715749738,123.44158719050003,324.0538684762237,90.147818198,585.218320251,
+slingoor,misses,n_wallets_1m,12,125.5,105.5,235.0,80.0,423.0,
+slingoor,misses,n_wallets_5m,12,165.0,123.0,341.75,87.0,696.0,
+slingoor,misses,n_launches,14,,,,,,measurable launches (with trades)
+slingoor,misses,n_dev_sold_in_window,11,,,,,,launches with a dev sell in the window
+slingoor,misses,n_dev_sold_by_60s,7,,,,,,
+slingoor,misses,n_dev_sold_by_300s,10,,,,,,
+slingoor,misses,n_non_sol_quote,6,,,,,,launches quoted in a token other than SOL
+slingoor,misses,n_graduated_in_window,8,,,,,,curve completed inside the 30-min window
+slingoor,misses,n_graduated_by_60s,7,,,,,,
+slingoor,misses,n_dev_buy_in_create_slot,14,,,,,,dev_first_buy_s == 0
+slingoor,misses,launchpad:Pump.fun,9,,,,,,dev_tokens.launchpad_platform
+slingoor,misses,launchpad:stonkfun,5,,,,,,dev_tokens.launchpad_platform
+slingoor,all,launch_hour_utc:00,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:01,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:02,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:03,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:05,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:06,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:08,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:13,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:15,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:16,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:17,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:19,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:20,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:21,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:22,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,all,launch_hour_utc:23,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+slingoor,hits,launch_hour_utc:02,2,,,,,,
+slingoor,hits,launch_hour_utc:05,3,,,,,,
+slingoor,hits,launch_hour_utc:13,1,,,,,,
+slingoor,hits,launch_hour_utc:17,1,,,,,,
+slingoor,hits,launch_hour_utc:19,2,,,,,,
+slingoor,hits,launch_hour_utc:20,1,,,,,,
+slingoor,hits,launch_hour_utc:21,1,,,,,,
+slingoor,hits,launch_hour_utc:22,2,,,,,,
+slingoor,hits,launch_hour_utc:23,1,,,,,,
+slingoor,all,launch_weekday:Fri,4,,,,,,
+slingoor,all,launch_weekday:Mon,4,,,,,,
+slingoor,all,launch_weekday:Sat,7,,,,,,
+slingoor,all,launch_weekday:Sun,3,,,,,,
+slingoor,all,launch_weekday:Thu,9,,,,,,
+slingoor,all,launch_weekday:Tue,2,,,,,,
+slingoor,all,launch_weekday:Wed,3,,,,,,
+slingoor,all,gap_between_launches_h,31,13.812222222222223,3.3658333333333332,45.067638888888894,0.06833333333333333,727.7433333333333,hours between consecutive launches
+slingoor,all,n_gaps_lt_1h,6,,,,,,launch followed by another within 1 h
+slingoor,all,n_gaps_lt_24h,18,,,,,,
+slingoor,all,span_days,32,74.79297453703704,,,,,median = days from first to last launch
+slingoor,all,hour_utc,32,15.0,4.5,20.0,0.0,23.0,distribution of the UTC hour of creation
+slingoor,all,book_bundler_rate,32,0.0,0.0,0.0114,0.0,0.0666,dev_tokens.bundler_rate
+retardmode,all,dev_supply_share,19,0.151773183854206,0.0504187831425325,0.353410507880762,0.034165003950986,0.5731257271252,
+retardmode,all,dev_first_buy_sol,19,4.943819952,1.488385041,14.7353709205,0.9885690640000001,47.29057467597376,
+retardmode,all,dev_same_slot_buyers,19,1.0,0.0,2.5,0.0,5.0,
+retardmode,all,dev_fee_lamports_med,19,11000.0,7000.0,104092.5,4000.0,645000.0,
+retardmode,all,dev_fee_first_tx,19,11000.0,10000.0,30000.0,8500.0,645000.0,
+retardmode,all,dev_first_sell_s,12,7.5,6.0,78.75,5.0,124.0,
+retardmode,all,dev_sold_share_30m,19,0.7606367201971358,0.0,1.0,0.0,1.0,
+retardmode,all,dev_sell_sol_30m,19,1.74433017,0.0,11.988788723082546,0.0,61.012755147054605,
+retardmode,all,dev_sold_share_60s,19,0.0,0.0,0.6093749999999982,0.0,1.0,
+retardmode,all,dev_sold_share_300s,19,0.7187499999999963,0.0,1.0,0.0,1.0,
+retardmode,all,grad_s,4,717.0,649.5,980.25,480.0,1737.0,
+retardmode,all,peak10_mult,19,2.6536344078392324,1.6650784114701112,4.053098356705633,1.046336715703602,71.0259266713501,
+retardmode,all,peak10_ts_s,19,120.0,0.0,800.0,0.0,1790.0,
+retardmode,all,sol_in_1m,19,46.35215296297196,13.2450954255,65.278252313,2.908068604,152.72638453030083,
+retardmode,all,sol_in_5m,19,49.12560263703248,24.319941054000004,104.4500527575,2.908068604,372.88325188682074,
+retardmode,all,n_wallets_1m,19,37.0,9.0,64.5,4.0,155.0,
+retardmode,all,n_wallets_5m,19,59.0,35.5,122.5,4.0,365.0,
+retardmode,all,n_launches,19,,,,,,measurable launches (with trades)
+retardmode,all,n_dev_sold_in_window,12,,,,,,launches with a dev sell in the window
+retardmode,all,n_dev_sold_by_60s,8,,,,,,
+retardmode,all,n_dev_sold_by_300s,12,,,,,,
+retardmode,all,n_non_sol_quote,4,,,,,,launches quoted in a token other than SOL
+retardmode,all,n_graduated_in_window,4,,,,,,curve completed inside the 30-min window
+retardmode,all,n_graduated_by_60s,0,,,,,,
+retardmode,all,n_dev_buy_in_create_slot,19,,,,,,dev_first_buy_s == 0
+retardmode,all,launchpad:Pump.fun,19,,,,,,dev_tokens.launchpad_platform
+retardmode,hits,dev_supply_share,4,0.417792641530329,0.2957039265802553,0.5054497983920238,0.124733323581942,0.5731257271252,
+retardmode,hits,dev_first_buy_sol,4,19.6209947525,12.005301881999998,30.23585612774344,3.948088848,47.29057467597376,
+retardmode,hits,dev_same_slot_buyers,4,0.5,0.0,1.25,0.0,2.0,
+retardmode,hits,dev_fee_lamports_med,4,20500.0,10750.0,32500.0,10000.0,40000.0,
+retardmode,hits,dev_fee_first_tx,4,20500.0,10750.0,32500.0,10000.0,40000.0,
+retardmode,hits,dev_first_sell_s,0,,,,,,
+retardmode,hits,dev_sold_share_30m,4,0.0,0.0,0.0,0.0,0.0,
+retardmode,hits,dev_sell_sol_30m,4,0.0,0.0,0.0,0.0,0.0,
+retardmode,hits,dev_sold_share_60s,4,0.0,0.0,0.0,0.0,0.0,
+retardmode,hits,dev_sold_share_300s,4,0.0,0.0,0.0,0.0,0.0,
+retardmode,hits,grad_s,3,728.0,604.0,1232.5,480.0,1737.0,
+retardmode,hits,peak10_mult,4,16.555787838584628,3.842567429438898,39.65821836834172,3.642489488264622,71.0259266713501,
+retardmode,hits,peak10_ts_s,4,1465.0,1160.0,1692.5,830.0,1790.0,
+retardmode,hits,sol_in_1m,4,36.05673233337272,15.823101540499998,57.63299418005908,10.190448838999998,67.293540043,
+retardmode,hits,sol_in_5m,4,68.50465143849999,31.855926960999998,108.98471493982237,20.413350553,131.9213084192895,
+retardmode,hits,n_wallets_1m,4,17.5,5.5,38.25,4.0,66.0,
+retardmode,hits,n_wallets_5m,4,82.5,61.75,96.25,31.0,106.0,
+retardmode,hits,n_launches,4,,,,,,measurable launches (with trades)
+retardmode,hits,n_dev_sold_in_window,0,,,,,,launches with a dev sell in the window
+retardmode,hits,n_dev_sold_by_60s,0,,,,,,
+retardmode,hits,n_dev_sold_by_300s,0,,,,,,
+retardmode,hits,n_non_sol_quote,1,,,,,,launches quoted in a token other than SOL
+retardmode,hits,n_graduated_in_window,3,,,,,,curve completed inside the 30-min window
+retardmode,hits,n_graduated_by_60s,0,,,,,,
+retardmode,hits,n_dev_buy_in_create_slot,4,,,,,,dev_first_buy_s == 0
+retardmode,hits,launchpad:Pump.fun,4,,,,,,dev_tokens.launchpad_platform
+retardmode,misses,dev_supply_share,15,0.096583719241621,0.034408670448192,0.19851947665491498,0.034165003950986,0.424947838829844,
+retardmode,misses,dev_first_buy_sol,15,2.9691874540000005,0.9953703764999999,9.717129709871323,0.9885690640000001,23.65015478887841,
+retardmode,misses,dev_same_slot_buyers,15,2.0,0.5,3.0,0.0,5.0,
+retardmode,misses,dev_fee_lamports_med,15,9079.0,7000.0,125000.0,4000.0,645000.0,
+retardmode,misses,dev_fee_first_tx,15,11000.0,10000.0,30000.0,8500.0,645000.0,
+retardmode,misses,dev_first_sell_s,12,7.5,6.0,78.75,5.0,124.0,
+retardmode,misses,dev_sold_share_30m,15,0.8945312499999986,0.49999999999999745,1.0,0.0,1.0,
+retardmode,misses,dev_sell_sol_30m,15,4.5314419489999995,1.199830374,16.5750082855,0.0,61.012755147054605,
+retardmode,misses,dev_sold_share_60s,15,0.49999999999999484,0.0,0.8292663239188188,0.0,1.0,
+retardmode,misses,dev_sold_share_300s,15,0.8945312499999986,0.49999999999999745,1.0,0.0,1.0,
+retardmode,misses,grad_s,1,706.0,706.0,706.0,706.0,706.0,
+retardmode,misses,peak10_mult,15,2.0287449106673385,1.328245431648275,3.245196345676665,1.046336715703602,11.565368475210127,
+retardmode,misses,peak10_ts_s,15,50.0,0.0,195.0,0.0,1040.0,
+retardmode,misses,sol_in_1m,15,46.35215296297196,13.2450954255,65.571892889,2.908068604,152.72638453030083,
+retardmode,misses,sol_in_5m,15,49.12560263703248,24.319941054000004,100.24560140250001,2.908068604,372.88325188682074,
+retardmode,misses,n_wallets_1m,15,41.0,19.5,74.0,4.0,155.0,
+retardmode,misses,n_wallets_5m,15,58.0,33.0,134.5,4.0,365.0,
+retardmode,misses,n_launches,15,,,,,,measurable launches (with trades)
+retardmode,misses,n_dev_sold_in_window,12,,,,,,launches with a dev sell in the window
+retardmode,misses,n_dev_sold_by_60s,8,,,,,,
+retardmode,misses,n_dev_sold_by_300s,12,,,,,,
+retardmode,misses,n_non_sol_quote,3,,,,,,launches quoted in a token other than SOL
+retardmode,misses,n_graduated_in_window,1,,,,,,curve completed inside the 30-min window
+retardmode,misses,n_graduated_by_60s,0,,,,,,
+retardmode,misses,n_dev_buy_in_create_slot,15,,,,,,dev_first_buy_s == 0
+retardmode,misses,launchpad:Pump.fun,15,,,,,,dev_tokens.launchpad_platform
+retardmode,all,launch_hour_utc:01,7,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:02,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:07,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:08,2,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:10,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:13,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:17,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:18,3,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:20,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,all,launch_hour_utc:21,1,,,,,,launches created in this UTC hour (all rows of the launch list)
+retardmode,hits,launch_hour_utc:01,1,,,,,,
+retardmode,hits,launch_hour_utc:02,1,,,,,,
+retardmode,hits,launch_hour_utc:13,1,,,,,,
+retardmode,hits,launch_hour_utc:20,1,,,,,,
+retardmode,all,launch_weekday:Mon,2,,,,,,
+retardmode,all,launch_weekday:Sat,2,,,,,,
+retardmode,all,launch_weekday:Sun,3,,,,,,
+retardmode,all,launch_weekday:Thu,3,,,,,,
+retardmode,all,launch_weekday:Tue,4,,,,,,
+retardmode,all,launch_weekday:Wed,5,,,,,,
+retardmode,all,gap_between_launches_h,18,19.582638888888887,1.9147916666666667,91.05541666666667,0.03361111111111111,3273.3297222222222,hours between consecutive launches
+retardmode,all,n_gaps_lt_1h,4,,,,,,launch followed by another within 1 h
+retardmode,all,n_gaps_lt_24h,9,,,,,,
+retardmode,all,span_days,19,313.7641550925926,,,,,median = days from first to last launch
+retardmode,all,hour_utc,19,8.0,1.0,17.5,1.0,21.0,distribution of the UTC hour of creation
+retardmode,all,book_bundler_rate,19,0.0,0.0,0.01915,0.0,0.2747,dev_tokens.bundler_rate

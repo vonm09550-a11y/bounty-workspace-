@@ -1,0 +1,35 @@
+dev,mark,rule,hits_pass,hits_n,miss_pass,miss_n,precision,recall
+slingoor,1m,dev share >= 0.35,9,13,7,12,0.5625,0.6923076923076923
+slingoor,1m,dev share >= 0.50,8,13,2,12,0.8,0.6153846153846154
+slingoor,1m,no dev sell by 60 s,11,13,5,12,0.6875,0.8461538461538461
+slingoor,1m,dev share >= 0.35 and no dev sell by 60 s,7,13,1,12,0.875,0.5384615384615384
+slingoor,1m,dev share >= 0.35 and no dev sell by 60 s and same-slot buyers >= 2,6,13,0,12,1.0,0.46153846153846156
+slingoor,1m,dev share >= 0.35 and no dev sell by 60 s and sol_in_1m >= 50,7,13,1,12,0.875,0.5384615384615384
+slingoor,1m,no dev sell by 60 s and sol_in_1m >= 100,10,13,4,12,0.7142857142857143,0.7692307692307693
+slingoor,1m,no dev sell by 60 s and n_wallets_1m >= 100,10,13,5,12,0.6666666666666666,0.7692307692307693
+slingoor,1m,dev share >= 0.35 and mult_60s >= 2,8,13,1,12,0.8888888888888888,0.6153846153846154
+slingoor,5m,dev share >= 0.35 and no dev sell by 120 s,7,13,1,12,0.875,0.5384615384615384
+slingoor,5m,dev share >= 0.35 and no dev sell by 300 s,7,13,1,12,0.875,0.5384615384615384
+slingoor,5m,no dev sell by 300 s,11,13,2,12,0.8461538461538461,0.8461538461538461
+slingoor,5m,no dev sell by 300 s and sol_in_5m >= 100,10,13,2,12,0.8333333333333334,0.7692307692307693
+slingoor,5m,no dev sell by 300 s and n_wallets_5m >= 200,9,13,1,12,0.9,0.6923076923076923
+slingoor,5m,dev share >= 0.35 and no dev sell by 300 s and member buy by 300 s,3,13,0,12,1.0,0.23076923076923078
+slingoor,5m,member buy by 300 s,7,13,1,12,0.875,0.5384615384615384
+slingoor,5m,dev share >= 0.35 and no dev sell by 300 s and mult_300s >= 3,6,13,1,12,0.8571428571428571,0.46153846153846156
+retardmode,1m,dev share >= 0.35,3,4,3,15,0.5,0.75
+retardmode,1m,dev share >= 0.50,1,4,0,15,1.0,0.25
+retardmode,1m,no dev sell by 60 s,4,4,7,15,0.36363636363636365,1.0
+retardmode,1m,dev share >= 0.35 and no dev sell by 60 s,3,4,1,15,0.75,0.75
+retardmode,1m,dev share >= 0.35 and no dev sell by 60 s and same-slot buyers >= 2,1,4,1,15,0.5,0.25
+retardmode,1m,dev share >= 0.35 and no dev sell by 60 s and sol_in_1m >= 50,2,4,1,15,0.6666666666666666,0.5
+retardmode,1m,no dev sell by 60 s and sol_in_1m >= 100,0,4,1,15,0.0,0.0
+retardmode,1m,no dev sell by 60 s and n_wallets_1m >= 100,0,4,1,15,0.0,0.0
+retardmode,1m,dev share >= 0.35 and mult_60s >= 2,2,4,1,15,0.6666666666666666,0.5
+retardmode,5m,dev share >= 0.35 and no dev sell by 120 s,3,4,0,15,1.0,0.75
+retardmode,5m,dev share >= 0.35 and no dev sell by 300 s,3,4,0,15,1.0,0.75
+retardmode,5m,no dev sell by 300 s,4,4,3,15,0.5714285714285714,1.0
+retardmode,5m,no dev sell by 300 s and sol_in_5m >= 100,2,4,1,15,0.6666666666666666,0.5
+retardmode,5m,no dev sell by 300 s and n_wallets_5m >= 200,0,4,0,15,,0.0
+retardmode,5m,dev share >= 0.35 and no dev sell by 300 s and member buy by 300 s,2,4,0,15,1.0,0.5
+retardmode,5m,member buy by 300 s,2,4,2,15,0.5,0.5
+retardmode,5m,dev share >= 0.35 and no dev sell by 300 s and mult_300s >= 3,2,4,0,15,1.0,0.5
