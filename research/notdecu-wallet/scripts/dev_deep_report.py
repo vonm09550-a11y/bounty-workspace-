@@ -115,15 +115,16 @@ show("per-style returns by outcome (mean / median / win%), per dev", """SELECT d
  FROM dev_sim GROUP BY 1,2 ORDER BY 1,2""")
 con.execute("""CREATE OR REPLACE TABLE dev_ev AS
 WITH p AS (SELECT creator, hits_100k * 1.0 / launches p_hit, launches, hits_100k, listed_last_30d, hits_100k_last_30d, days_since_launch FROM dev_scores),
-h AS (SELECT dev, creator, avg(S) S_h, avg(B) B_h, avg(B2) B2_h, count(*) n_h FROM dev_sim WHERE hit GROUP BY 1,2),
+h AS (SELECT dev, creator, avg(S) S_h, avg(B) B_h, avg(B2) B2_h, avg(least(S,5)) S_hc, avg(least(B,5)) B_hc, avg(least(B2,5)) B2_hc, count(*) n_h FROM dev_sim WHERE hit GROUP BY 1,2),
 n AS (SELECT dev, creator, avg(S) S_n, avg(B) B_n, avg(B2) B2_n, count(*) n_n, avg((n_pts=0)::INT) dead_share FROM dev_sim WHERE NOT hit GROUP BY 1,2)
 SELECT h.dev, round(p.p_hit,3) p_hit, p.launches, n_h, n_n, round(n.dead_share,2) dead_share,
        round(100*(p.p_hit*S_h + (1-p.p_hit)*S_n),1) EV_S_pct, round(100*(p.p_hit*B_h + (1-p.p_hit)*B_n),1) EV_B_pct, round(100*(p.p_hit*B2_h + (1-p.p_hit)*B2_n),1) EV_B2_pct,
+       round(100*(p.p_hit*S_hc + (1-p.p_hit)*S_n),1) EVc_S, round(100*(p.p_hit*B_hc + (1-p.p_hit)*B_n),1) EVc_B, round(100*(p.p_hit*B2_hc + (1-p.p_hit)*B2_n),1) EVc_B2,
        round(100*S_h) S_hit, round(100*S_n) S_non, round(100*B_h) B_hit, round(100*B_n) B_non, round(100*B2_h) B2_hit, round(100*B2_n) B2_non,
        p.listed_last_30d l30, p.hits_100k_last_30d h30, p.days_since_launch dsl
 FROM h JOIN n USING(dev, creator) JOIN p USING(creator) ORDER BY greatest(EV_S_pct, EV_B_pct, EV_B2_pct) DESC""")
 con.execute(f"COPY dev_ev TO '{os.path.join(DEVS, 'dev_ev.parquet')}' (FORMAT PARQUET)")
-show("EXPECTANCY per launch (%), weighted by the dev's book hit rate", "SELECT * FROM dev_ev")
+show("EXPECTANCY per launch (%), weighted by the dev's book hit rate (EVc_* = single-launch return capped at +500%)", "SELECT dev, p_hit, launches, n_h, n_n, EV_S_pct, EV_B_pct, EV_B2_pct, EVc_S, EVc_B, EVc_B2, S_hit, S_non, B_hit, B_non, B2_hit, B2_non, l30, h30, dsl FROM dev_ev")
 
 # full-walk conduct where available
 fw = []
