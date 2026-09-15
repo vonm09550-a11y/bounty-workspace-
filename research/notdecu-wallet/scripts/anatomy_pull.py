@@ -41,6 +41,19 @@ def compact(t, mint):
             "err": bool(t.get("transactionError"))}
 
 
+def curve_of(mint):
+    """Bonding-curve account from pump.fun coins-v2 (free HTTP). Its signature list covers the curve phase only,
+    which is bounded, unlike the mint's list on a token that later traded for weeks on the AMM."""
+    import urllib.request
+    try:
+        req = urllib.request.Request(f"https://frontend-api-v3.pump.fun/coins-v2/{mint}", headers={"User-Agent": "notdecu-research/0.1"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            d = json.loads(r.read().decode())
+        return d.get("bonding_curve"), d.get("pump_swap_pool") or d.get("raydium_pool"), d.get("complete")
+    except Exception:  # noqa: BLE001
+        return None, None, None
+
+
 def pull_one(h, L, out_dir, window, max_sigs, logp):
     mint, cts, dev = L["token"], int(L["create_ts"]), L["dev"]
     d = os.path.join(out_dir, dev)
@@ -49,9 +62,11 @@ def pull_one(h, L, out_dir, window, max_sigs, logp):
     if os.path.exists(meta_p) and json.load(open(meta_p)).get("done"):
         return None
     t0 = time.time()
+    curve, pool, complete = curve_of(mint)
+    addr = curve or mint
     sigs, before, pages, oldest_bt = [], None, 0, None
     while True:
-        params = [mint, {"limit": 1000}]
+        params = [addr, {"limit": 1000}]
         if before:
             params[1]["before"] = before
         r = h.rpc("getSignaturesForAddress", params)
@@ -89,6 +104,7 @@ def pull_one(h, L, out_dir, window, max_sigs, logp):
                 fr.write(json.dumps(compact(t, mint), separators=(",", ":")) + "\n")
                 n += 1
     meta = {"dev": dev, "creator": L["creator"], "token": mint, "symbol": L.get("symbol"), "create_ts": cts, "window_s": window, "hit": L.get("hit"),
+            "sig_source": "bonding_curve" if curve else "mint", "bonding_curve": curve, "pool": pool, "complete": complete,
             "ath_mc": L.get("ath_mc"), "sig_pages": pages, "sigs_in_window": len(sigs), "parsed": n, "truncated": truncated,
             "oldest_bt_reached": oldest_bt, "seconds": round(time.time() - t0, 1), "done": True}
     json.dump(meta, open(meta_p, "w"))
