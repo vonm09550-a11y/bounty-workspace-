@@ -70,3 +70,32 @@ big winners. That is a real but thin edge on its own, and it is the one that sur
 - Flow baselines use the same loop's earlier launches, so the first three launches of each dev never
   trigger; with the collector this becomes a rolling baseline.
 - KOL wallets still untagged; "flow" is everyone who is not the dev or a member.
+
+---
+
+## 6. Joint grid, no look-ahead (2026-09-15 18:20 UTC): the first configuration that survives both loops
+
+576 configurations run on loop 1 and loop 2 separately (`data/anatomy/backtest_v2_joint.csv`); kept
+those with ≥ 6 triggers on both. Flow baselines use only the dev's *earlier* launches and, for marks
+before 300 s, only the minute-1 inflow, so nothing in the trigger is known after the entry.
+
+**Surviving rule**: tracked launcher; at 60 s, SOL inflow so far ≥ 1.5× the median minute-1 inflow of
+that dev's earlier launches (≥ 3 prior); no self-buy or hold condition; exit on +5× take-profit, or a
+40% trailing stop from the running high, or −50%, or 30 minutes. Full cost model, $50 per trigger.
+
+| Set | Triggers | Wins | Win rate | P&L | P&L without best trade | Median trade | Worst | Hits caught | Misses entered |
+|---|---|---|---|---|---|---|---|---|---|
+| Loop 1 | 20 | 11 | 55% | +$960 | +$758 | +$4 | −$35 | 12 of 18 | 8 |
+| Loop 2 | 35 | 21 | 60% | +$1,054 | +$841 | +$5 | −$29 | 8 of 24 | 27 |
+
+What it does on the misses it enters: most exit on the trailing stop between 0.8× and 1.2×, i.e. small
+losses after fees; the hard stops are the fast dumps (WOJAK, MERCURY, PHOUSE, TOLYBOT). What it does on
+hits: five take-profits at 5× (OFFICIAL, WINNIE, RETARDIO, PQ, it, ducknana, MelonMusk, Hunter) carry
+the result, the rest exit on the trail at 1.2–2.4×.
+
+Why it works where the hold rule did not: it does not ask what the dev is doing, it asks whether this
+launch is drawing more money in its first minute than the dev's launches usually do, which is the
+same measurement for holders and dumpers. Its cost is that most of its entries are misses by the $100K definition (27 of 35 on loop 2): it is a first-minute momentum scalp on tracked launchers, not a hit finder, and its wins on misses are launches that popped and were sold on the trail at 1.1–1.7×.
+
+Still in-sample in one sense: the exit parameters were chosen on these two loops. The collector's new
+launches are the next out-of-sample set for this exact configuration.

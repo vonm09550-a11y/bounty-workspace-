@@ -1,52 +1,52 @@
-dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,how,on_curve,gross_x,fee_in_pct,fee_out_pct,impact_in_pct,impact_out_pct,prio_in_sol,prio_out_sol,fixed_sol,net_sol,max_x_after
-retardmode,CARDAMOM,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,
-retardmode,NIGGERMAS,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,
-retardmode,HANUKKAH,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,
-retardmode,clappy,False,0.03,False,flow 3 < 3.0x baseline 28,,,,,,,,,,,,,,
-retardmode,Chazerei,False,0.07,False,flow 4 < 3.0x baseline 17,,,,,,,,,,,,,,
-retardmode,PEACE,True,0.12,True,,300.0,1790.0,end of data,True,2.353,1.25,1.25,0.61,0.94,6e-05,2e-05,0.00193,0.6163,2.35
-retardmode,YGIG,False,0.03,True,,300.0,1720.0,end of data,True,0.671,1.25,1.25,0.4,0.32,0.00191,2e-05,0.00378,-0.1824,1.0
-slingoor,MARVIN,True,0.25,False,no prior launches for baseline,,,,,,,,,,,,,,
-slingoor,FibFrog,False,0.39,False,no prior launches for baseline,,,,,,,,,,,,,,
-slingoor,78,False,0.58,False,no prior launches for baseline,,,,,,,,,,,,,,
-slingoor,💀,False,0.39,False,flow 95 < 3.0x baseline 212,,,,,,,,,,,,,,
-slingoor,BEGFI,False,0.41,False,flow 90 < 3.0x baseline 180,,,,,,,,,,,,,,
-slingoor,catcall,True,0.06,True,,300.0,420.0,end of data,False,0.863,1.2,1.2,0.11,0.1,0.00011,6e-05,0.00202,-0.0861,1.0
-slingoor,dontbuy,False,0.03,False,flow 105 < 3.0x baseline 180,,,,,,,,,,,,,,
-slingoor,OFFICIAL,True,0.34,True,,300.0,1800.0,end of data,False,1.814,1.2,1.15,0.12,0.18,0.00013,3e-05,0.00201,0.3722,2.08
-slingoor,Chairman,True,0.61,True,,300.0,490.0,hard stop,False,0.488,1.15,1.2,0.1,0.05,6e-05,0.00011,0.00202,-0.2664,1.94
-slingoor,TOAD,True,0.2,True,,300.0,1800.0,end of data,False,3.418,1.2,1.15,0.14,0.32,0.00035,2e-05,0.00222,1.1422,3.87
-slingoor,sling,True,0.72,True,,300.0,870.0,end of data,False,0.767,0.95,1.0,0.05,0.04,0.00011,4e-05,0.002,-0.13,1.12
-slingoor,WINNIE,True,0.53,True,,300.0,1300.0,trailing stop,False,1.371,1.2,1.2,0.16,0.19,8e-05,0.00011,0.00204,0.158,2.76
-slingoor,HOODWARTS,True,0.67,False,flow 565 < 3.0x baseline 473,,,,,,,,,,,,,,
-slingoor,LIZARD,True,0.71,True,,300.0,880.0,end of data,False,1.203,1.0,1.0,0.06,0.07,0.00011,2e-05,0.00198,0.0807,1.35
-slingoor,DIDDY,True,0.61,False,flow 641 < 3.0x baseline 598,,,,,,,,,,,,,,
-retardmode,yoohoo,False,0.15,True,,300.0,1600.0,end of data,True,0.572,1.25,1.25,0.54,0.42,2e-05,2e-05,0.00189,-0.2284,1.0
-retardmode,GOOSE,False,0.1,False,flow 54 < 3.0x baseline 24,,,,,,,,,,,,,,
-retardmode,BIRD,False,0.1,False,flow 21 < 3.0x baseline 28,,,,,,,,,,,,,,
-slingoor,🐺,True,0.73,False,flow 1053 < 3.0x baseline 630,,,,,,,,,,,,,,
-slingoor,INSANE,False,0.2,False,flow 585 < 3.0x baseline 636,,,,,,,,,,,,,,
-slingoor,nothing,True,0.54,False,flow 591 < 3.0x baseline 630,,,,,,,,,,,,,,
-retardmode,MRHATE,True,0.35,False,flow 36 < 3.0x baseline 24,,,,,,,,,,,,,,
-slingoor,Graped,True,0.47,False,flow 91 < 3.0x baseline 611,,,,,,,,,,,,,,
-slingoor,donotbuy,False,0.38,False,flow 130 < 3.0x baseline 591,,,,,,,,,,,,,,
-retardmode,RETARDIO,True,0.48,True,,310.0,720.0,take profit,True,5.2,1.25,1.25,0.28,0.83,2e-05,2e-05,0.00189,1.9799,5.99
-slingoor,link,False,0.48,False,flow 320 < 3.0x baseline 588,,,,,,,,,,,,,,
-slingoor,MPN,False,,False,flow nan < 3.0x baseline 585,,,,,,,,,,,,,,
-slingoor,SEXY,False,0.57,False,flow 512 < 3.0x baseline 585,,,,,,,,,,,,,,
-slingoor,MPN,False,,False,flow nan < 3.0x baseline 575,,,,,,,,,,,,,,
-slingoor,MPN,False,,False,flow nan < 3.0x baseline 575,,,,,,,,,,,,,,
-slingoor,ETH,True,0.64,False,flow nan < 3.0x baseline 575; window ends before the mark,,,,,,,,,,,,,,
-slingoor,GRND,False,0.61,False,flow nan < 3.0x baseline 575; window ends before the mark,,,,,,,,,,,,,,
-slingoor,MPN,False,,False,flow nan < 3.0x baseline 575,,,,,,,,,,,,,,
-slingoor,LMAO!,False,0.03,False,flow nan < 3.0x baseline 575; window ends before the mark,,,,,,,,,,,,,,
-slingoor,USDC,False,0.25,False,flow 336 < 3.0x baseline 575,,,,,,,,,,,,,,
-slingoor,GREEN,False,0.22,False,flow 265 < 3.0x baseline 565,,,,,,,,,,,,,,
-slingoor,DAMN,False,0.25,False,flow 220 < 3.0x baseline 539,,,,,,,,,,,,,,
-retardmode,GIGAY,False,0.2,True,,300.0,1530.0,end of data,True,0.663,1.25,1.25,0.41,0.34,2e-05,2e-05,0.00189,-0.1843,1.09
-retardmode,GMONAD,False,0.2,False,flow 49 < 3.0x baseline 32,,,,,,,,,,,,,,
-retardmode,PQ,True,0.57,True,,300.0,1340.0,take profit,True,5.167,1.25,1.1,0.19,0.42,2e-05,2e-05,0.0019,1.9809,14.13
-retardmode,WOJAK,False,0.39,True,,300.0,1220.0,trailing stop,True,0.919,1.25,1.25,0.24,0.15,2e-05,2e-05,0.0019,-0.0603,2.23
-retardmode,MERCURY,False,0.15,False,flow 93 < 3.0x baseline 42,,,,,,,,,,,,,,
-retardmode,LEMON,False,0.35,False,flow 108 < 3.0x baseline 49,,,,,,,,,,,,,,
-retardmode,SPOON,False,0.42,False,flow 49 < 3.0x baseline 52,,,,,,,,,,,,,,
+dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,how,on_curve,gross_x,fee_in_pct,fee_out_pct,impact_in_pct,impact_out_pct,prio_in_sol,prio_out_sol,fixed_sol,net_sol,max_x_after,entry_mult_vs_dev
+retardmode,CARDAMOM,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
+retardmode,NIGGERMAS,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
+retardmode,HANUKKAH,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
+retardmode,clappy,False,0.03,False,flow 3 < 1.5x baseline 14,,,,,,,,,,,,,,,
+retardmode,Chazerei,False,0.07,False,flow 4 < 1.5x baseline 9,,,,,,,,,,,,,,,
+retardmode,PEACE,True,0.12,True,,60.0,1790.0,end of data,True,2.983,1.25,1.25,0.65,1.19,2e-05,2e-05,0.00189,0.9114,2.98,1.31
+retardmode,YGIG,False,0.03,True,,60.0,340.0,trailing stop,True,1.095,1.25,1.25,0.51,0.48,0.0015,0.00011,0.00346,0.02,1.87,2.69
+slingoor,MARVIN,True,0.25,False,no prior launches for baseline,,,,,,,,,,,,,,,
+slingoor,FibFrog,False,0.39,False,no prior launches for baseline,,,,,,,,,,,,,,,
+slingoor,78,False,0.58,False,no prior launches for baseline,,,,,,,,,,,,,,,
+slingoor,💀,False,0.39,False,flow 95 < 1.5x baseline 185,,,,,,,,,,,,,,,
+slingoor,BEGFI,False,0.41,False,flow 83 < 1.5x baseline 162,,,,,,,,,,,,,,,
+slingoor,catcall,True,0.06,True,,60.0,420.0,end of data,False,1.984,1.2,1.2,0.14,0.22,0.00011,6e-05,0.00202,0.4531,2.68,20.82
+slingoor,dontbuy,False,0.03,False,flow 89 < 1.5x baseline 162,,,,,,,,,,,,,,,
+slingoor,OFFICIAL,True,0.34,True,,60.0,380.0,take profit,False,5.261,1.25,1.2,0.17,0.59,0.0006,0.00019,0.00265,2.0187,8.07,6.49
+slingoor,Chairman,True,0.61,True,,60.0,350.0,trailing stop,False,1.515,1.2,1.2,0.13,0.18,0.00037,0.00031,0.00254,0.2271,5.14,13.93
+slingoor,TOAD,True,0.2,True,,60.0,1800.0,end of data,False,4.264,1.2,1.15,0.14,0.4,0.00011,2e-05,0.00198,1.548,4.83,14.05
+slingoor,sling,True,0.72,True,,60.0,870.0,end of data,False,0.808,0.95,1.0,0.05,0.04,0.00042,4e-05,0.00231,-0.1106,1.19,122.51
+slingoor,WINNIE,True,0.53,True,,60.0,810.0,take profit,False,5.222,1.25,1.2,0.19,0.61,9e-05,0.00011,0.00205,1.9993,5.75,4.7
+slingoor,HOODWARTS,True,0.67,True,,60.0,250.0,trailing stop,False,1.251,1.25,1.25,0.19,0.23,6e-05,0.00011,0.00202,0.0993,2.13,1.93
+slingoor,LIZARD,True,0.71,True,,60.0,510.0,trailing stop,False,1.165,1.05,1.05,0.07,0.08,0.00011,0.0003,0.00226,0.0616,2.29,42.52
+slingoor,DIDDY,True,0.61,False,flow 290 < 1.5x baseline 271,,,,,,,,,,,,,,,
+retardmode,yoohoo,False,0.15,True,,60.0,1110.0,trailing stop,True,0.834,1.25,1.25,0.65,0.62,3e-05,2e-05,0.0019,-0.1043,1.53,1.35
+retardmode,GOOSE,False,0.1,True,,60.0,60.0,end of data,True,1.0,1.25,1.25,0.72,0.72,3e-05,0.001,0.00288,-0.0271,1.0,1.09
+retardmode,BIRD,False,0.1,False,flow 13 < 1.5x baseline 14,,,,,,,,,,,,,,,
+slingoor,🐺,True,0.73,True,,60.0,130.0,hard stop,False,0.458,1.1,1.2,0.08,0.05,0.00011,0.00013,0.00209,-0.2807,1.59,31.77
+slingoor,INSANE,False,0.2,False,flow 399 < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,nothing,True,0.54,False,flow 385 < 1.5x baseline 290,,,,,,,,,,,,,,,
+retardmode,MRHATE,True,0.35,False,flow 18 < 1.5x baseline 13,,,,,,,,,,,,,,,
+slingoor,Graped,True,0.47,False,flow 91 < 1.5x baseline 322,,,,,,,,,,,,,,,
+slingoor,donotbuy,False,0.38,False,flow 123 < 1.5x baseline 290,,,,,,,,,,,,,,,
+retardmode,RETARDIO,True,0.48,True,,60.0,690.0,take profit,True,5.248,1.25,1.25,0.33,1.04,0.00027,0.00032,0.00243,1.9961,7.57,3.86
+slingoor,link,False,0.48,False,flow 275 < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,flow nan < 1.5x baseline 279,,,,,,,,,,,,,,,
+slingoor,SEXY,False,0.57,False,flow 317 < 1.5x baseline 279,,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,flow nan < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,flow nan < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,ETH,True,0.64,False,flow nan < 1.5x baseline 285; window ends before the mark,,,,,,,,,,,,,,,
+slingoor,GRND,False,0.61,False,flow nan < 1.5x baseline 285; window ends before the mark,,,,,,,,,,,,,,,
+slingoor,MPN,False,,False,flow nan < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,LMAO!,False,0.03,False,flow nan < 1.5x baseline 285; window ends before the mark,,,,,,,,,,,,,,,
+slingoor,USDC,False,0.25,False,flow 231 < 1.5x baseline 285,,,,,,,,,,,,,,,
+slingoor,GREEN,False,0.22,False,flow 212 < 1.5x baseline 279,,,,,,,,,,,,,,,
+slingoor,DAMN,False,0.25,False,flow 175 < 1.5x baseline 277,,,,,,,,,,,,,,,
+retardmode,GIGAY,False,0.2,True,,60.0,250.0,trailing stop,True,0.823,1.25,1.25,0.41,0.33,5e-05,0.00083,0.00273,-0.1082,1.63,2.35
+retardmode,GMONAD,False,0.2,True,,70.0,120.0,hard stop,True,0.461,1.25,1.25,0.39,0.26,5e-05,0.00034,0.00224,-0.281,1.0,2.02
+retardmode,PQ,True,0.57,True,,60.0,670.0,take profit,True,5.132,1.25,1.2,0.3,0.55,4e-05,2e-05,0.00192,1.9554,33.28,2.52
+retardmode,WOJAK,False,0.39,True,,60.0,80.0,hard stop,True,0.331,1.25,1.25,0.22,0.13,5e-05,7e-05,0.00198,-0.3426,1.95,5.93
+retardmode,MERCURY,False,0.15,True,,60.0,600.0,hard stop,True,0.322,1.25,1.25,0.42,0.26,2e-05,2e-05,0.00189,-0.3477,1.0,2.94
+retardmode,LEMON,False,0.35,True,,60.0,140.0,trailing stop,True,0.863,1.25,1.25,0.61,0.44,0.00023,4e-05,0.00212,-0.0897,1.51,1.35
+retardmode,SPOON,False,0.42,False,flow 49 < 1.5x baseline 43,,,,,,,,,,,,,,,
