@@ -1,0 +1,52 @@
+date,dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,why,on_curve,gross_x,net_x,pnl_usd,max_x_after_entry
+11-05 07:16,retardmode,CARDAMOM,False,0.03,False,self-buy < 35%; dev sold at 97 s,,,,,,,,
+11-05 18:00,retardmode,NIGGERMAS,False,0.03,False,self-buy < 35%; dev sold at 48 s,,,,,,,,
+11-05 18:09,retardmode,HANUKKAH,False,0.03,False,self-buy < 35%; dev sold at 7 s,,,,,,,,
+01-28 08:09,retardmode,clappy,False,0.03,False,self-buy < 35%,,,,,,,,
+01-29 08:33,retardmode,Chazerei,False,0.07,False,self-buy < 35%,,,,,,,,
+02-01 13:30,retardmode,PEACE,True,0.12,False,self-buy < 35%,,,,,,,,
+04-12 01:38,retardmode,YGIG,False,0.03,False,self-buy < 35%,,,,,,,,
+06-29 21:26,slingoor,MARVIN,True,0.25,False,self-buy < 35%,,,,,,,,
+06-30 21:22,slingoor,FibFrog,False,0.39,False,dev sold at 14 s,,,,,,,,
+07-02 03:30,slingoor,78,False,0.58,False,dev sold at 38 s,,,,,,,,
+07-02 03:41,slingoor,💀,False,0.39,False,dev sold at 11 s,,,,,,,,
+07-02 13:01,slingoor,BEGFI,False,0.41,False,dev sold at 10 s,,,,,,,,
+08-01 20:46,slingoor,catcall,True,0.06,False,self-buy < 35%,,,,,,,,
+08-02 15:29,slingoor,dontbuy,False,0.03,False,self-buy < 35%,,,,,,,,
+08-02 19:18,slingoor,OFFICIAL,True,0.34,False,self-buy < 35%,,,,,,,,
+08-04 05:19,slingoor,Chairman,True,0.61,True,,60.0,350.0,trail 40% off high,False,1.51,1.48,23.86,5.14
+08-08 13:59,slingoor,TOAD,True,0.2,False,self-buy < 35%,,,,,,,,
+08-17 17:32,slingoor,sling,True,0.72,True,,60.0,870.0,end of window,False,0.81,0.79,-10.61,1.19
+08-21 22:42,slingoor,WINNIE,True,0.53,False,dev sold at 13 s,,,,,,,,
+08-21 22:59,slingoor,HOODWARTS,True,0.67,False,dev sold at 15 s,,,,,,,,
+08-21 23:03,slingoor,LIZARD,True,0.71,True,,60.0,510.0,trail 40% off high,False,1.17,1.14,6.82,2.29
+08-23 05:15,slingoor,DIDDY,True,0.61,True,,60.0,1630.0,trail 40% off high,True,2.17,2.07,53.73,4.15
+08-26 10:57,retardmode,yoohoo,False,0.15,False,self-buy < 35%; dev sold at 8 s,,,,,,,,
+08-27 01:43,retardmode,GOOSE,False,0.1,False,self-buy < 35%; dev sold at 7 s,,,,,,,,
+08-27 01:45,retardmode,BIRD,False,0.1,False,self-buy < 35%; dev sold at 6 s,,,,,,,,
+08-27 02:35,slingoor,🐺,True,0.73,True,,60.0,130.0,hard stop -50%,False,0.46,0.45,-27.65,1.59
+08-27 08:00,slingoor,INSANE,False,0.2,False,self-buy < 35%; dev sold at 17 s,,,,,,,,
+08-29 05:31,slingoor,nothing,True,0.54,True,,60.0,1350.0,trail 40% off high,False,2.35,2.29,64.61,3.94
+08-31 01:30,retardmode,MRHATE,True,0.35,True,,120.0,1730.0,end of window,True,1.47,1.41,20.43,1.52
+08-31 02:08,slingoor,Graped,True,0.47,False,no buys after the mark,,,,,,,,
+08-31 06:05,slingoor,donotbuy,False,0.38,False,dev sold at 12 s,,,,,,,,
+09-01 20:07,retardmode,RETARDIO,True,0.48,True,,130.0,860.0,trail 40% off high,True,4.06,3.88,144.01,7.22
+09-02 16:39,slingoor,link,False,0.48,False,dev sold at 5 s,,,,,,,,
+09-09 20:18,slingoor,MPN,False,,False,self-buy < 35%,,,,,,,,
+09-09 22:29,slingoor,SEXY,False,0.57,True,,60.0,810.0,hard stop -50%,False,0.49,0.48,-25.91,1.01
+09-10 01:24,slingoor,MPN,False,,False,self-buy < 35%,,,,,,,,
+09-10 15:12,slingoor,MPN,False,,False,self-buy < 35%,,,,,,,,
+09-10 19:52,slingoor,ETH,True,0.64,False,window ends at 3 s,,,,,,,,
+09-10 20:09,slingoor,GRND,False,0.61,False,window ends at 3 s,,,,,,,,
+09-11 00:09,slingoor,MPN,False,,False,self-buy < 35%,,,,,,,,
+09-12 02:28,slingoor,LMAO!,False,0.03,False,self-buy < 35%; window ends at 7 s,,,,,,,,
+09-12 03:02,slingoor,USDC,False,0.25,False,self-buy < 35%,,,,,,,,
+09-12 15:55,slingoor,GREEN,False,0.22,False,self-buy < 35%,,,,,,,,
+09-12 16:27,slingoor,DAMN,False,0.25,False,self-buy < 35%,,,,,,,,
+09-12 17:48,retardmode,GIGAY,False,0.2,False,self-buy < 35%; dev sold at 96 s,,,,,,,,
+09-12 18:56,retardmode,GMONAD,False,0.2,False,self-buy < 35%,,,,,,,,
+09-13 02:49,retardmode,PQ,True,0.57,True,,120.0,1800.0,end of window,True,16.6,15.86,742.93,24.98
+09-14 21:02,retardmode,WOJAK,False,0.39,False,dev sold at 73 s,,,,,,,,
+09-15 01:16,retardmode,MERCURY,False,0.15,False,self-buy < 35%; dev sold at 6 s,,,,,,,,
+09-15 01:27,retardmode,LEMON,False,0.35,False,dev sold at 5 s,,,,,,,,
+09-15 01:37,retardmode,SPOON,False,0.42,False,dev sold at 5 s,,,,,,,,

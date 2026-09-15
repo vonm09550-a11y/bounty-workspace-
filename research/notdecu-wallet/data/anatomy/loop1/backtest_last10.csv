@@ -1,0 +1,11 @@
+date,dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,why,on_curve,gross_x,net_x,pnl_usd,max_x_after_entry
+09-12 03:02,slingoor,USDC,False,0.25,False,self-buy < 35%,,,,,,,,
+09-12 15:55,slingoor,GREEN,False,0.22,False,self-buy < 35%,,,,,,,,
+09-12 16:27,slingoor,DAMN,False,0.25,False,self-buy < 35%,,,,,,,,
+09-12 17:48,retardmode,GIGAY,False,0.2,False,self-buy < 35%; dev sold at 96 s,,,,,,,,
+09-12 18:56,retardmode,GMONAD,False,0.2,False,self-buy < 35%,,,,,,,,
+09-13 02:49,retardmode,PQ,True,0.57,True,,120.0,1800.0,end of window,True,16.6,15.86,742.93,24.98
+09-14 21:02,retardmode,WOJAK,False,0.39,False,dev sold at 73 s,,,,,,,,
+09-15 01:16,retardmode,MERCURY,False,0.15,False,self-buy < 35%; dev sold at 6 s,,,,,,,,
+09-15 01:27,retardmode,LEMON,False,0.35,False,dev sold at 5 s,,,,,,,,
+09-15 01:37,retardmode,SPOON,False,0.42,False,dev sold at 5 s,,,,,,,,
