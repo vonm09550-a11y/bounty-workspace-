@@ -31,3 +31,4 @@ research/notdecu-wallet/data/devs/audit/*.jsonl
 research/notdecu-wallet/data/devs/audit/*.json
 research/notdecu-wallet/data/devs/audit/*.stderr
 research/notdecu-wallet/data/devs/audit/*.log
+research/notdecu-wallet/data/devs/audit/*.out
