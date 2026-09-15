@@ -447,3 +447,13 @@ Pagination loop: keep `since`/`before` slices small (minutes) and, if a slice re
 - https://docs.bitquery.io/v1/docs/Examples/Solana/transfers
 - https://github.com/bitquery/Pump-Fun-API
 - https://docs.bitquery.io/docs/migration/from-helius/
+
+---
+
+## 9. Verified live on 2026-09-15 with the user's developer token
+
+- `dataset: archive` is refused on this plan: `access restricted: your plan only allows "realtime"`. Historical pulls need the trial's archive access or the add-on.
+- `dataset: realtime` works: a launch created at 09:41 UTC queried at 16:50 UTC returned 6,587 rows in 2.5 s (protocols pump, pump_amm, dflow, jupiter, dex_solana_v3, cp_amm). A launch created 27 h earlier returned 0 rows: retention is under a day.
+- Side semantics confirmed on the creator's own trades: `Side.Type = buy` means the trader bought the token; `Trade.Amount` is tokens (decimal-adjusted), `Side.Amount` the quote amount; `Transaction.Fee` is in SOL (0.0000135 on a plain trade); `Trade.Account.Owner` is the wallet.
+- Quote mint for curve trades appears as `11111111111111111111111111111111` (native SOL) and for pool trades as WSOL `So111…112`; filter both as SOL.
+- Use: forward collector `scripts/bitquery_collect.py` (discover tracked creators' launches via their creation-block buy, verify creator on pump.fun coins-v2, pull the first-30-minute window, write the anatomy trade cache).

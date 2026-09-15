@@ -38,3 +38,7 @@ research/notdecu-wallet/data/anatomy/*.out
 !research/notdecu-wallet/data/anatomy/loop*/*.md
 !research/notdecu-wallet/data/anatomy/loop*/*.parquet
 !research/notdecu-wallet/data/anatomy/loop*/*.csv
+research/notdecu-wallet/data/anatomy/live/*.jsonl
+research/notdecu-wallet/data/anatomy/live/*.log
+research/notdecu-wallet/data/anatomy/bitquery_probe_*.json
+!research/notdecu-wallet/data/anatomy/live/index.jsonl
