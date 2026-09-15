@@ -86,7 +86,7 @@ def extract_trades(txs, meta, creator, pools, qmint, per_min, glob_med):
         first_ts = ts if first_ts is None else min(first_ts, ts)
         if t.get("type") == "MIGRATE_LIQUIDITY" and migrate_s is None:
             migrate_s = ts - cts
-        net, mkt_tok, mkt_q = defaultdict(float), 0.0, 0.0
+        net, mkt_tok, mkt_q, minted = defaultdict(float), 0.0, 0.0, 0.0
         for a in t.get("accountData") or []:
             if a["account"] in pools and qmint is None:
                 mkt_q += (a.get("nativeBalanceChange") or 0) / 1e9
@@ -94,13 +94,14 @@ def extract_trades(txs, meta, creator, pools, qmint, per_min, glob_med):
                 amt = ab.tok_amt(ch)
                 u = ch.get("userAccount")
                 if ch.get("mint") == mint:
+                    minted += max(amt, 0.0)
                     if u in pools:
                         mkt_tok += amt
                     else:
                         net[u] += amt
                 elif u in pools and ((qmint is None and ch.get("mint") == WSOL) or (qmint is not None and ch.get("mint") == qmint)):
                     mkt_q += amt
-        if t.get("type") == "CREATE" or mkt_tok >= 0.5 * SUPPLY:
+        if t.get("type") == "CREATE" or minted >= 0.5 * SUPPLY:  # the create: the whole supply appears (curve + dev on LaunchLab)
             create_sig = create_sig or t["signature"]
         traders = {u: v for u, v in net.items() if abs(v) >= 1e-6}
         if not traders:
@@ -630,7 +631,7 @@ def summary(members_df, ml, lf, fp, sep, thr, ent, infos, notes_path):
             probs.append(f"- {r.dev}/{r.symbol}: quoted in {r.quote_mint} (launchpad {r.launchpad_platform}); SOL rate {fmt(r.quote_per_sol_med)} quote/SOL from {r.n_rate_minutes} minute(s) of router legs"
                          + ("" if r.sol_ok else "; NO rate observable, SOL columns NULL"))
         if r.n_market_accounts > 2 or (r.launchpad_platform == "stonkfun"):
-            probs.append(f"- {r.dev}/{r.symbol}: market accounts extended to {r.n_market_accounts} (LaunchLab vault authority added); Phase B's dev_first_buy_sol/sol_in_* for this launch are rent only and were not used")
+            probs.append(f"- {r.dev}/{r.symbol}: LaunchLab launch; market accounts taken from the create tx ({r.n_market_accounts}, vault authority WLHv2UAZ… added); Phase B's dev_first_buy_sol/sol_in_* for this launch are rent only and were not used")
         if nn(r.create_sig) is None:
             probs.append(f"- {r.dev}/{r.symbol}: no create transaction found in the window")
     out += probs
