@@ -137,6 +137,8 @@ if __name__ == "__main__":
     with open(idx_p, "a") as fi:
         for m, v in sorted(new.items(), key=lambda kv: kv[1]["t"]):
             cts = v["t"]
+            if cts < since - 3600:
+                log(f"  {v['symbol']} created {iso(cts)}: old token re-bought by its creator, not a launch"); continue
             if time.time() - cts < 1800:
                 log(f"  {v['symbol']} too young ({int(time.time() - cts)} s), next run"); continue
             rows, off = [], 0
