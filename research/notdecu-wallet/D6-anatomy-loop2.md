@@ -143,3 +143,17 @@ the same 60-s Bitquery window used for the inflow) and available in `scripts/bac
 two rows: the aggregator leg and the underlying pump_amm leg. On DUDAS this doubled the dev's sold
 amount (200% of his bag) and added 0.2% to the inflow. Both the paper trader and the forward collector
 now keep only the pump / pump_amm / raydium_launchpad rows, one per swap.
+
+## 8. Coverage problem with the live paper trader, and the hourly replay (2026-09-16 04:00 UTC)
+
+The session container is put to sleep a few minutes after each turn ends and restarted on the next hourly
+wakeup. Log timestamps show the watcher and paper trader alive for about 5 minutes per hour (last poll
+02:16 after a 02:11 start, 03:01 after 03:00). A live process therefore cannot run the paper test here.
+
+Replacement: `scripts/paper_replay.py`, run by the hourly routine. It runs the Bitquery collector for the
+last 3 hours (realtime retention is under a day), and for every launch by a launcher with a baseline it
+replays the exact live rule with `backtest_v2.simulate` and the full cost model, one position at a time,
+$50 per trigger capped by capital, ledger in `replay_trades.jsonl` / `replay_signals.jsonl`. Validation
+against the live run: DUDAS minute-1 inflow 1,304.8 SOL replayed vs 1,307.0 measured live, CENTED 162.4
+vs 162.7. With the dev-sell veto the replay skips DUDAS ("dev sold 100% at 39 s"), so the replay ledger
+starts at $50 with zero trades; the live ledger keeps its −$27.20 as the record of the pre-veto rule.
