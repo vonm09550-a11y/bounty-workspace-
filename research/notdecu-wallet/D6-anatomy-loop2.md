@@ -99,3 +99,47 @@ same measurement for holders and dumpers. Its cost is that most of its entries a
 
 Still in-sample in one sense: the exit parameters were chosen on these two loops. The collector's new
 launches are the next out-of-sample set for this exact configuration.
+
+## 7. First live paper loss and the dev-sell veto (2026-09-16)
+
+**The trade.** DUDAS by slingoor, created 01:59:37 UTC. Minute-1 inflow 1,307 SOL = 4.75× his baseline
+(274.9) → paper buy at 60 s at 4.44e-7 SOL/token ($50, pool fee 1.20%). Hard stop at 162 s at 0.477×,
+net −$27.20. Capital $50 → $22.80.
+
+**Postmortem tape (Bitquery realtime, first 10 min, 3,991 trades).** The dev bought 353.6M tokens for
+14.75 SOL in the create transaction and sold all of it in three Jupiter-routed sells at 37 s, 43 s and
+47 s for ≈142 SOL, i.e. he was fully out 13 seconds before our entry. No Synagogue member traded the
+token in the window. The 10-s buy VWAP (×1e7 SOL/token) went 3.4 → 9.7 (10 s) → 5.5 (40 s, the dev's
+dump) → 8.6 (60 s, our entry) → 17.5 (70 s) → spikes → collapse; the sellers from 60 s to 180 s were
+unknown wallets, not members. The flow rule saw a token drawing 4.75× the dev's usual money and did not
+look at what the dev had already done with his own bag.
+
+**New filter, tested walk-forward on both loops.** `veto_dev_sell=F`: skip the entry when the creator has
+sold ≥ F of the tokens he bought by the mark. Everything else unchanged (flow ≥ 1.5×, mark 60 s, TP 5×,
+trail 40%, hard −50%, 30 min, full cost model, $50 per trigger).
+
+| Set | Veto | Triggers | Wins | Win rate | P&L | P&L ex-best | Median | Worst | Hits caught |
+|---|---|---|---|---|---|---|---|---|---|
+| Loop 1 | off | 20 | 11 | 55% | +$960 | +$758 | +$4 | −$35 | 12 of 18 |
+| Loop 1 | ≥50% sold | 15 | 9 | 60% | +$804 | +$602 | +$6 | −$34 | 10 of 18 |
+| Loop 1 | any sell | 14 | 9 | 64% | +$807 | +$605 | +$14 | −$34 | 10 of 18 |
+| Loop 2 | off | 35 | 21 | 60% | +$1,054 | +$841 | +$5 | −$29 | 8 of 24 |
+| Loop 2 | ≥50% sold | 28 | 18 | 64% | +$929 | +$717 | +$6 | −$19 | 7 of 24 |
+| Loop 2 | any sell | 28 | 18 | 64% | +$929 | +$717 | +$6 | −$19 | 7 of 24 |
+
+The 13 trades the veto removes (6 on loop 1, 7 on loop 2): 5 wins, 8 losses, median −$9. Two of the
+five wins are 5× take-profits (WINNIE +$200, "it" +$209) where the dev sold 100% and the token ran
+anyway, which is why total P&L drops; without those two outliers the removed set is −$131. The losses
+it removes are the fast dumps: MERCURY −$35, PHOUSE −$29, TOLYBOT −$28, HITLERHAUS −$23, ALBERT −$21.
+DUDAS has the same profile as the removed set (dev out at 37–47 s, unknown wallets holding the bag).
+
+**Decision.** Veto on at 50%: it raises the win rate on both loops (55→60%, 60→64%), lifts the median,
+cuts the worst loop-2 loss from −$29 to −$19, and costs the occasional dev-dumped 5× outlier. With $50
+of capital the drawdown matters more than the outlier. Adopted in `scripts/live_paper.py` (measured from
+the same 60-s Bitquery window used for the inflow) and available in `scripts/backtest_v2.py` as
+`--config veto_dev_sell=0.5`.
+
+**Data fix found during the postmortem.** Bitquery returns aggregator-routed swaps (Jupiter, DFlow) as
+two rows: the aggregator leg and the underlying pump_amm leg. On DUDAS this doubled the dev's sold
+amount (200% of his bag) and added 0.2% to the inflow. Both the paper trader and the forward collector
+now keep only the pump / pump_amm / raydium_launchpad rows, one per swap.

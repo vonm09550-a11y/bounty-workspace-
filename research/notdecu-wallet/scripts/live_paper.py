@@ -20,13 +20,13 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from clients import load_env  # noqa: E402
-from bitquery_collect import gql, iso, ts_of, SOL_MINTS, Q_TRADES  # noqa: E402
+from bitquery_collect import gql, iso, ts_of, SOL_MINTS, Q_TRADES, PUMP_PROTOCOLS  # noqa: E402
 from backtest_v2 import pool_fee  # noqa: E402
 
 LIVE = os.path.join(HERE, "..", "data", "anatomy", "live")
 LOG = os.path.join(LIVE, "paper.log")
 STATE = os.path.join(LIVE, "paper_state.json")
-CFG = {"flow_mult": 1.5, "mark": 60, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 5.0, "hard_stop_pct": 0.50, "time_stop_s": 1800,
+CFG = {"flow_mult": 1.5, "mark": 60, "veto_dev_sell": 0.5, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 5.0, "hard_stop_pct": 0.50, "time_stop_s": 1800,
        "mev_pct": 0.005, "prio_floor_sol": 0.00002, "base_fee_sol": 0.000005, "rent_sol": 0.0018444, "stake_usd": 50.0, "capital_usd": 50.0}
 UA = {"User-Agent": "notdecu-research/0.1"}
 
@@ -75,17 +75,27 @@ def evaluate(mint, launch, base, tok, st):
     """At >= 60 s: measure minute-1 inflow via Bitquery and decide."""
     cts = launch["create_ts"]
     rows = gql(Q_TRADES, {"mint": mint, "since": iso(cts - 5), "before": iso(cts + CFG["mark"] + 10), "offset": 0}, tok)
+    rows = [r for r in rows if r["Trade"]["Dex"]["ProtocolName"] in PUMP_PROTOCOLS]   # drop aggregator duplicate legs
     buys = [r for r in rows if r["Trade"]["Side"]["Type"] == "buy" and r["Trade"]["Side"]["Currency"]["MintAddress"] in SOL_MINTS]
     inflow = sum(float(r["Trade"]["Side"]["Amount"] or 0) for r in buys if ts_of(r["Block"]["Time"]) <= cts + CFG["mark"])
     entry_rows = [r for r in buys if cts + CFG["mark"] <= ts_of(r["Block"]["Time"]) <= cts + CFG["mark"] + 10]
     vwap = (sum(float(r["Trade"]["Side"]["Amount"]) for r in entry_rows) / sum(float(r["Trade"]["Amount"]) for r in entry_rows)) if entry_rows and sum(float(r["Trade"]["Amount"]) for r in entry_rows) > 0 else None
     med_fee = sorted(float(r["Transaction"]["Fee"] or 0) for r in entry_rows)[len(entry_rows) // 2] if entry_rows else 0.0
+    # dev-sell veto (added after the DUDAS live loss: dev sold 100% at 39-49 s, we bought at 60 s)
+    creator = launch.get("creator")
+    dev_rows = [r for r in rows if r["Trade"]["Account"]["Owner"] == creator and ts_of(r["Block"]["Time"]) <= cts + CFG["mark"]]
+    dev_bought = sum(float(r["Trade"]["Amount"] or 0) for r in dev_rows if r["Trade"]["Side"]["Type"] == "buy")
+    dev_sold = sum(float(r["Trade"]["Amount"] or 0) for r in dev_rows if r["Trade"]["Side"]["Type"] == "sell")
+    dev_sold_frac = (dev_sold / dev_bought) if dev_bought > 0 else (1.0 if dev_sold > 0 else 0.0)
+    dev_first_sell_s = min((ts_of(r["Block"]["Time"]) - cts for r in dev_rows if r["Trade"]["Side"]["Type"] == "sell"), default=None)
+    vetoed = bool(CFG["veto_dev_sell"] and dev_sold_frac >= CFG["veto_dev_sell"])
     sig = {"t": int(time.time()), "mint": mint, "dev": base["dev"], "symbol": launch.get("symbol"), "create_ts": cts, "inflow_1m_sol": round(inflow, 3),
            "baseline_sol": round(base["med_sol_in_1m"], 3), "ratio": round(inflow / base["med_sol_in_1m"], 2) if base["med_sol_in_1m"] else None,
-           "n_trades_1m": len(rows), "vwap_60_70": vwap, "triggered": bool(inflow >= CFG["flow_mult"] * base["med_sol_in_1m"] and vwap), "position_open": st["open"] is not None}
+           "n_trades_1m": len(rows), "vwap_60_70": vwap, "dev_sold_frac_by_mark": round(dev_sold_frac, 3), "dev_first_sell_s": dev_first_sell_s, "vetoed_dev_sell": vetoed,
+           "triggered": bool(inflow >= CFG["flow_mult"] * base["med_sol_in_1m"] and vwap and not vetoed), "position_open": st["open"] is not None}
     with open(os.path.join(LIVE, "paper_signals.jsonl"), "a") as f:
         f.write(json.dumps(sig) + "\n")
-    log(f"  signal {base['dev']:12} {launch.get('symbol')!s:10} inflow {inflow:.1f} SOL vs base {base['med_sol_in_1m']:.1f} x{sig['ratio']} -> {'TRIGGER' if sig['triggered'] else 'skip'}{' (position already open)' if st['open'] else ''}")
+    log(f"  signal {base['dev']:12} {launch.get('symbol')!s:10} inflow {inflow:.1f} SOL vs base {base['med_sol_in_1m']:.1f} x{sig['ratio']} dev sold {dev_sold_frac * 100:.0f}%{f' at {dev_first_sell_s} s' if dev_first_sell_s is not None else ''} -> {'TRIGGER' if sig['triggered'] else ('VETO dev sell' if vetoed and inflow >= CFG['flow_mult'] * base['med_sol_in_1m'] else 'skip')}{' (position already open)' if st['open'] else ''}")
     if sig["triggered"] and st["open"] is None:
         px = sol_usd()
         stake = min(CFG["stake_usd"], st["capital_usd"]) / px

@@ -27,6 +27,7 @@ os.makedirs(LIVE, exist_ok=True)
 LOG = os.path.join(LIVE, "collect.log")
 URL = "https://streaming.bitquery.io/graphql"
 SOL_MINTS = {"So11111111111111111111111111111111111111112", "11111111111111111111111111111111"}
+PUMP_PROTOCOLS = {"pump", "pump_amm", "raydium_launchpad"}   # aggregator-routed swaps (jupiter, dflow, ...) appear as an extra row on top of the pump leg
 FIELDS = "Block{Time Slot} Transaction{Signature Signer FeePayer Fee Index} Trade{Index Account{Address Owner} Amount Price PriceInUSD Currency{MintAddress Symbol Name} Side{Type Amount Currency{MintAddress Symbol}} Dex{ProtocolName ProgramAddress} Market{MarketAddress}}"
 Q_DISCOVER = """query($owners:[String!],$since:DateTime!){ Solana(dataset: realtime){ DEXTradeByTokens(
   where:{Trade:{Account:{Owner:{in:$owners}} Dex:{ProtocolName:{in:["pump","raydium_launchpad","pump_amm"]}} Side:{Type:{is:buy}}} Block:{Time:{since:$since}} Transaction:{Result:{Success:true}}}
@@ -89,6 +90,8 @@ def to_cache_rows(rows, dev, creator, mint, symbol, cts):
     out = []
     for r in rows:
         tr, tx, bl = r["Trade"], r["Transaction"], r["Block"]
+        if tr["Dex"]["ProtocolName"] not in PUMP_PROTOCOLS:
+            continue   # keep one leg per swap; the aggregator row duplicates the pump leg
         side = tr["Side"]["Type"]
         quote = float(tr["Side"]["Amount"] or 0)
         qm = tr["Side"]["Currency"]["MintAddress"]

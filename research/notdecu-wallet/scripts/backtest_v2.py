@@ -17,6 +17,7 @@ Cost model (every term is explicit and printed):
      curve: 30 SOL virtual + real SOL raised at the mark; pool: 85 SOL + net SOL inflow since migration (floor 60)
   MEV / sandwich: param mev_pct (default 0.5%) each side, applied because a market buy with slippage tolerance
      can be sandwiched; set 0 if using Jito bundles, then jito_tip_sol (default 0.0001) is charged instead.
+  veto_dev_sell: 0 = off; else skip when the dev has sold >= this fraction of his own tokens by the mark (added after DUDAS live loss).
 Rule (parameters): entry mark seconds (per dev default: slingoor 60, retardmode 120, others 120),
   self-buy floor (share of supply), require SOL quote, exit: trailing stop pct off running high, take-profit
   multiple (0 = none), hard stop pct, time stop seconds. Price series = 10-s buy VWAP.
@@ -78,8 +79,13 @@ def simulate(L, tr, cfg, stake_sol):
     if cfg["sol_only"] and not bool(L.sol_ok):
         why.append("non-SOL quote")
     ds = tr[(tr.wallet == L.creator) & (tr.side == "sell") & (tr.s <= mark)]
-    if len(ds) and cfg.get("rule", "hold") == "hold":
-        why.append(f"dev sold at {int(ds.s.min())} s")
+    dev_sold_frac = None
+    if len(ds):
+        bought = tr[(tr.wallet == L.creator) & (tr.side == "buy") & (tr.s <= mark)].tokens.sum()
+        dev_sold_frac = float(ds.tokens.sum() / bought) if bought > 0 else 1.0
+    out["dev_sold_by_mark"] = round(dev_sold_frac, 2) if dev_sold_frac is not None else 0.0
+    if len(ds) and (cfg.get("rule", "hold") == "hold" or (cfg.get("veto_dev_sell", 0) and dev_sold_frac >= cfg["veto_dev_sell"])):
+        why.append(f"dev sold {100*dev_sold_frac:.0f}% at {int(ds.s.min())} s")
     if cfg.get("min_wallets_1m") and (pd.isna(L.n_wallets_1m) or L.n_wallets_1m < cfg["min_wallets_1m"]):
         why.append("too few wallets in minute 1")
     if cfg.get("min_co_buyers") and (pd.isna(L.dev_same_slot_buyers) or L.dev_same_slot_buyers < cfg["min_co_buyers"]):
@@ -140,7 +146,7 @@ def simulate(L, tr, cfg, stake_sol):
     return out
 
 
-BASE = {"max_entry_mult": 0, "min_entry_mult": 0, "rule": "hold", "flow_mult": 1.5, "min_prior": 3, "mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
+BASE = {"veto_dev_sell": 0.0, "max_entry_mult": 0, "min_entry_mult": 0, "rule": "hold", "flow_mult": 1.5, "min_prior": 3, "mark": None, "self_buy_floor": 0.35, "sol_only": True, "min_wallets_1m": 0, "min_co_buyers": 0, "trail_pct": 0.40, "trail_arm_mult": 1.2, "tp_mult": 0,
         "hard_stop_pct": 0.50, "time_stop_s": 1800, "prio_floor_lamports": 20000, "mev_pct": 0.005, "jito_tip_sol": 0.0001, "charge_rent": True,
         "rent_first_trade_sol": 0.0018444, "rent_ata_refund": True}
 
