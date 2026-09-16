@@ -1,114 +1,114 @@
-dev,symbol,hit,self_buy,triggered,reason,entry_s,exit_s,how,on_curve,gross_x,fee_in_pct,fee_out_pct,impact_in_pct,impact_out_pct,prio_in_sol,prio_out_sol,fixed_sol,net_sol,max_x_after,entry_mult_vs_dev
-mitch,kai,False,0.1,False,no prior launches for baseline,,,,,,,,,,,,,,,
-mitch,glown,False,0.44,False,no prior launches for baseline,,,,,,,,,,,,,,,
-mitch,SOSA,False,,False,no prior launches for baseline,,,,,,,,,,,,,,,
-mitch,BCC,False,,True,,110.0,110.0,end of data,False,1.0,1.25,1.25,0.11,0.11,0.01201,0.01201,0.02586,-0.0442,1.0,
-mitch,mitch,True,,False,flow 55 < 1.5x baseline 56,,,,,,,,,,,,,,,
-mitch,XXX,False,,False,flow 77 < 1.5x baseline 55,,,,,,,,,,,,,,,
-mitch,HARD,False,0.73,False,flow 90 < 1.5x baseline 64,,,,,,,,,,,,,,,
-mitch,fagua,False,,True,,130.0,130.0,end of data,False,1.0,1.25,1.25,0.12,0.12,0.01201,0.01201,0.02586,-0.0443,1.0,
-mitch,RNT,False,0.55,False,flow 93 < 1.5x baseline 75,,,,,,,,,,,,,,,
-mitch,JDS,False,,False,flow 74 < 1.5x baseline 77,,,,,,,,,,,,,,,
-mitch,MITCH,True,0.79,False,no buys after the mark,,,,,,,,,,,,,,,
-jester,DIRECTOR,True,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
-hashbergers,SCRAP,True,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
-hashbergers,RAPEHIM,False,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
-hashbergers,PVE,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
-hashbergers,PENGU,False,0.03,False,flow 7 < 1.5x baseline 6,,,,,,,,,,,,,,,
-hashbergers,OBESE,False,0.06,True,,60.0,220.0,trailing stop,True,1.075,1.25,1.25,0.54,0.56,0.00023,0.0002,0.00228,0.0107,2.55,2.22
-hashbergers,AMIGA,False,0.29,False,no buys after the mark,,,,,,,,,,,,,,,
-hashbergers,OARFISH,False,0.03,False,flow 4 < 1.5x baseline 9,,,,,,,,,,,,,,,
-hashbergers,KINDA,False,0.03,False,flow 6 < 1.5x baseline 7,,,,,,,,,,,,,,,
-hashbergers,FLOAT,False,0.03,False,flow 2 < 1.5x baseline 6,,,,,,,,,,,,,,,
-hashbergers,COMPUTA,False,0.03,False,flow 2 < 1.5x baseline 6,,,,,,,,,,,,,,,
-jester,CHICKY,True,0.07,False,no prior launches for baseline,,,,,,,,,,,,,,,
-jester,KIKI,True,0.1,False,no prior launches for baseline,,,,,,,,,,,,,,,
-jester,SNEAKERS,True,0.09,False,flow 27 < 1.5x baseline 48,,,,,,,,,,,,,,,
-hashbergers,piss,False,0.03,False,flow 7 < 1.5x baseline 6,,,,,,,,,,,,,,,
-jester,WATERFALL,True,0.3,False,flow 40 < 1.5x baseline 37,,,,,,,,,,,,,,,
-jester,ALBERT,True,0.11,True,,60.0,830.0,trailing stop,True,0.62,1.25,1.25,0.25,0.22,0.00034,2e-05,0.00221,-0.2046,1.69,4.12
-jester,COBSON,True,0.77,True,,70.0,1780.0,end of data,True,2.262,1.25,1.15,0.14,0.17,0.00101,2e-05,0.00288,0.5867,2.44,3.63
-jester,mouse,False,0.18,False,flow 33 < 1.5x baseline 48,,,,,,,,,,,,,,,
-jester,CREAMUS,False,0.7,True,,60.0,1720.0,end of data,True,1.165,1.25,1.25,0.28,0.31,0.005,2e-05,0.00688,0.0523,1.17,3.0
-jester,SEKOLAH,False,0.03,False,flow 36 < 1.5x baseline 48,,,,,,,,,,,,,,,
-jester,JANICE,False,0.0,False,flow 17 < 1.5x baseline 44,,,,,,,,,,,,,,,
-jester,Jutsu,False,0.0,False,flow 7 < 1.5x baseline 40,,,,,,,,,,,,,,,
-jester,FLUFF,False,0.1,False,flow 28 < 1.5x baseline 38,,,,,,,,,,,,,,,
-jester,TYGR,False,0.1,False,flow 15 < 1.5x baseline 36,,,,,,,,,,,,,,,
-gampsito,PP,True,0.15,False,no prior launches for baseline,,,,,,,,,,,,,,,
-gampsito,petcat,True,0.18,False,no prior launches for baseline,,,,,,,,,,,,,,,
-jester,HITLERHAUS,False,0.07,True,,60.0,430.0,trailing stop,True,0.578,1.25,1.25,0.46,0.27,0.00101,0.00024,0.0031,-0.2261,1.25,3.5
-jester,LARD,False,0.0,False,flow 28 < 1.5x baseline 36,,,,,,,,,,,,,,,
-jester,PHOUSE,False,0.07,True,,60.0,150.0,hard stop,True,0.444,1.25,1.25,0.49,0.33,0.00011,0.00031,0.00227,-0.2896,1.9,2.72
-jester,BHOUSSSE,False,0.03,False,flow 41 < 1.5x baseline 36,,,,,,,,,,,,,,,
-jester,it,False,0.15,True,,70.0,330.0,take profit,True,5.503,1.25,1.25,0.75,1.82,0.00016,0.00011,0.00212,2.0859,11.92,1.11
-jester,NOOB,False,0.15,False,flow 34 < 1.5x baseline 40,,,,,,,,,,,,,,,
-gampsito,Polycat,True,0.15,False,no prior launches for baseline,,,,,,,,,,,,,,,
-gampsito,Biz,True,0.12,False,flow 103 < 1.5x baseline 125,,,,,,,,,,,,,,,
-hashbergers,PINU,True,0.5,True,,60.0,520.0,trailing stop,True,2.366,1.25,1.25,0.2,0.31,0.00012,6e-05,0.00203,0.6339,4.79,11.43
-gampsito,Dancedoge,True,0.2,False,flow 32 < 1.5x baseline 120,,,,,,,,,,,,,,,
-gampsito,ok,True,0.15,False,flow 18 < 1.5x baseline 116,,,,,,,,,,,,,,,
-jester,MOONCAT,False,0.03,False,flow 56 < 1.5x baseline 38,,,,,,,,,,,,,,,
-0xkgc,OG,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
-0xkgc,tradoor,False,0.03,False,no prior launches for baseline,,,,,,,,,,,,,,,
-0xkgc,1LEFT,False,0.04,False,no prior launches for baseline,,,,,,,,,,,,,,,
-0xkgc,missooor,False,0.03,False,flow 5 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,madeitup,False,0.03,False,flow 10 < 1.5x baseline 8,,,,,,,,,,,,,,,
-0xkgc,topbuyer,False,0.03,False,flow 9 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,1minute,False,0.03,False,flow 7 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,1trump,False,0.03,False,flow 10 < 1.5x baseline 9,,,,,,,,,,,,,,,
-gampsito,mlem,False,0.15,False,flow 41 < 1.5x baseline 110,,,,,,,,,,,,,,,
-0xkgc,few,False,0.03,False,flow 6 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,SOLMOG,False,0.03,False,flow 11 < 1.5x baseline 9,,,,,,,,,,,,,,,
-0xkgc,ducknana,False,0.03,True,,80.0,860.0,take profit,True,5.579,1.25,1.25,0.73,1.79,0.0001,3e-05,0.00197,2.1236,11.89,1.27
-0xkgc,SOLONLY,False,0.03,True,,90.0,1510.0,end of data,True,0.869,1.25,1.25,0.73,0.66,0.00012,2e-05,0.00199,-0.0882,1.33,1.33
-gampsito,looong,False,0.18,True,,60.0,990.0,trailing stop,True,1.363,1.25,1.25,0.52,0.58,2e-05,2e-05,0.00189,0.1489,2.84,2.18
-jester,all/in,False,0.79,True,,60.0,1740.0,end of data,False,1.247,1.2,1.2,0.14,0.18,5e-05,2e-05,0.00193,0.0984,1.31,4.77
-0xkgc,happyegg,False,0.03,False,flow 14 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,ETH,False,0.03,True,,60.0,570.0,trailing stop,True,1.114,1.25,1.25,0.68,0.68,6e-05,2e-05,0.00193,0.0286,2.03,1.46
-0xkgc,swingdog,False,0.03,False,flow 12 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,biip,False,0.03,False,flow 7 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,BOT,False,0.03,False,flow 13 < 1.5x baseline 10,,,,,,,,,,,,,,,
-0xkgc,initials,False,0.03,True,,60.0,1340.0,trailing stop,True,1.179,1.25,1.25,0.69,0.74,2e-05,2e-05,0.00189,0.0591,2.27,1.44
-gampsito,Shrekt,False,0.2,False,flow 99 < 1.5x baseline 110,,,,,,,,,,,,,,,
-gampsito,HeHa,False,0.15,False,flow 37 < 1.5x baseline 103,,,,,,,,,,,,,,,
-0xkgc,GOAT,False,0.03,False,flow 16 < 1.5x baseline 11,,,,,,,,,,,,,,,
-gampsito,OrgyInu,False,0.18,False,flow 104 < 1.5x baseline 101,,,,,,,,,,,,,,,
-0xkgc,biketyson,True,0.03,False,flow 14 < 1.5x baseline 11,,,,,,,,,,,,,,,
-gampsito,hats,False,0.15,False,flow 42 < 1.5x baseline 103,,,,,,,,,,,,,,,
-0xkgc,GAPE,False,0.03,False,flow 17 < 1.5x baseline 12,,,,,,,,,,,,,,,
-0xkgc,oversold,False,0.03,True,,60.0,550.0,trailing stop,True,1.061,1.25,1.25,0.65,0.56,2e-05,2e-05,0.00189,0.004,1.92,1.57
-gampsito,Chimpi,False,0.18,False,flow 35 < 1.5x baseline 101,,,,,,,,,,,,,,,
-0xkgc,IBRN,False,0.03,True,,70.0,1060.0,trailing stop,True,1.033,1.25,1.25,0.71,0.68,0.00044,2e-05,0.00232,-0.0108,1.95,1.5
-0xkgc,Catiban,False,0.03,False,flow 17 < 1.5x baseline 13,,,,,,,,,,,,,,,
-gampsito,blep,False,0.18,False,flow 118 < 1.5x baseline 99,,,,,,,,,,,,,,,
-gampsito,yap,False,0.18,False,flow 32 < 1.5x baseline 101,,,,,,,,,,,,,,,
-0xkgc,MAC,False,0.05,False,flow 5 < 1.5x baseline 13,,,,,,,,,,,,,,,
-0xkgc,ZUPERCYCLE,False,0.06,False,flow 15 < 1.5x baseline 13,,,,,,,,,,,,,,,
-jester,TOLYBOT,False,0.14,True,,60.0,210.0,hard stop,True,0.466,1.25,1.25,0.5,0.37,2e-05,8e-05,0.00195,-0.2788,1.09,2.19
-0xkgc,MelonMusk,True,0.07,True,,60.0,330.0,take profit,True,5.031,1.25,1.25,0.62,1.39,3e-05,3e-05,0.00191,1.8778,7.96,1.71
-0xkgc,thewok,True,0.03,True,,70.0,1730.0,end of data,True,1.741,1.25,1.25,0.76,1.0,5e-05,2e-05,0.00192,0.3239,2.58,1.17
-0xkgc,BABYLMAO,False,0.09,False,flow 6 < 1.5x baseline 13,,,,,,,,,,,,,,,
-0xkgc,Hunter,True,0.07,True,,60.0,950.0,take profit,True,5.192,1.25,1.25,0.56,1.21,0.00012,2e-05,0.00199,1.9598,7.23,2.34
-jester,ZEC,False,0.2,False,flow 32 < 1.5x baseline 41,,,,,,,,,,,,,,,
-jester,NUKE,False,0.2,False,flow 31 < 1.5x baseline 40,,,,,,,,,,,,,,,
-0xkgc,duve,False,0.03,True,,60.0,740.0,trailing stop,True,1.167,1.25,1.25,0.49,0.47,0.0001,2e-05,0.00197,0.0561,2.42,2.88
-jester,WIF,False,0.25,False,flow 36 < 1.5x baseline 40,,,,,,,,,,,,,,,
-0xkgc,AAPLTOP,False,0.09,False,flow 14 < 1.5x baseline 14,,,,,,,,,,,,,,,
-0xkgc,Keanu,False,0.06,True,,70.0,680.0,trailing stop,True,1.652,1.25,1.25,0.55,0.71,0.00011,4e-05,0.002,0.2853,3.13,2.12
-jester,ISRAELI,False,0.34,False,flow 19 < 1.5x baseline 38,,,,,,,,,,,,,,,
-0xkgc,fries,False,0.05,False,flow 9 < 1.5x baseline 14,,,,,,,,,,,,,,,
-0xkgc,CRIME,False,0.05,False,flow 9 < 1.5x baseline 14,,,,,,,,,,,,,,,
-0xkgc,fleaman,False,0.05,True,,60.0,280.0,trailing stop,True,0.921,1.25,1.25,0.52,0.48,3e-05,7e-05,0.00195,-0.0618,1.58,2.59
-0xkgc,dump,False,0.04,True,,70.0,530.0,trailing stop,True,0.931,1.25,1.25,0.54,0.53,3e-05,0.00011,0.00199,-0.0576,1.58,1.78
-0xkgc,CUM,False,0.07,True,,60.0,470.0,trailing stop,True,0.835,1.25,1.25,0.46,0.4,2e-05,2e-05,0.00189,-0.1022,1.66,3.0
-gampsito,BTD,False,0.09,False,flow 134 < 1.5x baseline 99,,,,,,,,,,,,,,,
-0xkgc,ats,False,0.07,True,,60.0,350.0,trailing stop,True,0.863,1.25,1.25,0.53,0.49,3e-05,6e-05,0.00194,-0.0898,1.89,2.27
-0xkgc,UNC,True,0.09,True,,60.0,540.0,trailing stop,True,1.546,1.25,1.25,0.55,0.66,0.00101,2e-05,0.00288,0.2341,6.53,2.05
-0xkgc,ktw,False,0.1,True,,60.0,720.0,trailing stop,True,1.734,1.25,1.25,0.55,0.68,3e-05,4e-05,0.00192,0.3248,2.98,2.11
-0xkgc,BIKESON,True,0.11,True,,70.0,710.0,trailing stop,True,1.247,1.25,1.25,0.56,0.56,2e-05,2e-05,0.00189,0.0931,2.55,1.78
-0xkgc,SlowRogan,False,0.08,True,,60.0,870.0,trailing stop,True,0.939,1.25,1.25,0.56,0.54,5e-05,2e-05,0.00192,-0.0537,1.58,2.03
-0xkgc,K-Train,False,0.06,True,,60.0,290.0,trailing stop,True,0.653,1.25,1.25,0.51,0.41,3e-05,2e-05,0.0019,-0.1895,1.22,2.55
-0xkgc,COMMUNISM,False,0.07,True,,60.0,840.0,trailing stop,True,2.125,1.25,1.25,0.56,0.75,0.00041,0.0001,0.00236,0.51,3.79,2.1
-0xkgc,ZEC,True,0.07,False,flow 20 < 1.5x baseline 16,,,,,,,,,,,,,,,
-0xkgc,RIPASS,False,0.09,True,,60.0,1800.0,end of data,True,2.69,1.25,1.25,0.44,0.75,4e-05,2e-05,0.00191,0.7813,2.93,3.29
+dev,symbol,hit,self_buy,dev_sold_by_mark,triggered,reason,entry_s,exit_s,how,on_curve,gross_x,fee_in_pct,fee_out_pct,impact_in_pct,impact_out_pct,prio_in_sol,prio_out_sol,fixed_sol,net_sol,max_x_after,entry_mult_vs_dev
+mitch,kai,False,0.1,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+mitch,glown,False,0.44,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+mitch,SOSA,False,,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+mitch,BCC,False,,0.0,True,,110.0,110.0,end of data,False,1.0,1.25,1.25,0.11,0.11,0.01201,0.01201,0.02586,-0.0442,1.0,
+mitch,mitch,True,,1.0,False,flow 55 < 1.5x baseline 56,,,,,,,,,,,,,,,
+mitch,XXX,False,,0.0,False,flow 77 < 1.5x baseline 55,,,,,,,,,,,,,,,
+mitch,HARD,False,0.73,0.0,False,flow 90 < 1.5x baseline 64,,,,,,,,,,,,,,,
+mitch,fagua,False,,0.0,True,,130.0,130.0,end of data,False,1.0,1.25,1.25,0.12,0.12,0.01201,0.01201,0.02586,-0.0443,1.0,
+mitch,RNT,False,0.55,0.0,False,flow 93 < 1.5x baseline 75,,,,,,,,,,,,,,,
+mitch,JDS,False,,0.0,False,flow 74 < 1.5x baseline 77,,,,,,,,,,,,,,,
+mitch,MITCH,True,0.79,0.0,False,no buys after the mark,,,,,,,,,,,,,,,
+jester,DIRECTOR,True,0.03,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+hashbergers,SCRAP,True,0.0,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+hashbergers,RAPEHIM,False,0.0,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+hashbergers,PVE,False,0.03,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+hashbergers,PENGU,False,0.03,1.0,False,flow 7 < 1.5x baseline 6,,,,,,,,,,,,,,,
+hashbergers,OBESE,False,0.06,1.0,True,,60.0,220.0,trailing stop,True,1.075,1.25,1.25,0.54,0.56,0.00023,0.0002,0.00228,0.0107,2.55,2.22
+hashbergers,AMIGA,False,0.29,1.0,False,no buys after the mark,,,,,,,,,,,,,,,
+hashbergers,OARFISH,False,0.03,1.0,False,flow 4 < 1.5x baseline 9,,,,,,,,,,,,,,,
+hashbergers,KINDA,False,0.03,1.0,False,flow 6 < 1.5x baseline 7,,,,,,,,,,,,,,,
+hashbergers,FLOAT,False,0.03,1.0,False,flow 2 < 1.5x baseline 6,,,,,,,,,,,,,,,
+hashbergers,COMPUTA,False,0.03,1.0,False,flow 2 < 1.5x baseline 6,,,,,,,,,,,,,,,
+jester,CHICKY,True,0.07,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+jester,KIKI,True,0.1,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+jester,SNEAKERS,True,0.09,0.29,False,flow 27 < 1.5x baseline 48,,,,,,,,,,,,,,,
+hashbergers,piss,False,0.03,0.55,False,flow 7 < 1.5x baseline 6,,,,,,,,,,,,,,,
+jester,WATERFALL,True,0.3,0.0,False,flow 40 < 1.5x baseline 37,,,,,,,,,,,,,,,
+jester,ALBERT,True,0.11,0.77,True,,60.0,830.0,trailing stop,True,0.62,1.25,1.25,0.25,0.22,0.00034,2e-05,0.00221,-0.2046,1.69,4.12
+jester,COBSON,True,0.77,0.0,True,,70.0,1780.0,end of data,True,2.262,1.25,1.15,0.14,0.17,0.00101,2e-05,0.00288,0.5867,2.44,3.63
+jester,mouse,False,0.18,1.0,False,flow 33 < 1.5x baseline 48,,,,,,,,,,,,,,,
+jester,CREAMUS,False,0.7,0.0,True,,60.0,1720.0,end of data,True,1.165,1.25,1.25,0.28,0.31,0.005,2e-05,0.00688,0.0523,1.17,3.0
+jester,SEKOLAH,False,0.03,0.0,False,flow 36 < 1.5x baseline 48,,,,,,,,,,,,,,,
+jester,JANICE,False,0.0,1.0,False,flow 17 < 1.5x baseline 44,,,,,,,,,,,,,,,
+jester,Jutsu,False,0.0,0.0,False,flow 7 < 1.5x baseline 40,,,,,,,,,,,,,,,
+jester,FLUFF,False,0.1,1.0,False,flow 28 < 1.5x baseline 38,,,,,,,,,,,,,,,
+jester,TYGR,False,0.1,1.0,False,flow 15 < 1.5x baseline 36,,,,,,,,,,,,,,,
+gampsito,PP,True,0.15,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+gampsito,petcat,True,0.18,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+jester,HITLERHAUS,False,0.07,1.0,True,,60.0,430.0,trailing stop,True,0.578,1.25,1.25,0.46,0.27,0.00101,0.00024,0.0031,-0.2261,1.25,3.5
+jester,LARD,False,0.0,1.0,False,flow 28 < 1.5x baseline 36,,,,,,,,,,,,,,,
+jester,PHOUSE,False,0.07,0.6,True,,60.0,150.0,hard stop,True,0.444,1.25,1.25,0.49,0.33,0.00011,0.00031,0.00227,-0.2896,1.9,2.72
+jester,BHOUSSSE,False,0.03,1.0,False,flow 41 < 1.5x baseline 36,,,,,,,,,,,,,,,
+jester,it,False,0.15,1.0,True,,70.0,330.0,take profit,True,5.503,1.25,1.25,0.75,1.82,0.00016,0.00011,0.00212,2.0859,11.92,1.11
+jester,NOOB,False,0.15,0.79,False,flow 34 < 1.5x baseline 40,,,,,,,,,,,,,,,
+gampsito,Polycat,True,0.15,1.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+gampsito,Biz,True,0.12,1.0,False,flow 103 < 1.5x baseline 125,,,,,,,,,,,,,,,
+hashbergers,PINU,True,0.5,0.0,True,,60.0,520.0,trailing stop,True,2.366,1.25,1.25,0.2,0.31,0.00012,6e-05,0.00203,0.6339,4.79,11.43
+gampsito,Dancedoge,True,0.2,1.0,False,flow 32 < 1.5x baseline 120,,,,,,,,,,,,,,,
+gampsito,ok,True,0.15,1.0,False,flow 18 < 1.5x baseline 116,,,,,,,,,,,,,,,
+jester,MOONCAT,False,0.03,0.0,False,flow 56 < 1.5x baseline 38,,,,,,,,,,,,,,,
+0xkgc,OG,False,0.03,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+0xkgc,tradoor,False,0.03,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+0xkgc,1LEFT,False,0.04,0.0,False,no prior launches for baseline,,,,,,,,,,,,,,,
+0xkgc,missooor,False,0.03,0.0,False,flow 5 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,madeitup,False,0.03,0.0,False,flow 10 < 1.5x baseline 8,,,,,,,,,,,,,,,
+0xkgc,topbuyer,False,0.03,0.0,False,flow 9 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,1minute,False,0.03,0.0,False,flow 7 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,1trump,False,0.03,0.0,False,flow 10 < 1.5x baseline 9,,,,,,,,,,,,,,,
+gampsito,mlem,False,0.15,1.0,False,flow 41 < 1.5x baseline 110,,,,,,,,,,,,,,,
+0xkgc,few,False,0.03,0.0,False,flow 6 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,SOLMOG,False,0.03,0.0,False,flow 11 < 1.5x baseline 9,,,,,,,,,,,,,,,
+0xkgc,ducknana,False,0.03,0.0,True,,80.0,860.0,take profit,True,5.579,1.25,1.25,0.73,1.79,0.0001,3e-05,0.00197,2.1236,11.89,1.27
+0xkgc,SOLONLY,False,0.03,0.0,True,,90.0,1510.0,end of data,True,0.869,1.25,1.25,0.73,0.66,0.00012,2e-05,0.00199,-0.0882,1.33,1.33
+gampsito,looong,False,0.18,1.0,True,,60.0,990.0,trailing stop,True,1.363,1.25,1.25,0.52,0.58,2e-05,2e-05,0.00189,0.1489,2.84,2.18
+jester,all/in,False,0.79,0.0,True,,60.0,1740.0,end of data,False,1.247,1.2,1.2,0.14,0.18,5e-05,2e-05,0.00193,0.0984,1.31,4.77
+0xkgc,happyegg,False,0.03,0.0,False,flow 14 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,ETH,False,0.03,0.0,True,,60.0,570.0,trailing stop,True,1.114,1.25,1.25,0.68,0.68,6e-05,2e-05,0.00193,0.0286,2.03,1.46
+0xkgc,swingdog,False,0.03,0.0,False,flow 12 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,biip,False,0.03,0.0,False,flow 7 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,BOT,False,0.03,1.0,False,flow 13 < 1.5x baseline 10,,,,,,,,,,,,,,,
+0xkgc,initials,False,0.03,0.0,True,,60.0,1340.0,trailing stop,True,1.179,1.25,1.25,0.69,0.74,2e-05,2e-05,0.00189,0.0591,2.27,1.44
+gampsito,Shrekt,False,0.2,1.0,False,flow 99 < 1.5x baseline 110,,,,,,,,,,,,,,,
+gampsito,HeHa,False,0.15,1.0,False,flow 37 < 1.5x baseline 103,,,,,,,,,,,,,,,
+0xkgc,GOAT,False,0.03,0.0,False,flow 16 < 1.5x baseline 11,,,,,,,,,,,,,,,
+gampsito,OrgyInu,False,0.18,1.0,False,flow 104 < 1.5x baseline 101,,,,,,,,,,,,,,,
+0xkgc,biketyson,True,0.03,0.0,False,flow 14 < 1.5x baseline 11,,,,,,,,,,,,,,,
+gampsito,hats,False,0.15,1.0,False,flow 42 < 1.5x baseline 103,,,,,,,,,,,,,,,
+0xkgc,GAPE,False,0.03,0.0,False,flow 17 < 1.5x baseline 12,,,,,,,,,,,,,,,
+0xkgc,oversold,False,0.03,0.0,True,,60.0,550.0,trailing stop,True,1.061,1.25,1.25,0.65,0.56,2e-05,2e-05,0.00189,0.004,1.92,1.57
+gampsito,Chimpi,False,0.18,1.0,False,flow 35 < 1.5x baseline 101,,,,,,,,,,,,,,,
+0xkgc,IBRN,False,0.03,0.0,True,,70.0,1060.0,trailing stop,True,1.033,1.25,1.25,0.71,0.68,0.00044,2e-05,0.00232,-0.0108,1.95,1.5
+0xkgc,Catiban,False,0.03,0.0,False,flow 17 < 1.5x baseline 13,,,,,,,,,,,,,,,
+gampsito,blep,False,0.18,1.0,False,flow 118 < 1.5x baseline 99,,,,,,,,,,,,,,,
+gampsito,yap,False,0.18,1.0,False,flow 32 < 1.5x baseline 101,,,,,,,,,,,,,,,
+0xkgc,MAC,False,0.05,0.0,False,flow 5 < 1.5x baseline 13,,,,,,,,,,,,,,,
+0xkgc,ZUPERCYCLE,False,0.06,0.0,False,flow 15 < 1.5x baseline 13,,,,,,,,,,,,,,,
+jester,TOLYBOT,False,0.14,0.79,True,,60.0,210.0,hard stop,True,0.466,1.25,1.25,0.5,0.37,2e-05,8e-05,0.00195,-0.2788,1.09,2.19
+0xkgc,MelonMusk,True,0.07,0.0,True,,60.0,330.0,take profit,True,5.031,1.25,1.25,0.62,1.39,3e-05,3e-05,0.00191,1.8778,7.96,1.71
+0xkgc,thewok,True,0.03,0.0,True,,70.0,1730.0,end of data,True,1.741,1.25,1.25,0.76,1.0,5e-05,2e-05,0.00192,0.3239,2.58,1.17
+0xkgc,BABYLMAO,False,0.09,0.0,False,flow 6 < 1.5x baseline 13,,,,,,,,,,,,,,,
+0xkgc,Hunter,True,0.07,0.0,True,,60.0,950.0,take profit,True,5.192,1.25,1.25,0.56,1.21,0.00012,2e-05,0.00199,1.9598,7.23,2.34
+jester,ZEC,False,0.2,0.75,False,flow 32 < 1.5x baseline 41,,,,,,,,,,,,,,,
+jester,NUKE,False,0.2,0.5,False,flow 31 < 1.5x baseline 40,,,,,,,,,,,,,,,
+0xkgc,duve,False,0.03,0.0,True,,60.0,740.0,trailing stop,True,1.167,1.25,1.25,0.49,0.47,0.0001,2e-05,0.00197,0.0561,2.42,2.88
+jester,WIF,False,0.25,0.85,False,flow 36 < 1.5x baseline 40,,,,,,,,,,,,,,,
+0xkgc,AAPLTOP,False,0.09,0.0,False,flow 14 < 1.5x baseline 14,,,,,,,,,,,,,,,
+0xkgc,Keanu,False,0.06,0.0,True,,70.0,680.0,trailing stop,True,1.652,1.25,1.25,0.55,0.71,0.00011,4e-05,0.002,0.2853,3.13,2.12
+jester,ISRAELI,False,0.34,0.0,False,flow 19 < 1.5x baseline 38,,,,,,,,,,,,,,,
+0xkgc,fries,False,0.05,0.0,False,flow 9 < 1.5x baseline 14,,,,,,,,,,,,,,,
+0xkgc,CRIME,False,0.05,0.0,False,flow 9 < 1.5x baseline 14,,,,,,,,,,,,,,,
+0xkgc,fleaman,False,0.05,0.0,True,,60.0,280.0,trailing stop,True,0.921,1.25,1.25,0.52,0.48,3e-05,7e-05,0.00195,-0.0618,1.58,2.59
+0xkgc,dump,False,0.04,0.0,True,,70.0,530.0,trailing stop,True,0.931,1.25,1.25,0.54,0.53,3e-05,0.00011,0.00199,-0.0576,1.58,1.78
+0xkgc,CUM,False,0.07,0.0,True,,60.0,470.0,trailing stop,True,0.835,1.25,1.25,0.46,0.4,2e-05,2e-05,0.00189,-0.1022,1.66,3.0
+gampsito,BTD,False,0.09,1.0,False,flow 134 < 1.5x baseline 99,,,,,,,,,,,,,,,
+0xkgc,ats,False,0.07,0.0,True,,60.0,350.0,trailing stop,True,0.863,1.25,1.25,0.53,0.49,3e-05,6e-05,0.00194,-0.0898,1.89,2.27
+0xkgc,UNC,True,0.09,0.0,True,,60.0,540.0,trailing stop,True,1.546,1.25,1.25,0.55,0.66,0.00101,2e-05,0.00288,0.2341,6.53,2.05
+0xkgc,ktw,False,0.1,0.0,True,,60.0,720.0,trailing stop,True,1.734,1.25,1.25,0.55,0.68,3e-05,4e-05,0.00192,0.3248,2.98,2.11
+0xkgc,BIKESON,True,0.11,0.0,True,,70.0,710.0,trailing stop,True,1.247,1.25,1.25,0.56,0.56,2e-05,2e-05,0.00189,0.0931,2.55,1.78
+0xkgc,SlowRogan,False,0.08,0.0,True,,60.0,870.0,trailing stop,True,0.939,1.25,1.25,0.56,0.54,5e-05,2e-05,0.00192,-0.0537,1.58,2.03
+0xkgc,K-Train,False,0.06,0.0,True,,60.0,290.0,trailing stop,True,0.653,1.25,1.25,0.51,0.41,3e-05,2e-05,0.0019,-0.1895,1.22,2.55
+0xkgc,COMMUNISM,False,0.07,0.0,True,,60.0,840.0,trailing stop,True,2.125,1.25,1.25,0.56,0.75,0.00041,0.0001,0.00236,0.51,3.79,2.1
+0xkgc,ZEC,True,0.07,0.0,False,flow 20 < 1.5x baseline 16,,,,,,,,,,,,,,,
+0xkgc,RIPASS,False,0.09,0.0,True,,60.0,1800.0,end of data,True,2.69,1.25,1.25,0.44,0.75,4e-05,2e-05,0.00191,0.7813,2.93,3.29
